@@ -1,0 +1,7 @@
+br-tooltip.br-THEME_NAME-theme {
+  color: '{{font-light-6}}';
+}
+
+br-tooltip.br-THEME_NAME-theme .br-background {
+  background-color: '{{background-5}}';
+}

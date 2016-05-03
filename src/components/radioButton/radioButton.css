@@ -1,0 +1,68 @@
+br-radio-button {
+  position: relative;
+  display: block;
+  margin: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+br-radio-button input {
+  display: none;
+}
+
+br-radio-button .br-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+br-radio-button .br-off {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 16px;
+  height: 16px;
+  border: solid 2px;
+  border-radius: 50%;
+  transition: border-color ease 0.28s;
+}
+
+br-radio-button .br-on {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: transform ease 0.28s;
+  transform: scale(0);
+}
+
+br-radio-button.br-checked .br-on {
+  transform: scale(0.5);
+}
+
+br-radio-button .br-label {
+  position: relative;
+  display: inline-block;
+  margin-left: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+  white-space: normal;
+  pointer-events: none;
+  width: auto;
+}
+
+br-radio-button .circle {
+  border-radius: 50%;
+}
+
+br-radio-group {
+  border: 1px dotted transparent;
+  display: block;
+  outline: none;
+}

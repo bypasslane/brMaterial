@@ -1,0 +1,141 @@
+.br-drag-icon {
+  cursor: grab;
+}
+
+.br-drag-order-hold .br-drag-icon {
+  cursor: grabbing;
+}
+
+.br-drag-order-hold {
+  user-select: none;
+  cursor: grabbing;
+  transform: rotate(1deg);
+  /*transition: transform ease-out-elastic 0.46s;*/
+  animation: bounce 0.36s forwards linear;
+}
+
+.br-drag-order-dragging {
+  user-select: none;
+  opacity: 0.2;
+  cursor: grabbing;
+  transition: opacity cubic-bezier(0.25, 0.8, 0.25, 1) 0.42s,
+              background cubic-bezier(0.25, 0.8, 0.25, 1) 0.42s
+}
+
+.br-drag-order-clone {
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.7;
+  cursor: grabbing;
+  transition: opacity cubic-bezier(0.25, 0.8, 0.25, 1) 0.26s;
+  pointer-events: auto;
+}
+
+.br-drag-order-no-select {
+  user-select: none;
+}
+
+
+@keyframes bounce {
+  0% {transform: rotate(0deg);}
+  1% {transform: rotate(0.085deg);}
+  2% {transform: rotate(0.205deg);}
+  3% {transform: rotate(0.345deg);}
+  4% {transform: rotate(0.495deg);}
+  5% {transform: rotate(0.645deg);}
+  6% {transform: rotate(0.795deg);}
+  7% {transform: rotate(0.935deg);}
+  8% {transform: rotate(1.06deg);}
+  9% {transform: rotate(1.165deg);}
+  10% {transform: rotate(1.25deg);}
+  11% {transform: rotate(1.31deg);}
+  12% {transform: rotate(1.35deg);}
+  13% {transform: rotate(1.37deg);}
+  14% {transform: rotate(1.37deg);}
+  15% {transform: rotate(1.355deg);}
+  16% {transform: rotate(1.325deg);}
+  17% {transform: rotate(1.28deg);}
+  18% {transform: rotate(1.23deg);}
+  19% {transform: rotate(1.18deg);}
+  20% {transform: rotate(1.125deg);}
+  21% {transform: rotate(1.07deg);}
+  22% {transform: rotate(1.025deg);}
+  23% {transform: rotate(0.98deg);}
+  24% {transform: rotate(0.94deg);}
+  25% {transform: rotate(0.91deg);}
+  26% {transform: rotate(0.89deg);}
+  27% {transform: rotate(0.875deg);}
+  28% {transform: rotate(0.87deg);}
+  29% {transform: rotate(0.87deg);}
+  30% {transform: rotate(0.875deg);}
+  31% {transform: rotate(0.885deg);}
+  32% {transform: rotate(0.9deg);}
+  33% {transform: rotate(0.92deg);}
+  34% {transform: rotate(0.935deg);}
+  35% {transform: rotate(0.955deg);}
+  36% {transform: rotate(0.975deg);}
+  37% {transform: rotate(0.99deg);}
+  38% {transform: rotate(1.01deg);}
+  39% {transform: rotate(1.02deg);}
+  40% {transform: rotate(1.03deg);}
+  41% {transform: rotate(1.04deg);}
+  42% {transform: rotate(1.045deg);}
+  43% {transform: rotate(1.045deg);}
+  44% {transform: rotate(1.045deg);}
+  45% {transform: rotate(1.045deg);}
+  46% {transform: rotate(1.04deg);}
+  47% {transform: rotate(1.035deg);}
+  48% {transform: rotate(1.03deg);}
+  49% {transform: rotate(1.02deg);}
+  50% {transform: rotate(1.015deg);}
+  51% {transform: rotate(1.01deg);}
+  52% {transform: rotate(1.005deg);}
+  53% {transform: rotate(0.995deg);}
+  54% {transform: rotate(0.995deg);}
+  55% {transform: rotate(0.99deg);}
+  56% {transform: rotate(0.985deg);}
+  57% {transform: rotate(0.985deg);}
+  58% {transform: rotate(0.985deg);}
+  59% {transform: rotate(0.985deg);}
+  60% {transform: rotate(0.985deg);}
+  61% {transform: rotate(0.985deg);}
+  62% {transform: rotate(0.99deg);}
+  63% {transform: rotate(0.99deg);}
+  64% {transform: rotate(0.99deg);}
+  65% {transform: rotate(0.995deg);}
+  66% {transform: rotate(0.995deg);}
+  67% {transform: rotate(1deg);}
+  68% {transform: rotate(1deg);}
+  69% {transform: rotate(1.01deg);}
+  70% {transform: rotate(1.01deg);}
+  71% {transform: rotate(1.01deg);}
+  72% {transform: rotate(1.01deg);}
+  73% {transform: rotate(1.01deg);}
+  74% {transform: rotate(1.01deg);}
+  75% {transform: rotate(1.01deg);}
+  76% {transform: rotate(1.01deg);}
+  77% {transform: rotate(1.01deg);}
+  78% {transform: rotate(1.01deg);}
+  79% {transform: rotate(1.01deg);}
+  80% {transform: rotate(1deg);}
+  81% {transform: rotate(1deg);}
+  82% {transform: rotate(1deg);}
+  83% {transform: rotate(1deg);}
+  84% {transform: rotate(1deg);}
+  85% {transform: rotate(1deg);}
+  86% {transform: rotate(1deg);}
+  87% {transform: rotate(1deg);}
+  88% {transform: rotate(1deg);}
+  89% {transform: rotate(1deg);}
+  90% {transform: rotate(1deg);}
+  91% {transform: rotate(1deg);}
+  92% {transform: rotate(1deg);}
+  93% {transform: rotate(1deg);}
+  94% {transform: rotate(1deg);}
+  95% {transform: rotate(1deg);}
+  96% {transform: rotate(1deg);}
+  97% {transform: rotate(1deg);}
+  98% {transform: rotate(1deg);}
+  99% {transform: rotate(1deg);}
+  100% {transform: rotate(1deg);}
+}

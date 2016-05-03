@@ -1,0 +1,24 @@
+.br-icon.br-THEME_NAME-theme {
+  color: '{{font-default}}';
+}
+
+
+
+/* --- Primary --- */
+.br-icon.br-THEME_NAME-theme.br-primary {
+  color: '{{primary-default}}';
+}
+
+
+
+/* --- Accent --- */
+.br-icon.br-THEME_NAME-theme.br-accent {
+  color: '{{accent-default}}';
+}
+
+
+
+/* --- Warn --- */
+.br-icon.br-THEME_NAME-theme.br-warn {
+  color: '{{warn-default}}';
+}

@@ -1,0 +1,15 @@
+.br-THEME_NAME-theme.br-drag-order-select-top {
+  box-shadow: inset 0px 8px 0px -4px '{{primary-default}}';
+}
+
+.br-THEME_NAME-theme .br-drag-order-select-top {
+  box-shadow: inset 0px 8px 0px -4px '{{primary-default}}';
+}
+
+.br-THEME_NAME-theme.br-drag-order-select-bottom {
+  box-shadow: inset 0px -8px 0px -4px '{{primary-default}}';
+}
+
+.br-THEME_NAME-theme .br-drag-order-select-bottom {
+  box-shadow: inset 0px -8px 0px -4px '{{primary-default}}';
+}

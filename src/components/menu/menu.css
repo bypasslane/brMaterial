@@ -1,0 +1,116 @@
+.br-open-menu-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  opacity: 0;
+  border-radius: 2px;
+}
+
+.br-open-menu-container br-menu-divider {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  height: 1px;
+  min-height: 1px;
+  max-height: 1px;
+  width: 100%;
+}
+
+.br-open-menu-container br-menu-content > * {
+  opacity: 0;
+}
+
+.br-open-menu-container:not(.br-clickable) {
+  pointer-events: none;
+}
+
+.br-open-menu-container.br-active {
+  opacity: 1;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 200ms;
+}
+
+.br-open-menu-container.br-active > br-menu-content > * {
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  transition-duration: 200ms;
+  transition-delay: 100ms;
+}
+
+.br-open-menu-container.br-leave {
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  transition-duration: 250ms;
+}
+
+br-menu-content {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  max-height: 304px;
+  min-width: 112px;
+  overflow-y: auto;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2),
+              0 4px 5px 0 rgba(0,0,0,.14),
+              0 1px 10px 0 rgba(0,0,0,.12);
+}
+
+br-menu-content.br-dense {
+  max-height: 208px;
+}
+
+br-menu-content.br-dense br-menu-item {
+  height: 32px;
+  min-height: 0px;
+}
+
+br-menu-item {
+  display: flex;
+  flex-direction: row;
+  min-height: 48px;
+  height: 48px;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+br-menu-item > * {
+  width: 100%;
+  margin: auto 0;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+br-menu-item > a.br-button {
+  display: flex;
+}
+
+br-menu-item > .br-button {
+  border-radius: 0;
+  margin: auto 0;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: 400;
+  text-align: left;
+  text-align: start;
+  height: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: inline-block;
+  align-items: baseline;
+  align-content: flex-start;
+  width: 100%;
+}
+
+br-menu-item > .br-button br-icon {
+  margin: auto 16px auto 0;
+}
+
+br-menu-item > .br-button p {
+  display: inline-block;
+  margin: auto;
+}
+
+br-menu-item > .br-button span {
+  margin-top: auto;
+  margin-bottom: auto;
+}

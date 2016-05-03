@@ -1,0 +1,21 @@
+br-content {
+  display: block;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: auto;
+}
+
+br-content[br-scroll-y] {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+br-content[br-scroll-x] {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+br-content[br-no-momentum] {
+  -webkit-overflow-scrolling: auto;
+}

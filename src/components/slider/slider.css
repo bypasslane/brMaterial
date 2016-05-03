@@ -1,0 +1,124 @@
+br-slider {
+  height: 48px;
+  position: relative;
+  display: block;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 0;
+}
+
+br-slider .br-slider-wrapper {
+  position: relative;
+}
+br-slider .br-track-container {
+  width: 100%;
+  position: absolute;
+  top: 23px;
+  height: 2px;
+}
+br-slider .br-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+br-slider .br-track-fill {
+  transition: width 0.05s linear;
+}
+
+
+br-slider .br-thumb-container {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  transition: left 0.1s linear;
+}
+br-slider .br-thumb {
+  z-index: 1;
+  position: absolute;
+  left: -19px;
+  top: 5px;
+  width: 38px;
+  height: 38px;
+  border-radius: 32px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  transform: scale(0.5);
+  transition: all 0.1s linear;
+  cursor: grab;
+}
+
+br-slider .br-slider-value{
+  width:32px;
+  height:32px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 4px;
+  left: -16px;
+  text-align: center;
+  line-height: 32px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  transition: opacity 0.1s cubic-bezier(0.35, 0, 0.25, 1);
+}
+
+br-slider .br-slider-value.ng-enter-active{
+  opacity:1;
+}
+
+br-slider .br-slider-value.ng-enter{
+  opacity:0;
+}
+
+br-slider .br-slider-value.ng-leave-active{
+  opacity:0;
+}
+
+br-slider .br-slider-value.ng-leave{
+  opacity:1;
+}
+
+
+br-slider .br-focus-ring {
+  position: absolute;
+  left: -24px;
+  top: 0px;
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  border: 2px solid #D6D6D6;
+  background-color: transparent;
+  transform: scale(0);
+  transition: all 0.2s linear;
+}
+
+br-slider:not([disabled]):hover .br-thumb {
+  transform: scale(0.6);
+}
+
+br-slider:not([disabled]):focus .br-thumb, br-slider:not([disabled]).active .br-thumb {
+  transform: scale(0.76);
+}
+
+br-slider:not([disabled]):focus .br-focus-ring, br-slider:not([disabled]).active .br-focus-ring {
+  transform: scale(1);
+}
+
+br-slider:not([disabled]):focus .br-track-container, br-slider:not([disabled]).active .br-track-container {
+  height:4px;
+}
+
+br-slider.dragging .br-thumb-container,
+br-slider.dragging .br-track-fill {
+  transition: none;
+}
+
+br-slider[disabled] .br-track-fill {
+  display: none;
+}
+br-slider[disabled] .br-thumb {
+  transform: scale(0.35);
+}
+
+br-slider[disabled] .br-thumb {
+  box-shadow: none;
+}

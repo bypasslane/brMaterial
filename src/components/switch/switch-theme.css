@@ -1,0 +1,58 @@
+br-switch.br-THEME_NAME-theme .br-thumb {
+  background-color: '{{background-3}}';
+}
+
+br-switch.br-THEME_NAME-theme.br-primary .br-thumb {
+  background-color: '{{primary-light-1}}';
+}
+
+br-switch.br-THEME_NAME-theme.br-accent .br-thumb {
+  background-color: '{{accent-light-1}}';
+}
+
+br-switch.br-THEME_NAME-theme.br-warn .br-thumb {
+  background-color: '{{warn-light-1}}';
+}
+
+
+
+/*br-switch.br-THEME_NAME-theme .br-bar {
+  background-color: '{{background-1}}';
+}*/
+
+br-switch.br-THEME_NAME-theme.br-checked .br-thumb {
+  background-color: '{{background-1}}';
+}
+br-switch.br-THEME_NAME-theme.br-checked.br-primary .br-thumb {
+  background-color: '{{primary-default}}';
+}
+br-switch.br-THEME_NAME-theme.br-checked.br-primary .br-bar {
+  background-color: '{{primary-light-3}}';
+}
+br-switch.br-THEME_NAME-theme.br-checked.br-accent .br-thumb {
+  background-color: '{{accent-default}}';
+}
+br-switch.br-THEME_NAME-theme.br-checked.br-accent .br-bar {
+  background-color: '{{accent-light-3}}';
+}
+br-switch.br-THEME_NAME-theme.br-checked.br-warn .br-thumb {
+  background-color: '{{warn-default}}';
+}
+br-switch.br-THEME_NAME-theme.br-checked.br-warn .br-bar {
+  background-color: '{{warn-light-3}}';
+}
+br-switch.br-THEME_NAME-theme[disabled] .br-thumb {
+  background-color: '{{background-2}}';
+}
+br-switch.br-THEME_NAME-theme[disabled] .br-bar {
+  background-color: '{{foreground-light-3}}';
+}
+br-switch.br-THEME_NAME-theme:focus .br-label:not(:empty) {
+  border-color: '{{foreground-default}}';
+  border-style: dotted;
+}
+
+
+br-switch.br-THEME_NAME-theme .br-label {
+  color: '{{font-default}}';
+}

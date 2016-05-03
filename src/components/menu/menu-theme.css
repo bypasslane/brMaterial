@@ -1,0 +1,7 @@
+br-menu-content.br-THEME_NAME-theme {
+  background-color: '{{foreground-light-4}}';
+}
+
+br-menu-content.br-THEME_NAME-theme br-menu-divider {
+  background-color: '{{background-1}}';
+}

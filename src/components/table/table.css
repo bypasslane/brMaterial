@@ -1,0 +1,155 @@
+br-table,
+br-td,
+br-th,
+br-head,
+br-body,
+.br-table-container {
+  display: block;
+  box-sizing: border-box;
+}
+
+
+br-table {
+  overflow: auto;
+}
+
+br-head {
+  display: flex;
+  position: absolute;
+  top: 0;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  background: #fbfbfb;
+  line-height: 54px;
+  border-bottom: 1px solid #ececec;
+  animation: none
+}
+
+br-head.inited {
+  animation: tableHeadScrollOut 0.0s ease-out both;
+}
+br-head.scrolled {
+  animation: tableHeadScrollIn 0.3s ease-out both;
+}
+@keyframes tableHeadScrollIn {
+  0% { box-shadow: 0 0 0 0 transparent; }
+  100% { box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16); }
+}
+@keyframes tableHeadScrollOut {
+  0% { box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+
+.br-table-container {
+  position: relative;
+}
+
+.br-table-subheader .br-subheader-content {
+  display: flex;
+  flex-direction: row;
+}
+
+
+br-tr {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  border-bottom: 1px solid;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+
+
+br-th {
+  font-size: 14px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+br-th.br-sort {
+  user-select: none;
+  cursor: pointer;
+}
+
+br-th.br-sort:before {
+  content: '\2191';
+  /*font-family: 'brMaterialIcons';
+  content: '\e313';*/
+  position: relative;
+  display: inline-block;
+  top: 0;
+  opacity: 0;
+  transform: rotate(0deg);
+  transition: transform 0.16s,
+              opacity 0.16s;
+
+  cursor: pointer;
+}
+
+br-th.br-sort:hover:before {
+  opacity: 1;
+}
+
+br-th.br-sort:not(:first-of-type):before,
+br-th.br-align-right:before {
+  right: -2px;
+  margin-right: -9px;
+}
+
+br-th.br-align-left:before,
+br-th.br-sort:first-of-type:before {
+  left: -2px;
+  margin-left: -9px;
+}
+
+br-th.br-sort.br-desc:before {
+  opacity: 1;
+}
+
+br-th.br-sort.br-asc:before {
+  transform: rotate(-180deg);
+  opacity: 1;
+}
+
+
+
+br-td {
+  display: table-cell;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+br-th,
+br-td {
+  direction: rtl;
+  padding-left: 24px;
+  padding-right: 0;
+  flex: 1;
+  vertical-align: middle;
+}
+br-th:first-of-type,
+br-td:first-of-type {
+  direction: ltr;
+  padding-left: 0;
+  padding-right: 54px;
+}
+br-th.br-align-right,
+br-td.br-align-right {
+  direction: rtl;
+  padding-left: 24px;
+  padding-right: 0;
+}
+br-th.br-align-left,
+br-td.br-align-left {
+  direction: ltr;
+  padding-left: 0;
+  padding-right: 24px;
+}
+
+br-td.br-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,55 @@
+br-spinner.br-THEME_NAME-theme {
+  background-color: transparent;
+}
+
+
+br-spinner.br-THEME_NAME-theme .br-spinner-left .br-half-circle {
+  border-right-color: '{{background-1}}';
+  border-bottom-color: '{{background-1}}';
+}
+
+br-spinner.br-THEME_NAME-theme .br-spinner-right .br-half-circle {
+  border-right-color: '{{background-1}}';
+  border-bottom-color: '{{background-1}}';
+}
+
+
+/* --- Primary --- */
+
+br-spinner.br-THEME_NAME-theme.br-primary .br-spinner-left .br-half-circle {
+  border-right-color: '{{primary-default}}';
+  border-bottom-color: '{{primary-default}}';
+}
+
+br-spinner.br-THEME_NAME-theme.br-primary .br-spinner-right .br-half-circle {
+  border-right-color: '{{primary-default}}';
+  border-bottom-color: '{{primary-default}}';
+}
+
+
+
+/* --- Accent --- */
+
+br-spinner.br-THEME_NAME-theme.br-accent .br-spinner-left .br-half-circle {
+  border-right-color: '{{accent-default}}';
+  border-bottom-color: '{{accent-default}}';
+}
+
+br-spinner.br-THEME_NAME-theme.br-accent .br-spinner-right .br-half-circle {
+  border-right-color: '{{accent-default}}';
+  border-bottom-color: '{{accent-default}}';
+}
+
+
+
+/* --- Warn --- */
+
+br-spinner.br-THEME_NAME-theme.br-warn .br-spinner-left .br-half-circle {
+  border-right-color: '{{warn-default}}';
+  border-bottom-color: '{{warn-default}}';
+}
+
+br-spinner.br-THEME_NAME-theme.br-warn .br-spinner-right .br-half-circle {
+  border-right-color: '{{warn-default}}';
+  border-bottom-color: '{{warn-default}}';
+}

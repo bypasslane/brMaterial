@@ -1,0 +1,130 @@
+br-dialog {
+	display: block;
+	background: none;
+	border: none;
+}
+
+br-dialog.hide {
+	display: none;
+}
+
+br-dialog .br-dialog-container {
+	display: block;
+	position: absolute;;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 997;
+	opacity: 0;
+	transition: opacity 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-dialog.br-overflow-y .br-dialog-container {
+	overflow-y: scroll;
+  -webkit-overflow-scrolling : touch;
+}
+
+br-dialog.br-mobile-fill .br-dialog-container {
+	overflow-y: scroll;
+  -webkit-overflow-scrolling : touch;
+}
+
+br-dialog .br-dialog-container.no-event {
+	pointer-events: none;
+}
+
+br-dialog.br-alert .br-dialog-container {
+	pointer-events: none;
+}
+
+br-dialog.br-lock .br-dialog-container {
+	pointer-events: auto;
+}
+
+br-dialog.br-lock .br-dialog-content {
+	pointer-events: none;
+}
+
+
+br-dialog .br-dialog-content {
+  width: 80%;
+  max-width: 600px;
+
+	position: absolute;
+  top: 50%;
+	left: 50%;
+	opacity: 0;
+	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.35);
+	border-radius: 4px;
+	transform: translate(-50%, -50%);
+	transform-origin: 'center center';
+}
+
+
+br-dialog:not(.br-alert) .br-dialog-content .br-dialog-transclude > * {
+	opacity: 0;
+}
+
+br-dialog:not(.br-alert) .br-dialog-content.br-active .br-dialog-transclude > * {
+  opacity: 1;
+	transition: opacity 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+	transition-delay: 200ms;
+}
+
+br-dialog:not(.br-alert) .br-dialog-content.br-leave .br-dialog-transclude > * {
+  /*opacity: 0;*/
+	transition: none;
+}
+
+
+br-dialog:not(.br-alert) .br-dialog-content.br-active {
+  opacity: 1;
+	transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+							transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-dialog:not(.br-alert) .br-dialog-content.br-leave {
+	transition: opacity 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-dialog.br-alert .br-dialog-content.br-active {
+  opacity: 1;
+	transition: opacity 0.2s cubic-bezier(0.25, 0.8, 0.25, 1),
+							transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+
+
+br-dialog.br-overflow-y .br-dialog-content {
+	top: 0;
+	transform: translate(-50%, 0);
+	transition: none !important;
+}
+
+br-dialog.br-mobile-fill .br-dialog-content {
+	box-shadow: none;
+	border-radius: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+br-dialog.br-no-shadow .br-dialog-content {
+	box-shadow: none;
+}
+
+br-dialog.br-no-radius .br-dialog-content {
+	border-radius: 0;
+}
+
+
+br-dialog .br-dialog-label {
+	padding: 12px;
+	padding-top: 32px;
+	padding-bottom: 32px;
+	font-size: 18px;
+	font-weight: lighter;
+	text-align: center;
+}

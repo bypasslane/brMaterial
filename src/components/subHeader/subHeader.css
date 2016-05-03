@@ -1,0 +1,52 @@
+@keyframes subheaderStickyHoverIn {
+  0% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  100% {
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16);
+  }
+}
+
+@keyframes subheaderStickyHoverOut {
+  0% {
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.br-subheader {
+  display: block;
+  margin: 0 0 0 0;
+  position: relative;
+}
+
+.br-subheader:not(.br-sticky-no-effect) {
+  transition: 0.2s ease-out margin;
+}
+
+.br-subheader:not(.br-sticky-no-effect):after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  content: '';
+}
+
+.br-subheader:not(.br-sticky-no-effect).br-sticky-clone {
+  z-index: 2;
+}
+
+.br-subheader:not(.br-sticky-no-effect)[sticky-state="active"] {
+  margin-top: -2px;
+}
+
+.br-subheader:not(.br-sticky-no-effect):not(.br-sticky-clone)[sticky-prev-state="active"] .br-subheader-inner:after {
+  animation: subheaderStickyHoverOut 0.3s ease-out both;
+}
+
+.br-subheader .br-subheader-content {
+  z-index: 1;
+  position: relative;
+}

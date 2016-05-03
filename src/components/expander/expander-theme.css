@@ -1,0 +1,54 @@
+.br-expander.br-THEME_NAME-theme .br-expander-header {
+  border-color: '{{background-1}}';
+  color: '{{font-light-1}}';
+  background: '{{foreground-light-4}}';
+}
+
+.br-expander.br-THEME_NAME-theme .br-expander-icon {
+  color: '{{font-light-2}}';
+}
+
+
+.br-expander.br-THEME_NAME-theme .br-expander-content {
+  border-color: '{{background-1}}';
+}
+
+
+
+
+/* --- Primary --- */
+
+.br-expander.br-THEME_NAME-theme.br-primary .br-expander-header {
+  color: '{{primary-light-6}}';
+  background: '{{primary-default}}';
+}
+.br-expander.br-THEME_NAME-theme.br-primary .br-expander-icon {
+  color: '{{primary-light-6}}';
+}
+
+
+
+
+/* --- Accent --- */
+
+.br-expander.br-THEME_NAME-theme.br-accent .br-expander-header {
+  color: '{{accent-light-6}}';
+  background: '{{accent-default}}';
+}
+.br-expander.br-THEME_NAME-theme.br-accent .br-expander-icon {
+  color: '{{accent-light-6}}';
+}
+
+
+
+
+
+/* --- Warn --- */
+
+.br-expander.br-THEME_NAME-theme.br-warn .br-expander-header {
+  color: '{{warn-light-6}}';
+  background: '{{warn-default}}';
+}
+.br-expander.br-THEME_NAME-theme.br-warn .br-expander-icon {
+  color: '{{warn-light-6}}';
+}

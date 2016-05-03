@@ -1,0 +1,15 @@
+br-dialog.br-THEME_NAME-theme .br-dialog-content {
+	background-color: '{{dialogBackground-default}}';
+}
+
+br-dialog.br-THEME_NAME-theme:not(.br-alert) .br-dialog-container {
+	background-color: '{{overlay}}'
+}
+
+br-dialog.br-THEME_NAME-theme:not(.br-alert).br-mobile-fill .br-dialog-container {
+	background-color: '{{dialogBackground-default}}';
+}
+
+br-dialog.br-THEME_NAME-theme .br-dialog-label {
+	color: '{{font-default}}';
+}

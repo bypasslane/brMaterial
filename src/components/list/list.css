@@ -1,0 +1,115 @@
+br-item {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 52px;
+  height: auto;
+  overflow: hidden;
+  outline: none;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border-bottom: 1px solid;
+
+  transition: background-color cubic-bezier(0.25, 0.8, 0.25, 1) 0.26s,
+              color cubic-bezier(0.25, 0.8, 0.25, 1) 0.6s,
+              padding-left cubic-bezier(0.25, 0.8, 0.25, 1) 0.26s;
+}
+
+
+br-list.br-no-divider br-item {
+  border: none;
+}
+
+br-item.br-no-divider {
+  border: none;
+}
+
+br-item:last-child {
+  border: none;
+}
+
+
+br-item br-item-content {
+  position: relative;
+  left:0;
+  transition: left cubic-bezier(0.25, 0.8, 0.25, 1) 0.45s;
+}
+
+br-item br-item-content.br-fill {
+  width: 100%;
+}
+
+
+br-item .br-item-title {
+  font-size: 14px;
+  transition: color cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s,
+}
+
+br-item .br-item-sub-title {
+  font-size: 12px;
+  transition: color cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s,
+}
+
+
+
+
+/* --- checkbox ---- */
+
+br-item .br-select {
+  width: 60px;
+  height: 100%;
+  position: absolute;
+  margin-left: 8px;
+  left: 0;
+  top: 50%;
+  margin-top: -10px;
+  transition: left cubic-bezier(0.25, 0.8, 0.25, 1) 0.26s;
+}
+
+br-list.br-hide-select br-item .br-select {
+  left: -54px;
+}
+br-item.br-hide-select .br-select {
+  left: -54px;
+}
+
+
+br-list:not(.br-hide-select) br-item[br-select] {
+  padding-left: 54px;
+}
+
+br-list.br-show-select br-item {
+  padding-left: 54px;
+}
+
+
+
+/* --- controls ---- */
+
+br-list br-item-controls{
+  position:absolute;
+  top:0;
+  right:-4200px;
+  height:100%;
+  transition: right cubic-bezier(0.25, 0.8, 0.25, 1) 0.45s;
+}
+
+br-item br-item-controls .br-button {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  height: 100%;
+  line-height: normal;
+  box-shadow: none;
+  border-radius: 0;
+  padding-bottom: 1px;
+}
+
+
+
+br-item.br-dragging .br-select,
+br-item.br-dragging br-item-controls,
+br-item.br-dragging br-item-content {
+  transition: none;
+}

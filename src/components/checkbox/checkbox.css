@@ -1,0 +1,115 @@
+br-checkbox {
+  box-sizing: border-box;
+  display: inline-block;
+  margin-bottom: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  position: relative;
+  min-width: 20px;
+  min-height: 20px;
+  margin-left: inherit;
+  margin-right: 16px;
+}
+
+
+br-checkbox.br-focused:not([disabled]) .br-container:before {
+  left: -8px;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+}
+
+br-checkbox.br-focused:not([disabled]):not(.br-checked) .br-container:before {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+br-checkbox .br-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-sizing: border-box;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  right: auto;
+}
+
+
+br-checkbox .br-container:before {
+  box-sizing: border-box;
+  background-color: transparent;
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  display: block;
+  height: auto;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transition: all 0.5s;
+  width: auto;
+}
+
+br-checkbox .br-container:after {
+  box-sizing: border-box;
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  bottom: -10px;
+  left: -10px;
+}
+
+
+
+br-checkbox .br-icon {
+  box-sizing: border-box;
+  transition: 240ms;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+br-checkbox.br-checked .br-icon {
+  border: none;
+}
+
+br-checkbox[disabled] {
+  cursor: default;
+}
+
+br-checkbox.br-checked .br-icon:after {
+  box-sizing: border-box;
+  transform: rotate(45deg);
+  position: absolute;
+  left: 6.66667px;
+  top: 2.22222px;
+  display: table;
+  width: 6.66667px;
+  height: 13.33333px;
+  border-width: 2px;
+  border-style: solid;
+  border-top: 0;
+  border-left: 0;
+  content: '';
+}
+
+br-checkbox .br-label {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+  user-select: text;
+  margin-left: 30px;
+  margin-right: 0;
+}

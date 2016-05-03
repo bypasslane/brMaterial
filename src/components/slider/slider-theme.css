@@ -1,0 +1,54 @@
+br-slider.br-THEME_NAME-theme .br-track {
+  background-color: '{{foreground-light-2}}';
+}
+br-slider.br-THEME_NAME-theme .br-track.br-track-fill {
+  background-color: '{{foreground-default}}';
+}
+
+
+br-slider.br-THEME_NAME-theme .br-thumb {
+  background-color: '{{foreground-default}}';
+}
+
+
+br-slider.br-THEME_NAME-theme .br-slider-value{
+	color: '{{font-light-2}}';
+	background-color: '{{background-2}}';
+}
+
+br-slider.br-THEME_NAME-theme .br-focus-ring {
+  border-color: '{{foreground-light-3}}';
+}
+
+br-slider.br-THEME_NAME-theme.br-primary .br-track.br-track-fill {
+  background-color: '{{primary-default}}';
+}
+br-slider.br-THEME_NAME-theme.br-primary .br-thumb {
+  border-color: '{{primary-default}}';
+  background-color: '{{primary-default}}';
+}
+
+br-slider.br-THEME_NAME-theme.br-accent .br-track.br-track-fill {
+  background-color: '{{accent-default}}';
+}
+br-slider.br-THEME_NAME-theme.br-accent .br-thumb {
+  border-color: '{{accent-default}}';
+  background-color: '{{accent-default}}';
+}
+
+
+br-slider.br-THEME_NAME-theme.br-warn .br-track.br-track-fill {
+  background-color: '{{warn-default}}';
+}
+br-slider.br-THEME_NAME-theme.br-warn .br-thumb {
+  border-color: '{{warn-default}}';
+  background-color: '{{warn-default}}';
+}
+
+br-slider.br-THEME_NAME-theme[disabled] .br-thumb {
+  background-color: '{{background-2}}';
+}
+
+br-slider.br-THEME_NAME-theme[disabled] .br-track {
+  background-color: '{{background-2}}';
+}

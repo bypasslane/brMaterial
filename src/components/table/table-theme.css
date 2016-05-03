@@ -1,0 +1,15 @@
+br-table.br-THEME_NAME-theme br-th {
+  color: '{{font-light-3}}';
+}
+
+br-table.br-THEME_NAME-theme br-th.active {
+  color: '{{font-light-1}}';
+}
+
+br-table.br-THEME_NAME-theme br-td {
+  color: '{{font-default}}';
+}
+
+br-tr {
+  border-color: '{{foreground-default}}';
+}

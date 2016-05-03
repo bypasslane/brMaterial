@@ -1,0 +1,73 @@
+br-radio-button.br-THEME_NAME-theme .br-off {
+  border-color: '{{background-2}}';
+}
+
+br-radio-button.br-THEME_NAME-theme .br-on {
+  background-color: '{{background-3}}';
+}
+
+br-radio-button.br-THEME_NAME-theme.br-checked .br-off {
+  border-color: '{{background-3}}';
+}
+
+
+
+/* Primary */
+br-radio-button.br-THEME_NAME-theme.br-primary .br-off {
+  border-color: '{{primary-light-1}}';
+}
+
+br-radio-button.br-THEME_NAME-theme:not([disabled]).br-primary .br-on {
+  background-color: '{{primary-light-1}}';
+}
+
+br-radio-button.br-THEME_NAME-theme:not([disabled]).br-primary.br-checked .br-off {
+  border-color: '{{primary-light-1}}';
+}
+
+
+/* Accent */
+br-radio-button.br-THEME_NAME-theme.br-accent .br-off {
+  border-color: '{{accent-light-1}}';
+}
+
+br-radio-button.br-THEME_NAME-theme:not([disabled]).br-accent .br-on {
+  background-color: '{{accent-light-1}}';
+}
+
+br-radio-button.br-THEME_NAME-theme:not([disabled]).br-accent.br-checked .br-off {
+  border-color: '{{accent-light-1}}';
+}
+
+
+/* Warn */
+br-radio-button.br-THEME_NAME-theme.br-warn .br-off {
+  border-color: '{{warn-light-1}}';
+}
+
+br-radio-button.br-THEME_NAME-theme:not([disabled]).br-warn .br-on {
+  background-color: '{{warn-light-1}}';
+}
+
+br-radio-button.br-THEME_NAME-theme:not([disabled]).br-warn.br-checked .br-off {
+  border-color: '{{warn-light-1}}';
+}
+
+
+
+br-radio-button.br-THEME_NAME-theme[disabled] .br-container .br-off {
+  border-color: '{{foreground-light-2}}';
+}
+
+br-radio-button.br-THEME_NAME-theme[disabled] .br-container .br-on {
+  border-color: '{{foreground-light-2}}';
+}
+
+br-radio-group.br-THEME_NAME-theme:focus:not(:empty) {
+  border-color: '{{foreground-default}}';
+}
+
+
+br-radio-button.br-THEME_NAME-theme .br-label {
+  color: '{{font-default}}';
+}

@@ -1,0 +1,151 @@
+button.br-button::-moz-focus-inner {
+  border: 0;
+}
+
+.br-button {
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: currentColor;
+  user-select: none;
+  position: relative;
+  outline: none;
+  border: 0;
+  display: inline-block;
+  align-items: center;
+  padding: 0 6px;
+  margin: 6px 8px;
+  line-height: 36px;
+  min-height: 36px;
+  background: transparent;
+  white-space: nowrap;
+  min-width: 88px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  font-style: inherit;
+  font-variant: inherit;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.br-button span {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+
+
+.br-button.br-raised {
+  box-shadow: none;
+}
+
+
+.br-button.br-raised:not(.br-circle):before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  z-index: -1;
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0,0,0,0);
+}
+
+
+
+
+.br-button.br-circle {
+  z-index: 20;
+  line-height: 56px;;
+  min-width: 0;
+  width: 56px;
+  height: 56px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background-clip: padding-box;
+  overflow: hidden;
+}
+
+.br-button.br-circle.br-small {
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+
+
+.br-button:focus {
+  outline: none;
+}
+
+.br-button:hover, .br-button:focus {
+  text-decoration: none;
+}
+
+.br-button.ng-hide, .br-button.ng-leave {
+  transition: none;
+}
+
+.br-button:not(.br-circle) .br-icon {
+  padding: 0;
+  background: none;
+  /*margin: auto 16px auto 0;*/
+  line-height: 35px;
+}
+
+.br-button.br-circle .br-icon {
+  display: block;
+  margin: auto auto;
+}
+
+.br-button.br-raised.br-shadow:not([disabled]) {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.br-button:not([disabled]).br-raised.br-shadow.br-focused {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.br-button:not([disabled]).br-raised.br-shadow:active {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.br-button[disabled] {
+	background-color: rgba(0, 0, 0, 0);
+	cursor: not-allowed;
+}
+
+.br-button.br-raised[disabled] {
+	box-shadow: none;
+}
+
+
+
+/* --- style removals --- */
+
+.br-button:not(.br-circle).br-no-radius {
+	border-radius: 0;
+}
+
+.br-button.br-raised:not(.br-circle).br-no-radius:before {
+  border-radius: 0;
+}
+
+.br-button.br-fill {
+	width: 100%;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.br-button.br-no-margin {
+	margin: 0;
+}

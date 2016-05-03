@@ -1,0 +1,11 @@
+br-side-content.br-THEME_NAME-theme {
+  background-color: '{{foreground-light-4}}';
+}
+
+br-side-content.br-THEME_NAME-theme.br-border-left {
+  border-color: '{{background-1}}';
+}
+
+br-side-content.br-THEME_NAME-theme.br-border-right {
+  border-color: '{{background-1}}';
+}

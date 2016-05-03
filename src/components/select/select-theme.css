@@ -1,0 +1,69 @@
+.br-select.br-THEME_NAME-theme .br-select-content {
+  color: transparent;
+}
+.br-select.br-THEME_NAME-theme.br-select-has-value .br-select-content {
+  color: '{{font-default}}';
+}
+.br-select.br-THEME_NAME-theme .br-select-content {
+  border-color: '{{background-2}}';
+}
+
+.br-select.br-THEME_NAME-theme .br-select-content.br-disabled {
+  color: '{{font-light-3}}';
+  border-color: '{{background-default}}';
+}
+
+.br-select.br-THEME_NAME-theme ::placeholder {
+  color: '{{font-light-5}}';
+}
+
+.br-select.br-THEME_NAME-theme label,
+.br-select.br-THEME_NAME-theme .br-placeholder {
+  color: '{{font-light-4}}';
+}
+
+
+.br-select.br-THEME_NAME-theme.br-select-has-placeholder .br-select-content {
+  color: '{{font-light-3}}';
+}
+.br-select.br-THEME_NAME-theme.br-select-has-value .br-select-content {
+  color: '{{font-default}}';
+}
+
+.br-select.br-THEME_NAME-theme.br-select-has-value label {
+  color: '{{font-light-3}}';
+}
+
+.br-select.br-THEME_NAME-theme .br-select-icon {
+  color: '{{font-light-3}}';
+}
+
+.br-select.br-THEME_NAME-theme .br-select-content.br-disabled .br-select-icon {
+  color: '{{font-light-5}}';
+}
+
+
+
+
+.br-select.br-THEME_NAME-theme.br-select-focused .br-select-content {
+  border-color: '{{primary-default}}';
+}
+
+
+.br-select.br-THEME_NAME-theme.br-select-focused label {
+  color: '{{primary-default}}';
+}
+
+.br-select.br-THEME_NAME-theme.br-select-focused.br-accent .br-select-content {
+  border-color: '{{accent-light-1}}';
+}
+.br-select.br-THEME_NAME-theme.br-select-focused.br-accent label {
+  color: '{{accent-default}}';
+}
+
+.br-select.br-THEME_NAME-theme.br-select-focused.br-warn .br-select-content {
+  border-color: '{{warn-light-1}}';
+}
+.br-select.br-THEME_NAME-theme.br-select-focused.br-warn label {
+  color: '{{warn-default}}';
+}
