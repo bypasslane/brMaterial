@@ -44,6 +44,9 @@ function selectAugmentDirective($brUtil, $compile) {
       attr.$set('tabindex', 0);
     }
 
+    var errorsSpacer = angular.element('<div class="br-errors-spacer">');
+    element.after(errorsSpacer);
+
     if ( !containerCtrl ) return;
     containerCtrl.selectElement = element;
 
@@ -60,9 +63,6 @@ function selectAugmentDirective($brUtil, $compile) {
       placeholder = containerCtrl.label;
     }
 
-
-    var errorsSpacer = angular.element('<div class="br-errors-spacer">');
-    element.after(errorsSpacer);
 
     var valueElement = $compile('<div class="br-select-content"><span>{{selectText}}</span><div class="br-select-icon"></div></div>')(scope);
     element.after(valueElement);
@@ -181,6 +181,7 @@ function selectDirective ($brTheme) {
       setTimeout(function () {
         angular.element(labelElement).attr('for', vm.selectElement.attr('id'));
       }, 0);
+      // $element.addClass('br-has-label');
     }
 
 

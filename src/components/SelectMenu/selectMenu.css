@@ -14,8 +14,8 @@ br-select-menu {
 .br-select-menu-content {
   display: flex;
   align-items: center;
-  padding: 2px 2px 1px;
-  border-width: 0 0 1px 0;
+  padding: 13px 6px 1px;
+  border-width: 1px;
   border-style: solid;
   background-color: transparent;
   position: relative;
@@ -23,11 +23,20 @@ br-select-menu {
   min-width: 64px;
   min-height: 26px;
   flex-grow: 1;
+  /*transition: border cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;*/
+}
+
+br-select:not(.br-has-label) .br-select-menu-label {
+  margin-top: -13px;
+}
+
+br-select:not(.br-has-label) .br-select-icon:after {
+  top: -4px;
 }
 
 .br-select.br-select-focused .br-select-menu-content {
-  padding-bottom: 0px;
-  border-width: 0 0 2px 0;
+  /*padding-bottom: 0px;*/
+  /*border-width: 1px 1px 2px 1px;*/
 }
 
 .br-select-menu-content {

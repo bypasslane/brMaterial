@@ -48,6 +48,9 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
     tElement.append(optiongroupsContainer);
     optiongroupsContainer[0].style.display = 'none';
 
+    var errorsSpacer = angular.element('<div class="br-errors-spacer">');
+    tElement.after(errorsSpacer);
+
 
     return postLink;
   }
