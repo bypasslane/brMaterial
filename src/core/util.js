@@ -35,6 +35,7 @@ function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document,
     clientRect: clientRect,
     nodesToArray: nodesToArray,
     getClosest: getClosest,
+    getNode: getNode,
     parseAttributeBoolean: parseAttributeBoolean,
     scrollbarWidth: getScrollbarWidth()
   };
@@ -229,6 +230,7 @@ function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document,
 			$parsers: [],
 			$formatters: [],
 			$viewChangeListeners: [],
+      $validators: {},
 			$render: angular.noop,
 
 			$setViewValue: function(value) {
@@ -364,6 +366,7 @@ function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document,
 	}
 
   function getNode(el) {
+    if (el === undefined) { return undefined; }
     return el[0] || el;
   }
 
