@@ -60,7 +60,7 @@ angular
   * check
   * cloud_download
   * photo_library
-  * mode_edit
+  * edit
   * payment
   * crop
   * crop_rotate
