@@ -25,8 +25,8 @@ angular
   * <br-side-content class="br-side-content-right br-border-left" br-is-locked-open="$brMedia('md')" br-component-id="menuConfigSideContent" br-width="400">
   *
   */
-brSideContentDirective.$inject = ['$brTheme', '$q', '$parse', '$window','$brMedia'];
-function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia) {
+brSideContentDirective.$inject = ['$brTheme', '$q', '$parse', '$window', '$brMedia', '$animate', '$document', '$brUtil'];
+function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animate, $document, $brUtil) {
   var directive = {
     restrict: 'E',
     scope: {
@@ -59,15 +59,16 @@ function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia) {
 
 
       if(brWidth === true) {
+        brWidth = attrs.brWidth.replace('px', '');
         angular.element($window).bind('resize', resize);
         scope.$on('$destroy', function () {
           angular.element($window).off('resize', resize);
         });
 
-        if(attrs.brWidth < ($window.innerWidth - 23)) {
-          element.css('width', attrs.brWidth + 'px');
-          element.css('min-width', attrs.brWidth + 'px');
-          element.css('max-width', attrs.brWidth + 'px');
+        if(brWidth < ($window.innerWidth - 23)) {
+          element.css('width', brWidth + 'px');
+          element.css('min-width', brWidth + 'px');
+          element.css('max-width', brWidth + 'px');
         }
       }
 
@@ -87,12 +88,12 @@ function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia) {
 
 
       function resize () {
-        if (attrs.brWidth >= ($window.innerWidth - 24)) {
+        if (brWidth >= ($window.innerWidth - 24)) {
           element.attr('style', '');
         } else {
-          element.css('width', attrs.brWidth + 'px');
-          element.css('min-width', attrs.brWidth + 'px');
-          element.css('max-width', attrs.brWidth + 'px');
+          element.css('width', brWidth + 'px');
+          element.css('min-width', brWidth + 'px');
+          element.css('max-width', brWidth + 'px');
         }
       }
 
@@ -213,7 +214,7 @@ function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia) {
     vm.close = function () { return vm.$toggleOpen( false ); };
     vm.toggle = function () { return vm.$toggleOpen( !$scope.isOpen ); };
     vm.$toggleOpen = function(value) { return $q.when($scope.isOpen = value); };
-    vm.addBackdrop = function (clickCallback) { $brBackdrop.addBackdrop($element, $scope, clickCallback); };
+    vm.addBackdrop = function (clickCallback) { $brBackdrop.add($element, $scope, clickCallback); };
     vm.removeBackdrop = function () { $brBackdrop.remove(); };
 
     vm.focusElement = function (el) {

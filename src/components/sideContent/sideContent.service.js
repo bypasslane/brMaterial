@@ -16,7 +16,7 @@ angular
   * $brSideContent('theComponentId').open();
   * $brSideContent('theComponentId').isOpen();
   * $brSideContent('theComponentId').isLockedOpen();
-  * $brSideContent('theComponentId').clode();
+  * $brSideContent('theComponentId').close();
   * $brSideContent('theComponentId').addBackdrop();
   * $brSideContent('theComponentId').removeBackdrop();
   *
