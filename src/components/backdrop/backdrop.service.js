@@ -51,12 +51,12 @@ function brBackdropService ($compile, $animate) {
     if(!isValidAdd(element, scope, clickCallback)) return;
 
     backdrop = $compile('<br-backdrop class="br-click-catcher ng-enter">')(scope);
-    element.addClass('br-side-content-wrapped');
     createAndAdd(element, scope, clickCallback);
+    element.addClass('br-backdrop-content-wrapper');
 
-    wrapper = angular.element('<div></div>');
-    element.after(wrapper);
-    wrapper.prepend(element);
+    // wrapper = angular.element('<div class="br-backdrop-content-wrapper" style="overflow: inherit;"></div>');
+    // element.after(wrapper);
+    // wrapper.prepend(element);
   }
 
 
