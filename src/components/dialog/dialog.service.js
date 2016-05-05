@@ -153,15 +153,51 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
     dialogBox = linkFunc(scope);
     addDialogStyle(dialogBox, options);
     body.append(dialogBox);
-    angular.element(dialogBox[0].querySelector('.br-dialog-container')).css('opacity', '1').css($brUtil.toCss({transform: 'translateY(' + $window.scrollY + 'px)'}));
 
-    return $animateCss(angular.element(dialogBox[0].querySelector('.br-dialog-content')), {
+    var dialogContainer = angular.element(dialogBox[0].querySelector('.br-dialog-container'));
+    dialogContainer.css('opacity', '1').css($brUtil.toCss({transform: 'translateY(' + $window.scrollY + 'px)'}));
+
+    var dialogContent = angular.element(dialogBox[0].querySelector('.br-dialog-content'));
+    return $animateCss(dialogContent, {
       addClass: 'br-active',
-      from: $brUtil.toCss({transform: 'translate(-50%, -50%) scale(0.4)'}),
-      to: $brUtil.toCss({transform: 'translate(-50%, -50%) scale(1)'})
+      from: getTargetPosition(),
+      to: $brUtil.toCss({transform: ''})
     }).start().then(function () {
       scope.init();
     });
+
+
+    function getTargetPosition() {
+      var defaultAnim = $brUtil.toCss({transform: 'translate(-50%, -50%) scale(0.4)'});
+
+      if (options.targetEvent === undefined) { return defaultAnim; }
+      var target = $brUtil.getNode(options.targetEvent.target);
+      if (target === undefined || target === null) { return defaultAnim; }
+
+      var boundRect = dialogContainer[0].getBoundingClientRect();
+      var originBnds = target.getBoundingClientRect();
+
+      var dialogRect = dialogContent[0].getBoundingClientRect();
+      var dialogCenterPt = centerPointFor(dialogRect);
+      var originCenterPt = centerPointFor(originBnds);
+
+      var zoomStyle = {
+        centerX: originCenterPt.x - dialogCenterPt.x - (dialogRect.width / 2),
+        centerY: originCenterPt.y - dialogCenterPt.y - (dialogRect.height / 2),
+        scaleX: Math.round(100 * Math.min(0.5, originBnds.width / dialogRect.width)) / 100,
+        scaleY: Math.round(100 * Math.min(0.5, originBnds.height / dialogRect.height)) / 100
+      };
+
+      return $brUtil.toCss({transform: 'translate3d(' + zoomStyle.centerX + 'px, ' + zoomStyle.centerY + 'px, 0) scale(' + zoomStyle.scaleX + ',0.4)'});
+    }
+
+  }
+
+  function centerPointFor(targetRect) {
+    return targetRect ? {
+      x: Math.round(targetRect.left + (targetRect.width / 2)),
+      y: Math.round(targetRect.top + (targetRect.height / 2))
+    } : { x : 0, y : 0 };
   }
 
   function addDialogStyle(dialogBox, options) {

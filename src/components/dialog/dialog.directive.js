@@ -56,8 +56,12 @@ function brDialogDirective ($brTheme, $brDialog, $$rAF, $window, $brUtil, $brMob
         });
     };
 
-    scope.$continue = function (){
-      if (typeof scope.continue === 'function') { scope.continue(); }
+    scope.$continue = function () {
+      $brDialog
+        .remove()
+        .then(function () {
+          if (typeof scope.continue === 'function') { scope.continue(); }
+        });
     };
 
     scope.scrollToBottom = function (){
