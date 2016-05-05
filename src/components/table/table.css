@@ -120,6 +120,7 @@ br-td {
   display: table-cell;
   font-size: 13px;
   vertical-align: middle;
+  overflow: hidden;
 }
 
 br-th,
