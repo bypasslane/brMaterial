@@ -1,6 +1,6 @@
 br-input.br-THEME_NAME-theme .br-input {
   color: '{{font-default}}';
-  border-color: '{{background-2}}';
+  border-color: '{{foreground-dark-4}}';
 }
 
 br-input.br-THEME_NAME-theme ::placeholder {
@@ -10,6 +10,10 @@ br-input.br-THEME_NAME-theme ::placeholder {
 br-input.br-THEME_NAME-theme label,
 br-input.br-THEME_NAME-theme .br-placeholder {
   color: '{{font-light-4}}';
+}
+
+br-input.br-THEME_NAME-theme label {
+  color: '{{font-light-2}}';
 }
 
 br-input.br-THEME_NAME-theme:not(.br-input-invalid).br-input-has-value label {
@@ -66,7 +70,7 @@ br-input.br-THEME_NAME-theme.br-input-invalid [x-ng-message] {
   color: '{{warn-default}}';
 }
 br-input.br-THEME_NAME-theme .br-input[disabled] {
-  border-bottom-color: transparent;
+  border-color: transparent;
   color: '{{foreground-light-2}}';
   background-image: linear-gradient(to right, '{{foreground-light-3}}' 0%, '{{foreground-light-3}}' 33%, transparent 0%);
 }

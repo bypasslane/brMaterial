@@ -61,6 +61,14 @@ function brInputDirective ($brTheme) {
 			$element.toggleClass('br-input-invalid', !!isInvalid);
 		};
 
+    vm.setHasLabel = function () {
+      // $element.addClass('br-has-label');
+    };
+
+    vm.setHasPlaceholder = function () {
+      $element.addClass('br-has-placeholder');
+    };
+
 		vm.clearValueHook = function (func) {
 			vm.clearValue = func;
 		};
@@ -116,6 +124,7 @@ function labelDirective () {
 	function link(scope, element, attrs, containerCtrl){
 		if (!containerCtrl) return;
 
+    containerCtrl.setHasLabel();
 		containerCtrl.label = element;
 
 		scope.$on('$destroy', function() {
@@ -269,12 +278,7 @@ function placeholderDirective () {
 
 	function postLink (scope, element, attr, inputContainer) {
 		if (!inputContainer) return;
-
-		var placeholderText = attr.placeholder;
-		element.removeAttr('placeholder');
-
-		inputContainer.input.addClass('br-has-placeholder');
-		element.parent().append('<div class="br-placeholder">' + placeholderText + '</div>');
+		inputContainer.setHasPlaceholder();
 	}
 }
 
