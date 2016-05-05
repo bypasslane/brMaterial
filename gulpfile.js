@@ -24,11 +24,12 @@ var rename = require("gulp-rename");
 var BASE = 'src/';
 var paths = {
   appScripts: ['src/core/core.js', 'src/**/*.js'],
-  scripts: ['client/app.js', 'client/controller.js', 'src/**/*.js'],
+  scripts: ['client/app.js', 'client/controller.js', 'client/exampleController.js', 'src/**/*.js'],
   css: ['src/core/*.css', 'src/components/**/*.css'],
   index: ['client/index.html'],
   partials: ['client/partials/*.html'],
-  font: ['src/core/brMaterialIcons.woff']
+  font: ['src/core/brMaterialIcons.woff'],
+  images: ['client/images/*.png', 'client/images/*.jpg']
 };
 
 
@@ -42,6 +43,7 @@ gulp.task('default', function () {
     'copyIndex',
     'copyPartials',
     'copyFont',
+    'copyImages',
     'copyAngular',
     'build',
     ['webserver', 'watch']
@@ -85,6 +87,12 @@ gulp.task('clean', function () {
 gulp.task('copyAngular', function () {
   gulp.src(['angular/*.js'])
     .pipe(gulp.dest('public'));
+});
+
+// --- Copy Images -------
+gulp.task('copyImages', function () {
+  gulp.src(paths.images)
+    .pipe(gulp.dest('public/images'));
 });
 
 // --- Copy Angular -------

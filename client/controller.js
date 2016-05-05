@@ -81,7 +81,7 @@ function HomeController($scope, $brDialog, $timeout) {
     {id: 6, name: 'Zaphod'}
   ];
 
-  $timeout(function() {
+  $timeout(function () {
     vm.selectOptions.push({id: 7, name: 'what'});
   }, 1000);
 
@@ -95,7 +95,7 @@ function HomeController($scope, $brDialog, $timeout) {
   percentTimer();
 
 
-  function percentTimer () {
+  function percentTimer() {
     $timeout(function () {
       vm.spinnerPercentage++;
       if (vm.spinnerPercentage < 100) { percentTimer(); }
@@ -103,9 +103,10 @@ function HomeController($scope, $brDialog, $timeout) {
   }
 
 
-  function popDialog () {
+  function popDialog(ev) {
     $brDialog.add({
       message: 'Hey Hey, you chould close this',
+      targetEvent: ev,
       controls: {
         continueLabel: 'Continue',
         cancelLabel: 'Close'
@@ -125,13 +126,13 @@ function HomeController($scope, $brDialog, $timeout) {
     });
   }
 
-  function popAlert () {
+  function popAlert() {
     $brDialog.alert({message: 'This is an alert!'});
   }
 
 
 
-  function popTemplatedDialog () {
+  function popTemplatedDialog() {
     $brDialog.add({
       // width: '100%',
       // maxWidth: 600,
@@ -143,7 +144,7 @@ function HomeController($scope, $brDialog, $timeout) {
     });
 
 
-    function controller () {
+    function controller() {
       /*jshint validthis:true */
       var vm = this;
 
