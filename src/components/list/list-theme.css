@@ -1,10 +1,11 @@
 br-list.br-THEME_NAME-theme br-item{
   color: '{{font-default}}';
-  background-color: '{{foreground-light-4}}';
+  /*background-color: '{{foreground-light-4}}';*/
 }
 
 br-list.br-THEME_NAME-theme:not(.br-no-divider) br-item {
-  border-color: '{{background-1}}';
+  /*border-color: '{{background-1}}';*/
+  border-color: '{{foreground-default}}';
 }
 
 br-list.br-THEME_NAME-theme .br-item-title {
