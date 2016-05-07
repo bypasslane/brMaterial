@@ -7,6 +7,7 @@ br-side-content {
   flex-direction: column;
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   outline: none;
+  min-height: 100%;
 }
 
 br-side-content *,

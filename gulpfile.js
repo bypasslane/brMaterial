@@ -18,6 +18,7 @@ var stripDebug = require('gulp-strip-debug');
 var bump = require('gulp-bump');
 var templateCache = require('gulp-angular-templatecache');
 var rename = require("gulp-rename");
+var bump = require('gulp-bump');
 
 
 
@@ -70,6 +71,28 @@ gulp.task('webserver', function () {
         host: '0.0.0.0',
       }));
     }, 1000);
+});
+
+
+
+// --- Version Tasks ----
+
+gulp.task('major', function(){
+  gulp.src('./package.json')
+  .pipe(bump({type:'major'}))
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('minor', function(){
+  gulp.src('./package.json')
+  .pipe(bump({type:'minor'}))
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('patch', function(){
+  gulp.src('./package.json')
+  .pipe(bump())
+  .pipe(gulp.dest('./'));
 });
 
 

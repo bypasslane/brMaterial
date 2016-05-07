@@ -25,8 +25,8 @@ angular
   * <br-side-content class="br-side-content-right br-border-left" br-is-locked-open="$brMedia('md')" br-component-id="menuConfigSideContent" br-width="400">
   *
   */
-brSideContentDirective.$inject = ['$brTheme', '$q', '$parse', '$window', '$brMedia', '$animate', '$document', '$brUtil'];
-function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animate, $document, $brUtil) {
+brSideContentDirective.$inject = ['$brTheme', '$q', '$parse', '$window', '$brMedia', '$animate', '$document', '$brUtil', '$brConstant'];
+function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animate, $document, $brUtil, $brConstant) {
   var directive = {
     restrict: 'E',
     scope: {
