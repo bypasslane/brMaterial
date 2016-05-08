@@ -49,7 +49,6 @@ function brTooltipDirective ($brTheme, $$rAF, $brUtil, $animate, $q, $timeout, $
     $brTheme(element);
 
     var parent = getParentWithPointerEvents();
-    console.log(parent);
     var background = angular.element(element[0].getElementsByClassName('br-background')[0]);
     var content = angular.element(element[0].getElementsByClassName('br-content')[0]);
     var direction = attr.brPosition;
@@ -80,10 +79,7 @@ function brTooltipDirective ($brTheme, $$rAF, $brUtil, $animate, $q, $timeout, $
 
       var ngWindow = angular.element($window);
 
-      // add an mutationObserver when there is support for it
-      // and the need for it in the form of viable host(parent[0])
       if (parent[0] && 'MutationObserver' in $window) {
-        // use an mutationObserver to tackle #2602
         var attributeObserver = new MutationObserver(function(mutations) {
           if (mutations.some(function (mutation) {
               return (mutation.attributeName === 'disabled' && parent[0].disabled);
@@ -114,7 +110,7 @@ function brTooltipDirective ($brTheme, $$rAF, $brUtil, $animate, $q, $timeout, $
         ngWindow.off('blur', windowBlurHandler);
         ngWindow.off('resize', debouncedOnResize);
         document.removeEventListener('scroll', windowScrollHandler, true);
-        attributeObserver && attributeObserver.disconnect();
+        if (attributeObserver !== undefined) { attributeObserver.disconnect(); }
       });
 
       var enterHandler = function(e) {
@@ -123,13 +119,13 @@ function brTooltipDirective ($brTheme, $$rAF, $brUtil, $animate, $q, $timeout, $
           elementFocusedOnWindowBlur = false;
           return;
         }
-        parent.on('blur mouseleave touchend touchcancel', leaveHandler );
+        parent.on('blur mouseleave touchend touchcancel', leaveHandler);
         setVisible(true);
       };
       var leaveHandler = function () {
         var autohide = scope.hasOwnProperty('autohide') ? scope.autohide : attr.hasOwnProperty('brAutohide');
-        if (autohide || mouseActive || ($document[0].activeElement !== parent[0]) ) {
-          parent.off('blur mouseleave touchend touchcancel', leaveHandler );
+        if (autohide || mouseActive || ($document[0].activeElement !== parent[0])) {
+          parent.off('blur mouseleave touchend touchcancel', leaveHandler);
           parent.triggerHandler("blur");
           setVisible(false);
         }
@@ -138,9 +134,7 @@ function brTooltipDirective ($brTheme, $$rAF, $brUtil, $animate, $q, $timeout, $
 
       // to avoid `synthetic clicks` we listen to mousedown instead of `click`
       parent.on('mousedown', function() { mouseActive = true; });
-      parent.on('focus mouseenter touchstart', enterHandler );
-
-
+      parent.on('focus mouseenter touchstart', enterHandler);
     }
 
 
