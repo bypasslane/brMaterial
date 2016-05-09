@@ -13,10 +13,13 @@ br-expander-content {
 }
 
 br-expander.br-open br-expander-content {
-  overflow-y: scroll;
+  overflow-y: hidden;
   opacity: 1;
 }
 
+br-expander.br-open.br-scroll br-expander-content {
+  overflow-y: auto;
+}
 
 
 br-expander-header {
