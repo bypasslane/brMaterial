@@ -49,6 +49,10 @@ function expanderDirective ($brTheme) {
       tElement.css('width', width.replace('px', '') + 'px');
     }
 
+    if (tAttrs.brHide === undefined) {
+      angular.element(tElement[0].querySelector('.br-expander-hide')).attr('ng-if', '$brOpen');
+    }
+
     return postLink;
   }
 
@@ -130,7 +134,9 @@ function expanderHeaderDirective() {
   function link (scope, element, attr, ctrl) {
     element.append(angular.element('<div class="br-expander-icon-container"><div class="br-expander-icon"></div></div>'));
     element.on('click', function () {
-      ctrl.headerHook();
+      scope.$apply(function () {
+        ctrl.headerHook();
+      });
     });
   }
 }
@@ -144,7 +150,7 @@ function expanderContentDirective($timeout) {
     restrict: 'E',
     require: '^?brExpander',
     template:
-      '<div ng-if="$brOpen" ng-transclude>'+
+      '<div class="br-expander-hide" ng-transclude>'+
       '</div>',
     transclude: true,
     link: link
@@ -160,17 +166,15 @@ function expanderContentDirective($timeout) {
 
 
     ctrl.contentHook(function (open) {
-      scope.$apply(function () {
-        scope.$brOpen = open;
+      scope.$brOpen = open;
 
-        $timeout(function () {
-          if (open === true) {
-            expandContent();
-          } else {
-            contractContent();
-          }
-        }, 0);
-      });
+      $timeout(function () {
+        if (open === true) {
+          expandContent();
+        } else {
+          contractContent();
+        }
+      }, 0);
     });
 
 
