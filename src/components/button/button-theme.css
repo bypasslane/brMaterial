@@ -21,6 +21,10 @@ a.br-button.br-THEME_NAME-theme.br-circle:not([disabled]):not(.br-mobile):hover,
 	background-color: '{{background-default}}';
 }
 
+.br-button .br-icon.br-THEME_NAME-theme {
+  color: inherit;
+}
+
 
 
 
