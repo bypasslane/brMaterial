@@ -30,6 +30,14 @@
         </div>
 
         <div ng-style="vm.pageHeight" class="nav-container">
+          <br-expander>
+            <br-expander-header>Title</br-expander-header>
+            <br-expander-content>
+              <br-button>test one</br-button>
+              <br-button>test two</br-button>
+            </br-expander-content>
+          </br-expander>
+          
           <div class="menu-fake">
             <img src="images/side_bar.png" width="220" height="611" />
           </div>
@@ -167,27 +175,7 @@
             <br-td>{{item.first + ' ' + item.last}}</br-td>
 
             <br-td style="cursor: pointer;">
-              <br-menu br-position-mode="right top" br-offset="0 32">
-                <div ng-click="$brOpenMenu($event)" layout="row" layout-align="start center"><br-icon br-font-icon="edit" br-size="14" style="padding-left: 4px;"></br-icon><div>{{item.phone}}</div></div>
-                <br-menu-content>
-                  <br-menu-item>
-                    <form name="tempform">
-                      <br-input style="height: 42px; overflow: hidden; margin: 0;">
-                        <input ng-model="item.phone" name="tempphone" required />
-                        <div ng-messages="tempform.tempphone.$error">
-                          <div ng-message="required">This is Required</div>
-                        </div>
-                      </br-input>
-                    </form>
-                  </br-menu-item>
-
-                  <!-- <br-menu-item>
-                    <div flex></div>
-                    <br-icon br-font-icon="close" br-color="#b93333"></br-icon>
-                    <br-icon br-font-icon="check" br-color="#3eb933"></br-icon>
-                  </br-menu-item> -->
-                </br-menu-content>
-              </br-menu>
+              {{item.last}}
             </br-td>
 
             <br-td>{{item.email}}</br-td>
@@ -273,8 +261,15 @@
     <div flex class="page-container" ng-if="vm.example === '4'">
       <h2>Side Content</h2>
 
+      <div layout="row" class="filter-bar">
+        <br-icon br-font-icon="search" style="line-height: 53px; padding-left: 12px; "></br-icon>
+        <input flex type="search" ng-model="vm.listFilter" placeholder="Search..." />
+
+        <br-button class="br-accent br-raised" ng-click="vm.addPerson($event);"><br-icon br-font-icon="add"></br-icon>Add Person</br-button>
+      </div>
+
       <br-list>
-        <br-item ng-repeat="item in vm.tableData" style="cursor: pointer;" ng-click="vm.selectPerson(item);">
+        <br-item ng-repeat="item in vm.tableData | filter:vm.listFilter" style="cursor: pointer;" ng-click="vm.selectPerson(item);">
           <br-item-content class="br-fill">
             <div flex class="br-item-title">{{item.first + ' ' + item.last}}</div>
             <div layout="row" layout-fill class="br-item-sub-title">
@@ -299,6 +294,8 @@
               <br-button class="br-accent br-raised" ng-disabled="personform.$invalid" ng-click="vm.cancelEdit();">Save</br-button>
             </div>
           </br-subheader>
+
+          <br-button class="br-accent br-raised" ng-click="vm.addPerson($event);">Add Venu</br-button>
 
           <div style="padding: 10px;">
             <form name="personform">
@@ -486,7 +483,7 @@
 }
 
 .form-container {
-  max-width: 600px;
+  /*max-width: 600px;*/
 }
 
 .form-container br-input {

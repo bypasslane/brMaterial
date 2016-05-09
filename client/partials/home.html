@@ -59,7 +59,7 @@
   <div style="padding-left: 200px">
     <br-select>
       <!-- <label>Menu Items</label> -->
-      <br-select-menu ng-model="vm.advancedSelected" ng-change="vm.advancedSeletChange();" placeholder="Seleect...">
+      <br-select-menu ng-model="vm.advancedSelected" ng-change="vm.advancedSeletChange();" placeholder="Seleect..." multiple>
         <br-select-header>
           <input type="search" ng-model="vm.selectFilter" placeholder="Search..." />
         </br-select-header>
@@ -110,8 +110,15 @@
   <br-button class="br-raised" style="color: #d0021b">Button</br-button>
   <br-button class="br-raised br-primary">Primary</br-button>
   <br-button class="br-raised br-accent">accent</br-button>
-  <br-button class="br-raised br-warn">warn</br-button>
-  <br-button class="br-raised br-primary" disabled="true"><br-icon br-font-icon="wifi"></br-icon>WIFI</br-button>
+  <br-button class="br-raised br-warn">
+    warn
+    <br-tooltip>Test</br-tooltip>
+  </br-button>
+  <br-button class="br-raised br-primary" disabled="true">
+    <br-icon br-font-icon="wifi"></br-icon>
+    WIFI
+    <br-tooltip>Test</br-tooltip>
+  </br-button>
   <br-button class="br-raised br-primary br-circle">1</br-button>
   <br-button class="br-raised br-warn br-circle br-small"><br-icon br-font-icon="cancel"></br-icon></br-button>
 </div>

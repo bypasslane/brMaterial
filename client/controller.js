@@ -3,10 +3,22 @@ angular
   .controller('HomeController', HomeController);
 
 
-HomeController.$inject = ['$scope', '$brDialog', '$timeout'];
-function HomeController($scope, $brDialog, $timeout) {
+HomeController.$inject = ['$scope', '$brDialog', '$timeout', '$brToast'];
+function HomeController($scope, $brDialog, $timeout, $brToast) {
   var vm = this;
 
+
+  $brToast.add({
+    message: 'Hello World',
+    accent: true
+    // positionMode: 'right bottom'
+  });
+
+  $brToast.add({
+    message: 'Hello World number 2',
+    primary: true
+    // positionMode: 'right bottom'
+  });
 
 
   vm.tableData = [
