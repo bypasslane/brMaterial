@@ -26,6 +26,9 @@
 .br-icon-schedule:before {
     content: "\e8b5";
 }
+.br-icon-accessibility:before {
+    content: "\e84e";
+}
 .br-icon-account_box:before {
     content: "\e851";
 }
@@ -77,6 +80,9 @@
 .br-icon-assignment:before {
     content: "\e85d";
 }
+.br-icon-assignment_ind:before {
+    content: "\e85e";
+}
 .br-icon-assignment_late:before {
     content: "\e85f";
 }
@@ -116,6 +122,9 @@
 .br-icon-turned_in:before {
     content: "\e8e6";
 }
+.br-icon-domain:before {
+    content: "\e7ee";
+}
 .br-icon-phone:before {
     content: "\e0cd";
 }
@@ -128,9 +137,6 @@
 .br-icon-chat_bubble:before {
     content: "\e0ca";
 }
-.br-icon-check:before {
-    content: "\e5ca";
-}
 .br-icon-close:before {
     content: "\e5cd";
 }
@@ -139,6 +145,9 @@
 }
 .br-icon-photo_library:before {
     content: "\e413";
+}
+.br-icon-content_paste:before {
+    content: "\e14f";
 }
 .br-icon-edit:before {
     content: "\e254";
@@ -152,14 +161,32 @@
 .br-icon-crop_rotate:before {
     content: "\e437";
 }
+.br-icon-data_usage:before {
+    content: "\e1af";
+}
 .br-icon-dehaze:before {
     content: "\e3c7";
+}
+.br-icon-delete:before {
+    content: "\e872";
 }
 .br-icon-not_interested:before {
     content: "\e033";
 }
+.br-icon-remove_circle:before {
+    content: "\e15c";
+}
+.br-icon-done:before {
+    content: "\e876";
+}
 .br-icon-done_all:before {
     content: "\e877";
+}
+.br-icon-edit_location:before {
+    content: "\e568";
+}
+.br-icon-equalizer:before {
+    content: "\e01d";
 }
 .br-icon-error:before {
     content: "\e000";
@@ -176,6 +203,9 @@
 .br-icon-event_note:before {
     content: "\e616";
 }
+.br-icon-extension:before {
+    content: "\e87b";
+}
 .br-icon-favorite:before {
     content: "\e87d";
 }
@@ -191,17 +221,41 @@
 .br-icon-filter_list:before {
     content: "\e152";
 }
+.br-icon-folder_shared:before {
+    content: "\e2c9";
+}
 .br-icon-question_answer:before {
     content: "\e8af";
 }
 .br-icon-forward:before {
     content: "\e154";
 }
+.br-icon-free_breakfast:before {
+    content: "\eb44";
+}
+.br-icon-people:before {
+    content: "\e7fb";
+}
+.br-icon-group_add:before {
+    content: "\e7f0";
+}
 .br-icon-help:before {
     content: "\e887";
 }
+.br-icon-help_outline:before {
+    content: "\e8fd";
+}
+.br-icon-home:before {
+    content: "\e88a";
+}
 .br-icon-photo:before {
     content: "\e410";
+}
+.br-icon-info:before {
+    content: "\e88e";
+}
+.br-icon-info_outline:before {
+    content: "\e88f";
 }
 .br-icon-keyboard_arrow_down:before {
     content: "\e313";
@@ -233,14 +287,26 @@
 .br-icon-shopping_cart:before {
     content: "\e8cc";
 }
+.br-icon-local_library:before {
+    content: "\e54b";
+}
 .br-icon-local_offer:before {
     content: "\e54e";
+}
+.br-icon-print:before {
+    content: "\e8ad";
+}
+.br-icon-location_city:before {
+    content: "\e7f1";
 }
 .br-icon-location_off:before {
     content: "\e0c7";
 }
 .br-icon-room:before {
     content: "\e8b4";
+}
+.br-icon-lock_outline:before {
+    content: "\e899";
 }
 .br-icon-more_horiz:before {
     content: "\e5d3";
@@ -266,6 +332,12 @@
 .br-icon-pause:before {
     content: "\e034";
 }
+.br-icon-people_outline:before {
+    content: "\e7fc";
+}
+.br-icon-person_outline:before {
+    content: "\e7ff";
+}
 .br-icon-play_arrow:before {
     content: "\e037";
 }
@@ -290,6 +362,9 @@
 .br-icon-remove_shopping_cart:before {
     content: "\e928";
 }
+.br-icon-save:before {
+    content: "\e161";
+}
 .br-icon-search:before {
     content: "\e8b6";
 }
@@ -298,6 +373,15 @@
 }
 .br-icon-sort_by_alpha:before {
     content: "\e053";
+}
+.br-icon-store_mall_directory:before {
+    content: "\e563";
+}
+.br-icon-style:before {
+    content: "\e41d";
+}
+.br-icon-supervisor_account:before {
+    content: "\e8d3";
 }
 .br-icon-swap_horiz:before {
     content: "\e8d4";
@@ -313,6 +397,9 @@
 }
 .br-icon-wrap_text:before {
     content: "\e25b";
+}
+.br-icon-youtube_searched_for:before {
+    content: "\e8fa";
 }
 .br-icon-zoom_in:before {
     content: "\e8ff";
