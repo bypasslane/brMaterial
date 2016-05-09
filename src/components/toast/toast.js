@@ -105,7 +105,7 @@ function toastService($animateCss, $compile, $rootScope, $document, $brUtil, $ti
       .then(function () {
         toastElement.remove();
         scope = undefined;
-        isToast = false
+        isToast = false;
         nextToast();
       });
     }
