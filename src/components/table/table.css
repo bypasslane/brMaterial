@@ -125,7 +125,7 @@ br-td {
 
 br-th,
 br-td {
-  direction: rtl;
+  text-align: right;
   padding-left: 24px;
   padding-right: 0;
   flex: 1;
