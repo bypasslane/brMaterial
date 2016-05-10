@@ -1,3 +1,9 @@
+/**
+ * @ngdoc module
+ * @name button
+ * @description
+ * Button
+ */
 angular
   .module('brMaterial')
   .directive('brButton', brButtonDirective);
@@ -6,6 +12,7 @@ angular
 /**
  * @ngdoc directive
  * @name brButton
+ * @module button
  *
  * @description
  * The <br-button> can be a button with txt, icons, or anything else you want

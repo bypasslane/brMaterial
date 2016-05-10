@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="docsApp">
+  <head>
+    <meta name="viewport" content="initial-scale=1">
+    <title>Bypass Real Material</title>
+
+    <link rel="stylesheet" href="modules/brmaterial/brmaterial.css">
+
+    <script src="modules/angular/angular.js"></script>
+  	<script src="modules/angular/angular-route.js"></script>
+  	<script src="modules/angular/angular-messages.js"></script>
+  	<script src="modules/angular/angular-animate.js"></script>
+    <script src="modules/brmaterial/brmaterial.js"></script>
+
+  </head>
+
+  <body>
+    <div layout="row">
+      <br-side-content br-is-locked-open="$brMedia('md')" class="br-side-content-left" br-component-id="navMenuSideContent" br-width="220">
+        <nav-menu>
+          <nav-menu-item ng-repeat="item in vm.menu">
+
+            <br-button ng-if="item.link !== undefined" ng-href="{{item.link || '/'}}">
+              <br-icon br-font-icon="{{item.icon}}"></br-icon>
+              {{item.label}}
+            </br-button>
+
+            <nav-menu-expander ng-if="item.sub !== undefined" label="item.label" icon="item.icon">
+              <br-button ng-if="sub.link !== undefined" ng-repeat="sub in item.sub" ng-href="{{sub.link || '.'}}">
+                <br-icon br-font-icon="{{sub.icon}}"></br-icon>
+                {{sub.label}}
+              </br-button>
+            </nav-menu-expander>
+
+          </nav-menu-item>
+        </nav-menu>
+      </br-side-content>
+
+      <ui-view flex></ui-view>
+    </div>
+  </body>
+</html>

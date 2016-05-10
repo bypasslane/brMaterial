@@ -1,78 +1,62 @@
+var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
-var server = require('gulp-webserver');
 var jshint = require('gulp-jshint');
-var flatten = require('gulp-flatten');
 var gutil = require('gulp-util');
 var autoprefixer = require('gulp-autoprefixer');
 var inject = require('gulp-inject');
-var through = require('through2');
 var gulpFilter = require('gulp-filter');
 var concat = require('gulp-concat');
 var cssnano = require('gulp-cssnano');
-var del = require('del');
-var runSequence = require('run-sequence');
-var wrap = require("gulp-wrap");
-var del = require('del');
 var uglify = require('gulp-uglify');
+var del = require('del');
+var gulpSequence = require('gulp-sequence');
+var wrap = require("gulp-wrap");
 var stripDebug = require('gulp-strip-debug');
 var bump = require('gulp-bump');
-var templateCache = require('gulp-angular-templatecache');
+var serve = require('gulp-serve');
 var rename = require("gulp-rename");
-var bump = require('gulp-bump');
+var through2 = require('through2');
+var lazypipe = require('lazypipe');
+var gulpif = require('gulp-if');
+var _ = require('lodash');
+var mkdirp = require('mkdirp');
+var Dgeni = require('dgeni');
 
 
-
-var BASE = 'src/';
+var SRC_ROOT = 'src/';
 var paths = {
-  appScripts: ['src/core/core.js', 'src/**/*.js'],
-  scripts: ['client/app.js', 'client/controller.js', 'client/exampleController.js', 'src/**/*.js'],
-  css: ['src/core/*.css', 'src/components/**/*.css'],
-  index: ['client/index.html'],
-  partials: ['client/partials/*.html'],
-  font: ['src/core/brMaterialIcons.woff'],
-  images: ['client/images/*.png', 'client/images/*.jpg']
+  scripts: [SRC_ROOT + 'core/core.js', SRC_ROOT + '**/*.js'],
+  css: [SRC_ROOT + 'core/*.css', SRC_ROOT + 'components/**/*.css'],
+  font: [SRC_ROOT + 'core/brMaterialIcons.woff'],
 };
 
 
 
 
 
+// Default task
+// gulp.task('default', gulpSequence(
+//   'clean',
+//   'copyIndex',
+//   'copyPartials',
+//   'config',
+//   'buildJS',
+//   'buildCSS',
+//   'injectBower',
+//   'injectJs',
+//   'injectCss',
+//   'watch',
+//   'fileServer'
+// ));
 
-gulp.task('default', function () {
-  runSequence(
-    'clean',
-    'copyIndex',
-    'copyPartials',
-    'copyFont',
-    'copyImages',
-    'copyAngular',
-    'build',
-    ['webserver', 'watch']
-  );
+
+gulp.task('docs-generate', function() {
+  var dgeni = new Dgeni([
+    require('./docs/config')
+  ]);
+  return dgeni.generate();
 });
-
-
-
-// --- Docs ----
-gulp.task('doc', function () {
-
-});
-
-
-
-
-// --- Webserver --------------------------------
-
-gulp.task('webserver', function () {
-  setTimeout(function () {
-    gulp.src('public')
-      .pipe(server({
-        port: '8081',
-        host: '0.0.0.0',
-      }));
-    }, 1000);
-});
-
 
 
 // --- Version Tasks ----
@@ -99,240 +83,182 @@ gulp.task('patch', function(){
 
 
 
-// --- Clean Path -------
-gulp.task('clean', function () {
-  return del(['public/']);
+gulp.task('demos', function() {
+  var demos = [];
+  return generateDemos()
+    .pipe(through2.obj(function(demo, enc, next) {
+      // Don't include file contents into the docs app,
+      // it saves space
+      demo.css.concat(demo.js).concat(demo.html).concat(demo.index)
+        .forEach(function(file) {
+          delete file.contents;
+        });
+      demos.push(demo);
+      next();
+    }, function(done) {
+      var demoIndex = _(demos)
+        .groupBy('moduleName')
+        .map(function(moduleDemos, moduleName) {
+          var componentName = moduleName.split('.').pop();
+          return {
+            name: componentName,
+            moduleName: moduleName,
+            label: humanizeCamelCase(componentName),
+            demos: moduleDemos,
+            url: 'demo/' + componentName
+          };
+        })
+        .value();
+
+      var dest = path.resolve(__dirname, 'dist/docs/js');
+      var file = "angular.module('docsApp').constant('DEMOS', " +
+        JSON.stringify(demoIndex, null, 2) + ");";
+      mkdirp.sync(dest);
+      fs.writeFileSync(dest + '/demo-data.js', file);
+
+      done();
+    }));
 });
 
-
-
-// --- Copy Angular -------
-gulp.task('copyAngular', function () {
-  gulp.src(['angular/*.js'])
-    .pipe(gulp.dest('public'));
+gulp.task('gen', function () {
+  return generateDemos();
 });
+function generateDemos() {
+  return gulp.src(SRC_ROOT + 'components/*/')
+    .pipe(through2.obj(function(folder, enc, next) {
+      var self = this;
+      var split = folder.path.split(path.sep);
+      var name = split.pop();
+      var moduleName = name;
 
-// --- Copy Images -------
-gulp.task('copyImages', function () {
-  gulp.src(paths.images)
-    .pipe(gulp.dest('public/images'));
-});
+      copyDemoAssets(name, SRC_ROOT + 'components/', 'dist/docs/demo-partials/');
 
-// --- Copy Angular -------
-gulp.task('copyIndex', function () {
-  gulp.src(paths.index)
-    .pipe(gulp.dest('public'));
-});
+      readModuleDemos(moduleName, function(demoId) {
+        return lazypipe()
+          .pipe(gulpif, /.css$/, transformCss(demoId))
+          .pipe(gulp.dest, 'dist/docs/demo-partials/' + name)
+        ();
+      })
+        .on('data', function(demo) {
+          self.push(demo);
+        })
+        .on('end', next);
 
-
-// --- Copy partials -------
-gulp.task('copyPartials', function () {
-  gulp.src(paths.partials)
-    .pipe(gulp.dest('public/partials/'));
-});
-
-// --- Copy Font -------
-gulp.task('copyFont', function () {
-  gulp.src(paths.font)
-    .pipe(gulp.dest('public/stylesheets/core/'));
-});
-
-
-
-
-// --- Build ---------------------------
-
-gulp.task('build', function () {
-  buildTheme();
-  buildCSS(paths.css, function () {
-    injectCss();
-  });
-  buildJS(paths.scripts, function () {
-    injectJs();
-  });
-});
-
-
-
-
-// --- watcher --------------------------------
-
-gulp.task('watch', function () {
-
-  // JS
-  gulp.watch(paths.scripts, function (event) {
-    buildJS(event.path, function () {
-      if (event.type === 'added') {
-        injectJs();
+      function transformCss(demoId) {
+        return lazypipe()
+          .pipe(through2.obj, function(file, enc, next) {
+            file.contents = new Buffer(
+              '.' + demoId + ' {\n' + file.contents.toString() + '\n}'
+            );
+            next(null, file);
+          })
+        ();
       }
+    }));
+}
+
+function copyDemoAssets(component, srcDir, distDir) {
+  gulp.src(srcDir + component + '/demo*/')
+      .pipe(through2.obj(copyAssetsFor));
+
+  function copyAssetsFor(demo, enc, next) {
+    var demoID = component + "/" + path.basename(demo.path);
+    var demoDir = demo.path + "/**/*";
+    var notJS  = '!' + demoDir + '.js';
+    var notCSS = '!' + demoDir + '.css';
+    var notHTML= '!' + demoDir + '.html';
+
+    gulp.src([demoDir, notJS, notCSS, notHTML])
+        .pipe(gulp.dest(distDir + demoID));
+
+    next();
+  }
+}
+
+
+
+function readModuleDemos(moduleName, fileTasks) {
+  var name = moduleName.split('.').pop();
+  return gulp.src(SRC_ROOT + 'components/' + name + '/demo*/')
+    .pipe(through2.obj(function(demoFolder, enc, next) {
+      var demoId = name + path.basename(demoFolder.path);
+      var srcPath = demoFolder.path.substring(demoFolder.path.indexOf(SRC_ROOT) + 4);
+      var split = srcPath.split('/');
+
+      var demo = {
+        ngModule: '',
+        id: demoId,
+        css:[], html:[], js:[]
+      };
+
+      gulp.src(demoFolder.path + '/**/*', { base: path.dirname(demoFolder.path) })
+        .pipe(fileTasks(demoId))
+        .pipe(through2.obj(function(file, enc, cb) {
+          if (/index.html$/.test(file.path)) {
+            demo.moduleName = moduleName;
+            demo.name = path.basename(demoFolder.path);
+            demo.label = humanizeCamelCase(path.basename(demoFolder.path).replace(/^demo/, ''));
+            demo.id = demoId;
+            demo.index = toDemoObject(file);
+
+          } else {
+            var fileType = path.extname(file.path).substring(1);
+            if (fileType == 'js') {
+              demo.ngModule = demo.ngModule || findAnyModule(file.contents.toString());
+            }
+            demo[fileType] && demo[fileType].push(toDemoObject(file));
+          }
+          cb();
+        }, function(done) {
+          next(null, demo);
+        }));
+
+      function toDemoObject(file) {
+        return {
+          contents: file.contents.toString(),
+          name: path.basename(file.path),
+          label: path.basename(file.path),
+          fileType: path.extname(file.path).substring(1),
+          outputPath: 'demo-partials/' + name + '/' + path.basename(demoFolder.path) + '/' + path.basename(file.path)
+        };
+      }
+    }));
+}
+
+
+
+function humanizeCamelCase(str) {
+  return str.charAt(0).toUpperCase() + str.substring(1).replace(/[A-Z]/g, function ($1) {
+      return ' ' + $1.toUpperCase();
     });
-  });
+}
 
 
-  // CSS
-  gulp.watch(paths.css, function (event) {
 
-    // theme files
-    if (event.path.indexOf('-theme.css') > -1) {
-      buildTheme();
 
-    // non theme files
-    } else {
-      buildCSS(event.path, function () {
-        if (event.type === 'added') {
-          injectCss();
-        }
+
+
+// TODO move to module
+var ANY = /\.module\(('[^']*'|"[^"]*")\s*,(?:\s*\[([^\]]+)\])?/;
+var findAnyModule = buildScanner(ANY);
+function buildScanner(pattern) {
+  return function findPatternIn(content) {
+    var dependencies;
+    var match = pattern.exec(content || '');
+    var moduleName = match ? match[1].replace(/\'/gi,'') : null;
+    var depsMatch = match && match[2] && match[2].trim();
+
+    if (depsMatch) {
+      dependencies = depsMatch.split(/\s*,\s*/).map(function(dep) {
+        dep = dep.trim().slice(1, -1); //remove quotes
+        return dep;
       });
     }
-  });
 
-
-
-  gulp.watch(paths.partials, function (event) {
-    gulp.src(event.path)
-      .pipe(gulp.dest('public/partials/'));
-  });
-});
-
-
-
-
-
-
-
-
-// --- Release ---
-
-gulp.task('release', function (done) {
-
-  // font
-  gulp.src(paths.font)
-    .pipe(gulp.dest('dist/'));
-
-  // theme
-  gulp.src(paths.css)
-    .pipe(gulpFilter(function (file) {
-      return /-theme/.test(file.path);
-    }))
-    .pipe(concat('theme.js'))
-    .pipe(cssnano())
-    .pipe(cssToConstant())
-    .pipe(gulp.dest('src/'))
-    .on('end', function() {
-
-      // js
-      gulp.src(paths.appScripts, {base: BASE})
-        .pipe(wrap('(function(){"use strict";<%= contents %>}());'))
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(jshint.reporter('fail'))
-        .pipe(concat('brmaterial.js'))
-        .pipe(gulp.dest('dist/'))
-        .pipe(stripDebug())
-        .pipe(uglify())
-        .pipe(rename('brmaterial.min.js'))
-        .pipe(gulp.dest('dist/'))
-        .on('end', function () {
-
-          // css
-          gulp.src(paths.css, {base: BASE})
-            .pipe(gulpFilter(function (file) {
-              return file.path.indexOf('-theme') === -1;
-            }))
-            .pipe(autoprefixer())
-            .pipe(concat('brmaterial.css'))
-            .pipe(cssnano())
-            .pipe(gulp.dest('dist/'))
-            .on('end', function () {
-              del(['src/theme.js']);
-              gutil.log(gutil.colors.green('✔ Release'), 'Build Successful');
-            });
-        });
-    });
-});
-
-
-
-
-
-
-
-
-// --- helpers --------
-
-
-
-function injectCss() {
-  gulp.src('public/index.html')
-    .pipe(inject(gulp.src(['public/stylesheets/*.css', 'public/stylesheets/**/*.css'], {read: false}), {relative: true, ignorePath: '../public/'}))
-    .pipe(gulp.dest('public'));
-}
-
-function injectJs() {
-  gulp.src('public/index.html')
-    .pipe(inject(gulp.src(['public/javascripts/core/core.js', 'public/client/*js', 'public/javascripts/**/*.js'], {read: false}), {relative: true, ignorePath: '../public/'}))
-    .pipe(gulp.dest('public'));
-}
-
-
-function buildJS(path, callback) {
-  gulp.src(path, {base: BASE})
-    .pipe(wrap('(function(){"use strict";<%= contents %>}());'))
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest('public/javascripts/'))
-    .on('end', function() {
-      // gutil.log(gutil.colors.green('✔ JS build'), 'Finished');
-      if (typeof callback === 'function') callback();
-    });
-}
-
-
-function buildCSS(path, callback) {
-  gulp.src(path, {base: BASE})
-    .pipe(gulpFilter(function (file) {
-      return file.path.indexOf('-theme') === -1;
-    }))
-    .pipe(autoprefixer())
-    .pipe(gulp.dest('public/stylesheets/'))
-    .on('end', function(){
-      gutil.log(gutil.colors.green('✔ CSS build'), 'Finished');
-      if (typeof callback === 'function') callback();
-    });
-}
-
-
-
-
-function buildTheme() {
-  gulp.src(paths.css)
-    .pipe(gulpFilter(function (file) {
-      return /-theme/.test(file.path);
-    }))
-    .pipe(concat('theme.js'))
-    .pipe(cssnano())
-    .pipe(cssToConstant())
-    .pipe(gulp.dest('public/javascripts/core'))
-    .on('end', function() {
-      gutil.log(gutil.colors.green('✔ Theme build'), 'Finished');
-    });
-}
-
-
-function cssToConstant () {
-  return through.obj(function (file, enc, next) {
-    var template = '(function(){ \nangular.module("brMaterial").constant("$BR_THEME_CSS", "%1"); \n})();\n\n';
-    var output = file.contents.toString().replace(/\n/g, '').replace(/\"/g,'\\"');
-
-    var jsFile = new gutil.File({
-      base: file.base,
-      path: file.path.replace('css', 'js'),
-      contents: new Buffer(
-        template.replace('%1', output)
-      )
-    });
-
-    this.push(jsFile);
-    next();
-  });
+    return match ? {
+      name         : moduleName || '',
+      module       : moduleName || '',
+      dependencies : dependencies || [ ]
+    } : null;
+  }
 }
