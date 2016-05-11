@@ -48,7 +48,6 @@ function repeateDirective ($parse, $document, $timeout) {
     var repeatListExpression = $parse(match[2]);
     var extraName = tAttrs.brExtraName && $parse(tAttrs.brExtraName);
 
-
     return function link(scope, element, attrs, ctrl, transclude) {
       var containerCtrl = ctrl[0];
       var items;
@@ -101,7 +100,6 @@ function repeateDirective ($parse, $document, $timeout) {
         var newStartBlocks_ = [];
         var newEndBlocks_ = [];
 
-
         // If the number of items shrank, scroll up to the top.
         if (items && itemsLength < items.length && containerCtrl.getScrollOffset() !== 0) {
           items = newItems;
@@ -110,6 +108,7 @@ function repeateDirective ($parse, $document, $timeout) {
         }
 
         if (itemsLength_ !== itemsLength) {
+          containerCtrl.updateAutoHeight();
           lengthChanged = true;
           itemsLength = itemsLength_;
         }

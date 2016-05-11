@@ -26,7 +26,7 @@ function brInfiniteRepeatContainer() {
   var directive = {
     template: getTemplate,
     compile: compile,
-    controller: ['$scope', '$element', '$attrs', '$$rAF', '$parse', '$window', controller]
+    controller: ['$scope', '$element', '$attrs', '$parse', '$$rAF', '$window', controller]
   };
   return directive;
 
@@ -49,7 +49,7 @@ function brInfiniteRepeatContainer() {
 
 
 
-  function controller($scope, $element, $attrs, $$rAF, $parse, $window) {
+  function controller($scope, $element, $attrs, $parse, $$rAF, $window) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -65,6 +65,10 @@ function brInfiniteRepeatContainer() {
     var offsetter = scroller.querySelector('.br-infinite-repeat-offsetter');
     var sizer = scroller.querySelector('.br-infinite-repeat-sizer');
 
+    var isHeight = $element.css('height') || undefined;
+    var isAutoHeight = $attrs.brAutoHeight !== undefined;
+    var updateAutoHeightThrottle = $$rAF.throttle(updateAutoHeight);
+
 
     vm.getSize = getSize;
     vm.getScrollOffset = getScrollOffset;
@@ -73,7 +77,7 @@ function brInfiniteRepeatContainer() {
     vm.resetScroll = resetScroll;
     vm.setScrollTop = setScrollTop;
     vm.setTransform = setTransform;
-
+    vm.updateAutoHeight = checkAutoHeight;
 
 
     if ($attrs.brMinWidth !== undefined) {
@@ -92,6 +96,27 @@ function brInfiniteRepeatContainer() {
     $scope.$watch(function () { return $element.css('height'); }, function (data) {
       updateSize();
     });
+
+
+
+    if (isHeight === undefined && $attrs.brAutoHeight !== undefined) {
+      updateAutoHeightThrottle();
+
+      $scope.$watch(function () { return $element[0].offsetHeight; }, function (data){
+        updateAutoHeightThrottle();
+      });
+    }
+
+    function updateAutoHeight() {
+      var rect = $element[0].getBoundingClientRect();
+      $element.css('height', ($window.innerHeight - rect.top) + 'px');
+    }
+
+    function checkAutoHeight() {
+      if (isAutoHeight) {
+        updateAutoHeightThrottle();
+      }
+    }
 
 
 
@@ -133,6 +158,9 @@ function brInfiniteRepeatContainer() {
     // --- Private ----
 
     function updateSize() {
+      if (isAutoHeight === true) {
+        updateAutoHeightThrottle();
+      }
       size = $element[0].clientHeight;
       if (typeof updateRepeat === 'function') { updateRepeat(); }
     }

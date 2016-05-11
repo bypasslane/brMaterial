@@ -66,13 +66,13 @@ function brContentDirective ($brTheme, $window, $$rAF) {
 
 
 
-    function updateAll () {
+    function updateAll() {
       var rect = element[0].getBoundingClientRect();
-      element.css('height', ($window.innerHeight - rect.y) + 'px');
+      element.css('height', ($window.innerHeight - rect.top) + 'px');
     }
 
 
-    function getOverflowParent () {
+    function getOverflowParent() {
       var parent = element.parent();
 
       while (parent !== undefined && hasComputedStyleValue('overflowY', parent[0]) === false) {

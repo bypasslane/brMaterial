@@ -82,7 +82,7 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
   }
 
 
-  function controller ($scope, $element) {
+  function controller($scope, $element) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -101,12 +101,12 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
 
 
 
-    function init (ngModelCtrl_) {
+    function init(ngModelCtrl_) {
       vm.ngModelCtrl = ngModelCtrl_;
       vm.ngModelCtrl.$render = render;
     }
 
-    function render () {
+    function render() {
       var viewValue = vm.ngModelCtrl.$viewValue || [];
 
       vm.itemRenderFuncs.forEach(function (itemRender) {
@@ -114,7 +114,7 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
       });
     }
 
-    function checkValue (value) {
+    function checkValue(value) {
       var viewValue = vm.ngModelCtrl.$viewValue || [];
 
       // filter out model if the length is greater that max selection
@@ -131,12 +131,12 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
     }
 
 
-    function add (renderFunc) {
+    function add(renderFunc) {
       vm.itemRenderFuncs.push(renderFunc);
       renderFunc();
     }
 
-    function remove (renderFunc) {
+    function remove(renderFunc) {
       var index = vm.itemRenderFuncs.indexOf(renderFunc);
       if (index !== -1) {
         vm.itemRenderFuncs.splice(index, 1);
@@ -144,7 +144,7 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
     }
 
 
-    function addViewValue (value, eventType) {
+    function addViewValue(value, eventType) {
       var viewValue = vm.ngModelCtrl.$viewValue || [];
 
       viewValue.push(value);
@@ -157,7 +157,7 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
       }
     }
 
-    function removeViewValue (value, eventType) {
+    function removeViewValue(value, eventType) {
       var viewValue = vm.ngModelCtrl.$viewValue || [];
       var index = viewValue.indexOf(value);
 
@@ -221,6 +221,7 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
     });
 
     return function link (scope, element, attr, listController) {
+      if (listController === null) { return; }
       var selectTemplate;
       var maxWidth;
       var controlsWidth;
@@ -273,12 +274,17 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
       }
 
 
+      if (attr.brRowSelect !== undefined) {
+        element.on('click', listener);
+        selectTemplate.off('click', listener);
+      }
+
 
 
       // --- Select function ----------------
 
 
-      function listener  (ev) {
+      function listener (ev) {
         scope._checked = !scope._checked;
 
         scope.$apply(function () {
@@ -292,16 +298,18 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
         });
       }
 
-      function renderCheckBox () {
+      function renderCheckBox() {
         var check = listController.checkValue(getValue());
 
         if (scope._checked !== check) {
           scope._checked = check;
         }
+
+        element.toggleClass('br-selected', scope._checked);
       }
 
 
-      function getValue () {
+      function getValue() {
         if(brSelect !== '') {
           return scope.$eval(brSelect);
         }

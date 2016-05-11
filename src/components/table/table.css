@@ -133,6 +133,7 @@ br-td {
 }
 br-th:first-of-type,
 br-td:first-of-type {
+  text-align: left;
   padding-left: 0;
   padding-right: 54px;
 }

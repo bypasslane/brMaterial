@@ -40,6 +40,7 @@ br-input .br-input {
   border-radius: 3px;
   border-style: solid;
   width: 100%;
+  min-width: 140px;
   box-sizing: border-box;
   float: left;
   box-shadow: none;

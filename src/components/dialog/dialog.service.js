@@ -109,7 +109,7 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    * @param {scope} [options.allowBack] - By default the browser back button will run cancel on the dialog and prevent navigation, you can turn this off
    *
    */
-  function add (options) {
+  function add(options) {
     if (dialogBox) {
       console.log('$brDialog.add() : You cannot add more than one Dialog at a time');
       return;
