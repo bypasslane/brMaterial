@@ -1,6 +1,5 @@
 br-checkbox {
   box-sizing: border-box;
-  display: inline-block;
   margin-bottom: 16px;
   white-space: nowrap;
   cursor: pointer;
@@ -8,7 +7,8 @@ br-checkbox {
   user-select: none;
   position: relative;
   min-width: 20px;
-  min-height: 20px;
+  min-height: 24px;
+  line-height: 24px;
   margin-left: inherit;
   margin-right: 16px;
 }
@@ -104,6 +104,7 @@ br-checkbox.br-checked .br-icon:after {
 }
 
 br-checkbox .br-label {
+  font-size: 13px;
   box-sizing: border-box;
   position: relative;
   display: inline-block;
