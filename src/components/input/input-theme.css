@@ -9,12 +9,12 @@ br-input.br-THEME_NAME-theme ::placeholder {
 
 br-input.br-THEME_NAME-theme label,
 br-input.br-THEME_NAME-theme .br-placeholder {
-  color: '{{font-light-4}}';
-}
-
-br-input.br-THEME_NAME-theme label {
   color: '{{font-light-2}}';
 }
+
+/*br-input.br-THEME_NAME-theme label {
+  color: '{{font-light-2}}';
+}*/
 
 br-input.br-THEME_NAME-theme:not(.br-input-invalid).br-input-has-value label {
   color: '{{font-light-3}}';

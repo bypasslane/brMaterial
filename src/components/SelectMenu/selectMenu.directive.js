@@ -64,7 +64,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
     var isStickTop = false;
     var selectMenuCtrl = ctrls[0];
     var containerCtrl = ctrls[1];
-    var ngModelCtrl = ctrls[2];
+    var ngModelCtrl = ctrls[2] || $brUtil.fakeNgModel();
     var selectLabel = element[0].parentNode.querySelector('label');
     var placeholder = attr.placeholder !== undefined ? attr.placeholder : selectLabel !== null ? selectLabel.innerHTML : '';
     var isReadonly = attr.readonly !== undefined;
