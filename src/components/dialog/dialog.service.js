@@ -143,7 +143,9 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
     var linkFunc = $compile(element);
 
     if (options.controller) {
-      var invokeCtrl = $controller(options.controller, {}, true);
+      options.locals = options.locals || {};
+      options.locals.$scope = scope;
+      var invokeCtrl = $controller(options.controller, options.locals, true);
       var ctrl = invokeCtrl();
       element.data('$ngControllerController', ctrl);
       element.children().data('$ngControllerController', ctrl);
