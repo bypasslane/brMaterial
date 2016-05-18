@@ -49,7 +49,32 @@ function brSubheaderDirective ($brTheme, $compile, $brSticky) {
         getContent(element).append(clone);
       });
 
-      if (element.hasClass('br-no-sticky') === false) {
+
+      scope.$watch(function () { return element.attr('br-no-sticky'); }, function (data) {
+        if (data !== undefined) {
+          removeSticky();
+        } else {
+          addSticky();
+        }
+      });
+
+
+      // if (attrs.brNoSticky === undefined) {
+      //   transclude(scope, function(clone) {
+      //     var stickyClone = $compile(angular.element(outerHTML))(scope);
+      //     getContent(stickyClone).append(clone);
+      //     $brSticky(scope, element, stickyClone, angular.isDefined(attrs.brHorizontalScroll));
+      //   });
+      // }
+
+
+
+
+      function removeSticky() {
+        scope.$broadcast('$removeSticky');
+      }
+
+      function addSticky() {
         transclude(scope, function(clone) {
           var stickyClone = $compile(angular.element(outerHTML))(scope);
           getContent(stickyClone).append(clone);
