@@ -108,11 +108,13 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
       valueElement.toggleClass('br-disabled', !!disabled);
 
       if (disabled === true) {
+        containerElement.off('keydown', handleKeypress);
         element
           .removeAttr('tabindex')
           .off('click', openSelect)
           .off('keydown', handleKeypress);
       } else {
+        containerElement.on('keydown', handleKeypress);
         element
           .attr({'tabindex': attr.tabindex})
           .on('click', openSelect)
@@ -123,6 +125,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
     if (attr.disabled === undefined && attr.ngDisabled === undefined) {
       element.on('click', openSelect);
       element.on('keydown', handleKeypress);
+      containerElement.on('keydown', handleKeypress);
     }
 
     if (attr.multiple !== undefined) {

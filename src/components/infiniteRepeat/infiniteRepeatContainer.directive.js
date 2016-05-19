@@ -26,7 +26,7 @@ function brInfiniteRepeatContainer() {
   var directive = {
     template: getTemplate,
     compile: compile,
-    controller: ['$scope', '$element', '$attrs', '$parse', '$$rAF', '$window', controller]
+    controller: ['$scope', '$element', '$attrs', '$parse', '$$rAF', '$window', '$brUtil', controller]
   };
   return directive;
 
@@ -49,7 +49,7 @@ function brInfiniteRepeatContainer() {
 
 
 
-  function controller($scope, $element, $attrs, $parse, $$rAF, $window) {
+  function controller($scope, $element, $attrs, $parse, $$rAF, $window, $brUtil) {
     /* jshint validthis: true */
     var vm = this;
 
@@ -64,6 +64,7 @@ function brInfiniteRepeatContainer() {
     var scroller = $element[0].querySelector('.br-infinite-repeat-scroller');
     var offsetter = scroller.querySelector('.br-infinite-repeat-offsetter');
     var sizer = scroller.querySelector('.br-infinite-repeat-sizer');
+    var isCardChild = $brUtil.getClosest($element, 'br-expanded-content') !== null;
 
     var isHeight = $element.css('height') || undefined;
     var isAutoHeight = $attrs.brAutoHeight !== undefined;
@@ -109,7 +110,11 @@ function brInfiniteRepeatContainer() {
 
     function updateAutoHeight() {
       var rect = $element[0].getBoundingClientRect();
-      $element.css('height', ($window.innerHeight - rect.top) + 'px');
+      var innerHeight = $window.innerHeight;
+      if (isCardChild === true) {
+        innerHeight -= 30;
+      }
+      $element.css('height', (innerHeight - rect.top) + 'px');
     }
 
     function checkAutoHeight() {
