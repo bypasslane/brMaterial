@@ -262,18 +262,18 @@ br-select-header input {
   padding-left: 16px;
 }
 
-br-select-menu[multiple] .br-optiongroups-container .br-button span {
+.br-optiongroups-container.br-multiple .br-button span {
   padding-left: 42px;
 }
 
 
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled {
   padding-left: 40px;
   padding-right: 16px;
 }
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled .br-select-icon-container {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled .br-select-icon-container {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -287,7 +287,7 @@ br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox
   margin-right: auto;
 }
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled .br-select-menu-icon {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled .br-select-menu-icon {
   box-sizing: border-box;
   transition: 240ms;
   position: absolute;
@@ -300,11 +300,11 @@ br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox
   border-radius: 2px;
 }
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled[selected] .br-select-menu-icon {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled[selected] .br-select-menu-icon {
   border: none;
 }
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled[selected] .br-select-menu-icon:after {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled[selected] .br-select-menu-icon:after {
   box-sizing: border-box;
   transform: rotate(45deg);
   position: absolute;
@@ -321,7 +321,7 @@ br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox
 }
 
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled .br-select-menu-icon:before {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled .br-select-menu-icon:before {
   box-sizing: border-box;
   background-color: transparent;
   border-radius: 50%;
@@ -339,7 +339,7 @@ br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox
 
 
 
-br-select-menu[multiple] .br-optiongroups-container br-option.br-select-checkbox-enabled .br-select-menu-icon:after {
+.br-optiongroups-container.br-multiple br-option.br-select-checkbox-enabled .br-select-menu-icon:after {
   box-sizing: border-box;
   content: '';
   position: absolute;

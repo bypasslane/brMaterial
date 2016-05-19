@@ -3,7 +3,8 @@ angular
   .directive('brSelectMenu', selectMenuDirective)
   .directive('brOptionGroup', optionGroupDirective)
   .directive('brOption', optionDirective)
-  .directive('brSelectHeader', selectHeader);
+  .directive('brSelectHeader', selectHeader)
+  .directive('brSelectOptionsWrapper', brSelectOptionsWrapper);
 
 
 var selectNextId = 0;
@@ -35,7 +36,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
 
 
     // transplant option groups into container
-    var optiongroupsContainer = angular.element('<div class="br-optiongroups-container">').append(
+    var optiongroupsContainer = angular.element('<br-select-options-wrapper class="br-optiongroups-container">').append(
       angular.element('<div class="br-optionsgroup-scroll">').append(
         angular.element('<br-content br-scroll-fix>').append(tElement.contents())));
 
@@ -62,6 +63,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
     var stickTopKiller;
     var isOpen = false;
     var isStickTop = false;
+    var wasAppended = false;
     var selectMenuCtrl = ctrls[0];
     var containerCtrl = ctrls[1];
     var ngModelCtrl = ctrls[2] || $brUtil.fakeNgModel();
@@ -123,7 +125,9 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
       element.on('keydown', handleKeypress);
     }
 
-
+    if (attr.multiple !== undefined) {
+      containerElement.addClass('br-multiple');
+    }
     var deregisterWatcher;
     attr.$observe('brMultiple', function(val) {
       if (deregisterWatcher) { deregisterWatcher(); }
@@ -135,8 +139,10 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         if (multiple === undefined && prevVal === undefined) { return; } // assume compiler did a good job
         if (multiple) {
           element.attr('multiple', 'multiple');
+          containerElement.addClass('br-multiple');
         } else {
           element.removeAttr('multiple');
+          containerElement.removeClass('br-multiple');
         }
 
         selectMenuCtrl.setMultiple(multiple);
@@ -260,6 +266,13 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         angular.element(searchInputElement)
           .on('focus', stickSelect)
           .on('blur', unstickSelect);
+      }
+
+
+      // add menu to body if not added yet
+      if (wasAppended === false) {
+        $document.find('body').eq(0).append(containerElement);
+        wasAppended = true;
       }
 
 
@@ -467,6 +480,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         top: Math.max(boundryNodeRect.top, 0) + EDGE_MARGIN,
         bottom: Math.max(boundryNodeRect.bottom, Math.max(boundryNodeRect.top, 0) + boundryNodeRect.height) - EDGE_MARGIN
       };
+      console.log(bounds);
 
       var transformOrigin = 'top 50%';
       var position = {
@@ -479,9 +493,9 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         position.left = $window.scrollX + (($window.innerWidth / 2) - (containerNode.offsetWidth / 2));
       }
 
-
+      console.log(position);
       clamp(position);
-
+      console.log(position);
       var scaleX = Math.round(100 * Math.min(originNodeRect.width / containerNode.offsetWidth, 1.0)) / 100;
       var scaleY = Math.round(100 * Math.min(originNodeRect.height / containerNode.offsetHeight, 1.0)) / 100;
 
@@ -824,7 +838,7 @@ var CHECKBOX_SELECTION_INDICATOR = angular.element('<div class="br-select-icon-c
 function optionDirective() {
   var directive = {
     restrict: 'E',
-    require: ['brOption', '^^brSelectMenu'],
+    require: ['brOption', '^^brSelectOptionsWrapper'],
     compile: compile,
     controller: ['$element', OptionController]
   };
@@ -839,7 +853,7 @@ function optionDirective() {
 
   function postLink(scope, element, attrs, ctrls) {
     var optionCtrl = ctrls[0];
-    var selectCtrl = ctrls[1];
+    var selectCtrl = ctrls[1].selectController;
 
     if (selectCtrl.isMultiple === true) {
       element.addClass('br-select-checkbox-enabled');
@@ -943,4 +957,27 @@ function selectHeader() {
     restrict: 'E'
   };
   return directive;
+}
+
+
+function brSelectOptionsWrapper() {
+  var directive = {
+    restrict: 'E',
+    require: ['brSelectOptionsWrapper', '^^brSelectMenu'],
+    link: link,
+    controller: controller
+  };
+  return directive;
+
+
+  function link(scope, element, attrs, ctrls) {
+    ctrls[0].selectController = ctrls[1];
+  }
+
+  function controller() {
+    /* jshint validthis: true */
+    var vm = this;
+
+    vm.selectController = undefined;
+  }
 }
