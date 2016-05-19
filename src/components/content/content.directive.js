@@ -22,8 +22,8 @@ angular
  * </br-content>
  *
  */
-brContentDirective.$inject = ['$brTheme', '$window', '$$rAF'];
-function brContentDirective ($brTheme, $window, $$rAF) {
+brContentDirective.$inject = ['$brTheme', '$window', '$$rAF', '$brUtil'];
+function brContentDirective ($brTheme, $window, $$rAF, $brUtil) {
   var directive = {
     restrict: 'E',
     link: link,
@@ -48,6 +48,7 @@ function brContentDirective ($brTheme, $window, $$rAF) {
       }
 
     } else if (height === undefined && isAutoHeight === true) {
+      var isCardChild = $brUtil.getClosest(element, 'br-expanded-content') !== null;
       var debouncedUpdateAll = $$rAF.throttle(updateAll);
       debouncedUpdateAll();
 
@@ -68,7 +69,12 @@ function brContentDirective ($brTheme, $window, $$rAF) {
 
     function updateAll() {
       var rect = element[0].getBoundingClientRect();
-      element.css('height', ($window.innerHeight - rect.top) + 'px');
+      var innerHeight = $window.innerHeight;
+      if (isCardChild === true) {
+        innerHeight -= 30;
+      }
+
+      element.css('height', (innerHeight - rect.top) + 'px');
     }
 
 

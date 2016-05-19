@@ -480,7 +480,6 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         top: Math.max(boundryNodeRect.top, 0) + EDGE_MARGIN,
         bottom: Math.max(boundryNodeRect.bottom, Math.max(boundryNodeRect.top, 0) + boundryNodeRect.height) - EDGE_MARGIN
       };
-      console.log(bounds);
 
       var transformOrigin = 'top 50%';
       var position = {
@@ -493,9 +492,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         position.left = $window.scrollX + (($window.innerWidth / 2) - (containerNode.offsetWidth / 2));
       }
 
-      console.log(position);
       clamp(position);
-      console.log(position);
       var scaleX = Math.round(100 * Math.min(originNodeRect.width / containerNode.offsetWidth, 1.0)) / 100;
       var scaleY = Math.round(100 * Math.min(originNodeRect.height / containerNode.offsetHeight, 1.0)) / 100;
 
