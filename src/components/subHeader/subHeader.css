@@ -50,3 +50,8 @@
   z-index: 1;
   position: relative;
 }
+
+.br-subheader.br-sticky-clone.br-card-header {
+  margin-left: 4px;
+  margin-right: 4px;
+}

@@ -27,7 +27,7 @@ function expandedContentDirective($animateCss, $brUtil, $timeout) {
 
     function show() {
       enableSubHeaders();
-      
+
       container.addClass('br-show');
 
       // minus 24 to compensate for the margin and padding

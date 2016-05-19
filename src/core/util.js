@@ -65,7 +65,7 @@ function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document,
         return el;
       }
       el = el.parentNode;
-    } while (el !== undefined);
+    } while (el !== null);
     return null;
   }
 

@@ -61,6 +61,10 @@ function brStickyService($document, $$rAF, $brUtil, $timeout, $brConstant) {
     function add(element, stickyClone) {
       stickyClone.addClass('br-sticky-clone');
 
+      if ($brUtil.getClosest(element, 'br-expanded-content') !== null) {
+        stickyClone.addClass('br-card-header');
+      }
+
       var item = {
         element: element,
         clone: stickyClone
@@ -74,7 +78,6 @@ function brStickyService($document, $$rAF, $brUtil, $timeout, $brConstant) {
       debouncedRefreshElements();
 
       return function remove() {
-        console.log('ok');
         self.items.forEach(function(item, index) {
           if (item.element[0] === element[0]) {
             self.items.splice(index, 1);

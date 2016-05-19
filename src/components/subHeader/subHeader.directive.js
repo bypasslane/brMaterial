@@ -59,17 +59,6 @@ function brSubheaderDirective ($brTheme, $compile, $brSticky) {
       });
 
 
-      // if (attrs.brNoSticky === undefined) {
-      //   transclude(scope, function(clone) {
-      //     var stickyClone = $compile(angular.element(outerHTML))(scope);
-      //     getContent(stickyClone).append(clone);
-      //     $brSticky(scope, element, stickyClone, angular.isDefined(attrs.brHorizontalScroll));
-      //   });
-      // }
-
-
-
-
       function removeSticky() {
         scope.$broadcast('$removeSticky');
       }
@@ -78,7 +67,7 @@ function brSubheaderDirective ($brTheme, $compile, $brSticky) {
         transclude(scope, function(clone) {
           var stickyClone = $compile(angular.element(outerHTML))(scope);
           getContent(stickyClone).append(clone);
-          $brSticky(scope, element, stickyClone, angular.isDefined(attrs.brHorizontalScroll));
+          $brSticky(scope, element, stickyClone, attrs.brHorizontalScroll !== undefined);
         });
       }
     };
