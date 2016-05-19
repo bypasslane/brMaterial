@@ -24,11 +24,9 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
 
     element.attr('br-card-id', id);
 
-    scope.$removeCard = ctrl.$removeCard;
-
     if (mangerController) {
       cardController.mangerController = mangerController;
-      // rin on next tick so we can see if card was expanded
+      // run on next tick so we can see if card was expanded
       $timeout(function () {
         mangerController.addCard(id, cardController.isExpanded, cardController.toggle, element);
       }, 0);
@@ -43,6 +41,7 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
     }
 
     scope.$on('$destroy', function () {
+      cardController.removeAllListeners();
       cardController.destroy();
     });
 
@@ -53,12 +52,25 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
     /* jshint validthis: true */
     var vm = this;
 
+    var listeners = [];
+
+
+    vm.$card = {
+      remove: removeCard,
+      on: on,
+      off: off,
+      postMessage: postMessage,
+      expand: expand,
+      collapse: collapse,
+      flash: flash
+    };
+
     vm.isExpanded = false;
     vm.expand = expand;
     vm.collapse = collapse;
     vm.toggle = toggle;
     vm.setMinHeight = setMinHeight;
-    vm.$removeCard = removeCard;
+    vm.removeAllListeners = removeAllListeners;
 
     vm.destroy = $brComponentRegistry.register(vm, $attrs.brComponentId);
 
@@ -72,12 +84,6 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
       }
       vm.expandedCtrl.show();
       vm.collaspedCtrl.hide();
-
-      // TODO remove if no inner animation is wanted
-      // $element.removeClass('br-collasped');
-      // $timeout(function () {
-      //   $element.addClass('br-expanded');
-      // }, 100);
     }
 
     function collapse() {
@@ -85,12 +91,6 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
       vm.expandedCtrl.hide();
       vm.collaspedCtrl.show();
       setMinHeight();
-
-      // TODO remove if no inner animation is wanted
-      // $element.removeClass('br-expanded');
-      // $timeout(function () {
-      //   $element.addClass('br-collasped');
-      // }, 100);
     }
 
     function toggle(value) {
@@ -102,22 +102,72 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
     }
 
 
+    function setMinHeight() {
+      // add 1px for spacing
+      $element.css('min-height', $element[0].querySelector('.br-collapsed-content').offsetHeight + 1 + 'px');
+    }
+
+
+
+    function flash() {
+      vm.collaspedCtrl.flash();
+    }
+
     function removeCard() {
       if (vm.mangerController) {
         vm.mangerController.removeCard(vm.id);
         return;
       }
 
-      $scope.$broadcast('$removeCard');
-      $scope.$destroy();
-      $element.remove();
+      scope.$destroy();
+      element.remove();
+    }
+
+    function on(eventName, callback) {
+      if (vm.mangerController) {
+        listeners.push({name: eventName, callback: callback, id: vm.id});
+        vm.mangerController.on(eventName, callback, vm.id);
+      }
+    }
+
+    function off(eventName) {
+      if (vm.mangerController) {
+        removeListener(eventName);
+      }
+    }
+
+    function postMessage(eventName, data, bubble) {
+      if (vm.mangerController) {
+        vm.mangerController.postMessage(eventName, data, bubble);
+      }
+    }
+
+    function removeListener(eventName) {
+      var i = 0;
+      var length = listeners.length;
+
+      while (i < length) {
+        if (listeners[i].name === eventName) {
+          vm.mangerController.off(listeners[i].name, vm.id);
+          listeners.splice(i, 1);
+          return;
+        }
+
+        i++;
+      }
     }
 
 
+    function removeAllListeners() {
+      var i = 0;
+      var length = listeners.length;
 
-    function setMinHeight() {
-      // add 1px for spacing
-      $element.css('min-height', $element[0].querySelector('.br-collapsed-content').offsetHeight + 1 + 'px');
+      while (i < length) {
+        off(listeners[i].name);
+        i++;
+      }
+
+      listeners = undefined;
     }
   }
 }

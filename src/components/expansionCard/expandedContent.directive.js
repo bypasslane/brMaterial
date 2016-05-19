@@ -18,7 +18,7 @@ function expandedContentDirective($animateCss, $brUtil, $timeout) {
     var container = angular.element(element[0].querySelector('.br-expanded-content'));
 
     scope.$collapse = ecCtrl.collapse;
-    scope.$removeCard = ecCtrl.$removeCard;
+    scope.$card = ecCtrl.$card;
     ecCtrl.expandedCtrl = {
       show: show,
       hide: hide

@@ -19,10 +19,35 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
       remove: remove,
       expand: expand,
       collapse: collapse,
-      then: then
+      then: then,
+      on: on,
+      off: off
     };
     return service;
 
+
+
+    /**
+     * @name on
+     * @function
+     *
+     * @description
+     * add Listerner
+     */
+    function on(eventName, callback) {
+      return instance && instance.$card.on(eventName, callback);
+    }
+
+    /**
+     * @name off
+     * @function
+     *
+     * @description
+     * remove Listerner
+     */
+    function off(eventName) {
+      return instance && instance.$card.off(eventName);
+    }
 
 
     /**
@@ -161,7 +186,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
       if (componentId !== undefined) {
         deferred.resolve(handler(componentId));
       } else {
-        deferred.resolve();
+        deferred.resolve(scope.$card);
       }
     });
 

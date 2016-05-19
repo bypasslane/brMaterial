@@ -16,11 +16,13 @@ function collapsedContentDirective($timeout, $animateCss, $brUtil) {
 
   function link(scope, element, attrs, ecCtrl) {
     var container = angular.element(element[0].querySelector('.br-collapsed-content'));
+    var color = attrs.brColor !== undefined ? '#' + attrs.brColor.replace('#', '') : undefined;
     scope.$expand = ecCtrl.expand;
-    scope.$removeCard = ecCtrl.$removeCard;
+    scope.$card = ecCtrl.$card;
     ecCtrl.collaspedCtrl = {
       show: show,
-      hide: hide
+      hide: hide,
+      flash: flash
     };
 
     element.on('click', function () {
@@ -39,6 +41,11 @@ function collapsedContentDirective($timeout, $animateCss, $brUtil) {
       var toProps = $brUtil.toCss({transform: 'translate3d(0,0,0)'});
       toProps.opacity = 1;
 
+      if (color !== undefined) {
+        fromProps.background = '#FFFFFF';
+        toProps.background = color;
+      }
+
       container.removeClass('ng-hide');
       container.addClass('br-show');
       $animateCss(container, {
@@ -46,6 +53,17 @@ function collapsedContentDirective($timeout, $animateCss, $brUtil) {
         to: toProps
       })
       .start();
+    }
+
+    function flash() {
+      $animateCss(container, {
+        addClass: 'br-flash',
+        duration: 1.2
+      })
+      .start()
+      .then(function () {
+        container.removeClass('br-flash');
+      });
     }
   }
 }

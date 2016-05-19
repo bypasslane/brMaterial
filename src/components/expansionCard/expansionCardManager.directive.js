@@ -17,12 +17,53 @@ function expansionCardManagerDirective() {
     var vm = this;
 
     var cards = [];
+    var lisetners = [];
     var epxandedCard;
     var autoExpand = $attrs.brAutoExpand !== undefined;
 
     vm.addCard = addCard;
     vm.expandCard = expandCard;
     vm.removeCard = removeCard;
+
+    vm.on = on;
+    vm.off = off;
+    vm.postMessage = postMessage;
+
+
+    function on(eventName, callback, id) {
+      lisetners.push({name: eventName, callback: callback, id: id });
+    }
+
+    function off(eventName, id) {
+      var i = 0;
+      var length = lisetners.length;
+
+      while (i < length) {
+        if (lisetners[i].name === eventName && lisetners[i].id === id) {
+          lisetners.splice(i, 1);
+          return;
+        }
+
+        i++;
+      }
+    }
+
+    function postMessage(eventName, data, bubble) {
+      bubble = bubble === false ? false : true;
+
+      var i = lisetners.length - 1;
+
+      while (i >= 0) {
+        if (lisetners[i].name === eventName) {
+          lisetners[i].callback(data);
+          if (bubble === false) {
+            return;
+          }
+        }
+
+        i--;
+      }
+    }
 
 
 
