@@ -8,9 +8,10 @@ angular
 expansionCardManagerService.$inject = ['$rootScope', '$q', '$brComponentRegistry', '$brExpansionCard'];
 function expansionCardManagerService($rootScope, $q, $brComponentRegistry, $brExpansionCard) {
   var registries = {};
+  var pick = ['add', 'remove', 'register'];
 
   var handler = function (handle, wait) {
-    var instance = $brComponentRegistry.get(handle);
+    var instance = $brComponentRegistry.get(handle, pick);
 
     if (handle === undefined) {
       return {
@@ -20,16 +21,28 @@ function expansionCardManagerService($rootScope, $q, $brComponentRegistry, $brEx
       $brComponentRegistry.notFoundError(handle);
     }
 
-    return !instance && wait ? waitForInstance(handle) : service;
+    return !instance && wait ? waitForInstance() : getInstance(instance);
 
 
     function waitForInstance(handle) {
       return $brComponentRegistry
-        .when(handle)
+        .when(handle, pick)
         .then(function (it) {
-          instance = it;
-          return it;
+          instance = getInstance(it);
+          return instance;
         });
+    }
+
+
+    function getInstance(instance) {
+      var i = 0;
+      var length = pick.length;
+      var picked = {};
+      while (i < length) {
+        picked[pick[i]] = instance[pick[i]];
+        i++;
+      }
+      return picked;
     }
   };
 

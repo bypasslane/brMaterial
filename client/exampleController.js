@@ -50,7 +50,7 @@ function ExampleController($scope, $window, $brSideContent, $brMedia, $$rAF, $do
   function toggleNav() {
     $brSideContent('navSideContent').toggle();
 
-    vm.navOpen = $brSideContent('navSideContent').isOpen()
+    vm.navOpen = $brSideContent('navSideContent').isOpen();
   }
 
 
@@ -69,9 +69,7 @@ function ExampleController($scope, $window, $brSideContent, $brMedia, $$rAF, $do
     {first: 'Marcus', last: 'Halberstram', phone: 2125556342, age: 38, email: 'marcus@pierce&pierce.com'},
     {first: 'Donald', last: 'Kimbal', phone: 'unlisted', age: 38, email: 'donald@nypd.com'},
     {first: 'Courtney', last: 'Rawlinson', phone: 2125556342, age: 38, email: 'coutney@pierce&pierce.com'},
-    {first: 'Patrick', last: 'Bateman', phone: 2125556342, age: 38, email: 'paul@pierce&pierce.com'},
-    {first: 'Zaphod', last: 'beeblebrox', phone: 01070952959051, age: 42, email: 'marvin@dontpanit.u'},
-    {first: 'Frank', last: 'Anderson', phone: 8765309, age: 16, email: 'Gretchen@loyolahighschool.edu', notes: '28 days, 6 hours, 42 minutes, 12 seconds'}
+    {first: 'Patrick', last: 'Bateman', phone: 2125556342, age: 38, email: 'paul@pierce&pierce.com'}
   ];
 
   vm.addPerson = function (ev) {
@@ -116,7 +114,7 @@ function ExampleController($scope, $window, $brSideContent, $brMedia, $$rAF, $do
       callback: function (done) {
         console.log(done);
       }
-    })
+    });
   };
 
   function exitEdit() {

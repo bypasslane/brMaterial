@@ -3,22 +3,219 @@ angular
   .controller('HomeController', HomeController);
 
 
-HomeController.$inject = ['$scope', '$brDialog', '$timeout', '$brToast'];
-function HomeController($scope, $brDialog, $timeout, $brToast) {
+HomeController.$inject = ['$scope', '$brDialog', '$timeout', '$brToast', '$brExpansionCard', '$brExpansionCardManager'];
+function HomeController($scope, $brDialog, $timeout, $brToast, $brExpansionCard, $brExpansionCardManager) {
   var vm = this;
+  var registry
 
+  $timeout(function () {
+    // $brExpansionCardManager('cardmanager').removeAll();
+    // console.log($brExpansionCardManager('cardmanager').registry());
+  }, 3000);
 
-  $brToast.add({
-    message: 'Hello World',
-    accent: true
-    // positionMode: 'right bottom'
+  $brExpansionCardManager().waitFor('cardmanager').then(function (instance) {
+    console.log(instance);
+    instance.register({
+      componenetId: 'testcard',
+      templateUrl: 'partials/expansion.html',
+      controller: function ($scope) {
+        var vm = this;
+
+        $scope.$on('$destroy', function () {
+          console.log('ok')
+        });
+
+        vm.loadingLocation = loadingLocation;
+        $timeout(function () {
+          loadingLocation = false;
+          vm.loadingLocation = false;
+        }, 500);
+
+        vm.location = location;
+        vm.openMenu = function (menu) {
+          $brExpansionCard.add({
+            templateUrl: 'partials/menuExp.html',
+            parent: document.body.querySelector('[br-component-id=cardmanager]'),
+            controller: function () {
+              var vm = this;
+
+              vm.menu = menu;
+            },
+            controllerAs: 'vm'
+          }).then(function (componet) {
+
+          });
+        };
+      },
+      controllerAs: 'vm'
+    });
+
+    $timeout(function () {
+      instance.add('testcard');
+
+      $timeout(function () {
+        instance.remove('testcard');
+      }, 2000);
+    }, 1500);
   });
 
-  $brToast.add({
-    message: 'Hello World number 2',
-    primary: true
-    // positionMode: 'right bottom'
-  });
+  vm.venue = {
+    name: 'Bypass World Headquaters',
+    city: 'Austin',
+    state: 'Tx',
+    phone: '215-333-444',
+    email: 'bypass@bypassmobile.com',
+    active: true,
+
+    locations: [
+      {
+        name: 'Smash Burger 1',
+        city: 'Philadelphia',
+        state: 'Pa',
+        phone: '215-333-444',
+        email: 'smash@buger.com',
+        active: true,
+
+        menus: [
+          {
+            name: 'Main Menu',
+            items: [
+              {
+                name: 'Burger',
+                price: '11.00'
+              },
+              {
+                name: 'Fries',
+                price: '4.00'
+              },
+              {
+                name: 'Shake',
+                price: '6.00'
+              }
+            ]
+          },
+          {
+            name: 'Friday Menu',
+            items: [
+              {
+                name: 'Burger',
+                price: '11.00'
+              },
+              {
+                name: 'Fries',
+                price: '4.00'
+              },
+              {
+                name: 'Shake',
+                price: '6.00'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: 'Smash Burger 2',
+        city: 'San Francisco',
+        state: 'Ca',
+        phone: '215-333-444',
+        email: 'smash@buger.com',
+        active: true,
+        menus: [
+          {
+            name: 'Main Menu',
+            items: [
+              {
+                name: 'Burger',
+                price: '11.00'
+              },
+              {
+                name: 'Fries',
+                price: '4.00'
+              },
+              {
+                name: 'Shake',
+                price: '6.00'
+              }
+            ]
+          },
+          {
+            name: 'Friday Menu',
+            items: [
+              {
+                name: 'Burger',
+                price: '11.00'
+              },
+              {
+                name: 'Fries',
+                price: '4.00'
+              },
+              {
+                name: 'Shake',
+                price: '6.00'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+
+  var loadingLocation = true;
+  vm.loadingVenue = true;
+  $timeout(function () {
+    vm.loadingVenue = false;
+  }, 500);
+
+  vm.openLocation = function (location) {
+    $brExpansionCard.add({
+      templateUrl: 'partials/expansion.html',
+      parent: document.body.querySelector('[br-component-id=cardmanager]'),
+      controller: function ($scope) {
+        var vm = this;
+
+        $scope.$on('$destroy', function () {
+          console.log('ok')
+        });
+
+        vm.loadingLocation = loadingLocation;
+        $timeout(function () {
+          loadingLocation = false;
+          vm.loadingLocation = false;
+        }, 2500);
+
+        vm.location = location;
+        vm.openMenu = function (menu) {
+          $brExpansionCard.add({
+            templateUrl: 'partials/menuExp.html',
+            parent: document.body.querySelector('[br-component-id=cardmanager]'),
+            controller: function () {
+              var vm = this;
+
+              vm.menu = menu;
+            },
+            controllerAs: 'vm'
+          }).then(function (componet) {
+
+          });
+        };
+      },
+      controllerAs: 'vm'
+    }).then(function (componet) {
+    });
+  };
+
+
+  // $brToast.add({
+  //   message: 'Hello World',
+  //   accent: true
+  //   // positionMode: 'right bottom'
+  // });
+  //
+  // $brToast.add({
+  //   message: 'Hello World number 2',
+  //   primary: true
+  //   // positionMode: 'right bottom'
+  // });
 
 
   vm.tableData = [
