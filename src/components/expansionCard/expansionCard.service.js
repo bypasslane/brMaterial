@@ -9,7 +9,7 @@ exapnsionCardService.$inject = ['$rootScope', '$compile', '$q', '$controller', '
 function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponentRegistry, $templateCache, $templateRequest, $timeout) {
   var handler = function (handle) {
     handle = handle || '';
-    var errorMsg = "SideNav '" + handle + "' is not available!";
+    var errorMsg = "$brExpansionCard '" + handle + "' is not available!";
     var instance = $brComponentRegistry.get(handle);
     if(!instance) {
       $brComponentRegistry.notFoundError(handle);
@@ -58,7 +58,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
      * remove card
      */
     function remove() {
-      return instance && instance.$remove();
+      return instance && instance.$card.remove();
     }
 
 
@@ -70,7 +70,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
      * expand card
      */
     function expand() {
-      return instance && instance.expand();
+      return instance && instance.$card.expand();
     }
 
 
@@ -82,7 +82,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
      * collapse card
      */
     function collapse() {
-      return instance && instance.collapse();
+      return instance && instance.$card.collapse();
     }
 
     /**
@@ -125,7 +125,8 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
    * @description
    * add card to specified parent element
    *
-   * @param {element} options.parent - parent element to append to
+   * @param {element} [options.parent] - parent element to append to
+   * @param {brExpansionCardManager} [options.manager] - manger handler
    * @param {string} [options.template] - html string template
    * @param {string} [options.templateUrl] - path to html template
    * @param {object} [options.scope] - scope variables
@@ -141,8 +142,8 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
       throw Error('$exapnsionCardService.add() : Is missing required paramters to create. Required One of the following: template, templateUrl');
     }
 
-    if (!options.parent) {
-      throw Error('$exapnsionCardService.add() : Must provide a parent element');
+    if (!options.parent && !options.manager) {
+      throw Error('$exapnsionCardService.add() : Must provide a parent element or manager');
     }
 
 
@@ -151,6 +152,9 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
 
     getTemplate(options, function (template) {
       var element = angular.element(template);
+      if (options.componenetId) {
+        element.attr('br-component-id', options.componenetId);
+      }
 
       // valid correct html exists
       if (element[0].nodeName !== 'BR-EXPANSION-CARD') {

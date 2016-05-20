@@ -7,27 +7,40 @@ angular
 function expansionCardManagerDirective() {
   var directive = {
     restrict: 'E',
-    controller: ['$attrs', controller]
+    controller: ['$scope', '$attrs', '$element', '$brComponentRegistry', '$brExpansionCard', controller]
   };
   return directive;
 
 
-  function controller($attrs) {
+  function controller($scope, $attrs, $element, $brComponentRegistry, $brExpansionCard) {
     /* jshint validthis: true */
     var vm = this;
 
     var cards = [];
     var lisetners = [];
+    var registry = {};
     var epxandedCard;
     var autoExpand = $attrs.brAutoExpand !== undefined;
 
+    vm.register = register;
+    vm.add = add;
+    vm.remove = _remove;
     vm.addCard = addCard;
     vm.expandCard = expandCard;
     vm.removeCard = removeCard;
+    vm.removeAll = removeAll;
 
     vm.on = on;
     vm.off = off;
     vm.postMessage = postMessage;
+
+
+
+
+    vm.destroy = $brComponentRegistry.register(vm, $attrs.brComponentId);
+    $scope.$on('$destroy', function () {
+      if (vm.destroy === 'function') { vm.destroy(); }
+    });
 
 
     function on(eventName, callback, id) {
@@ -137,11 +150,67 @@ function expansionCardManagerDirective() {
 
     function remove(card) {
       card.render = undefined;
-      card.$element.scope().$broadcast('$removeCard');
       card.$element.scope().$destroy();
       card.$element.remove();
       card.$element = undefined;
       card = undefined;
+    }
+
+
+    function removeAll() {
+      while (cards.length > 0) {
+        remove(cards.pop());
+      }
+    }
+
+
+
+
+    function register(options) {
+      options = options || {};
+
+      // componenetId is used to interact with cards
+      if (!options.componenetId) {
+        throw Error('$brExpansionCardManager registry.register() : Is missing required paramters to create. "componeneteId" is required');
+      }
+
+      // if none of these exist then a dialog box cannot be created
+      if (!options.template && !options.templateUrl) {
+        throw Error('$brExpansionCardManager registry.register() : Is missing required paramters to create. Required One of the following: template, templateUrl');
+      }
+
+      if (registry[options.componenetId] !== undefined) {
+        throw Error('$brExpansionCardManager registry.register() : Must provide a unique componenetId');
+      }
+
+      options.parent = $element;
+      registry[options.componenetId] = options;
+    }
+
+
+    // TODO allow for passing of objects into the scope
+    function add(componenetId) {
+      if (componenetId === undefined) {
+        throw Error('$brExpansionCardManager registry.add() : Must provide a componenetId parameter');
+      }
+
+      if (registry[componenetId] === undefined) {
+        throw Error("$brExpansionCardManager registry '" + componenetId + "' is not available!")
+      }
+
+      return $brExpansionCard.add(registry[componenetId]).then();
+    }
+
+    function _remove(componenetId) {
+      if (componenetId === undefined) {
+        throw Error('$brExpansionCardManager registry.remove() : Must provide a componenetId parameter');
+      }
+
+      if (registry[componenetId] === undefined) {
+        throw Error("$brExpansionCardManager registry '" + componenetId + "' is not available!")
+      }
+
+      $brExpansionCard(componenetId).remove();
     }
   }
 }
