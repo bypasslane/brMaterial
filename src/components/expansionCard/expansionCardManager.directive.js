@@ -189,7 +189,7 @@ function expansionCardManagerDirective() {
 
 
     // TODO allow for passing of objects into the scope
-    function add(componenetId) {
+    function add(componenetId, locals) {
       if (componenetId === undefined) {
         throw Error('$brExpansionCardManager registry.add() : Must provide a componenetId parameter');
       }
@@ -198,7 +198,7 @@ function expansionCardManagerDirective() {
         throw Error("$brExpansionCardManager registry '" + componenetId + "' is not available!")
       }
 
-      return $brExpansionCard.add(registry[componenetId]).then();
+      return $brExpansionCard.add(registry[componenetId], locals).then();
     }
 
     function _remove(componenetId) {

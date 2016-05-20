@@ -133,7 +133,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
    * @param {string} [options.controller] - controller
    * @param {string} [options.controllerAs] - controller as name
    */
-  function add(options) {
+  function add(options, locals) {
     options = options || {};
     var deferred = $q.defer();
 
@@ -146,6 +146,11 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
       throw Error('$exapnsionCardService.add() : Must provide a parent element or manager');
     }
 
+
+    if (locals !== undefined) {
+      options.locals = options.locals || {};
+      angular.extend(options.locals, locals);
+    }
 
     var scope = $rootScope.$new();
     angular.extend(scope, options.scope);

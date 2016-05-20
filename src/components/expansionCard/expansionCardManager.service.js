@@ -8,7 +8,7 @@ angular
 expansionCardManagerService.$inject = ['$rootScope', '$q', '$brComponentRegistry', '$brExpansionCard'];
 function expansionCardManagerService($rootScope, $q, $brComponentRegistry, $brExpansionCard) {
   var registries = {};
-  var pick = ['add', 'remove', 'register'];
+  var pick = ['add', 'remove', 'removeAll', 'register'];
 
   var handler = function (handle, wait) {
     var instance = $brComponentRegistry.get(handle, pick);
