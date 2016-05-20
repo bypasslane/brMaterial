@@ -93,7 +93,8 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
      * Function called post operation
      */
     function then(callbackFn) {
-      var promise = instance ? $q.when(instance) : waitForInstance();
+      // resolve then with $card so the then does not resolve to the controller
+      var promise = instance ? $q.when(instance.$card) : waitForInstance();
       return promise.then( callbackFn || angular.noop );
     }
 
@@ -157,8 +158,9 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
 
     getTemplate(options, function (template) {
       var element = angular.element(template);
-      if (options.componenetId) {
-        element.attr('br-component-id', options.componenetId);
+      if (options.componentId) {
+
+        element.attr('br-component-id', options.componentId);
       }
 
       // valid correct html exists
@@ -213,6 +215,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
           callback(_template);
         });
       } else {
+        // fix for template cache cahcing the entire response not just the string
         callback(template);
       }
     } else {

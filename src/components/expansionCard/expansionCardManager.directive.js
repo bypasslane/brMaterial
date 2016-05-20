@@ -116,10 +116,20 @@ function expansionCardManagerDirective() {
     }
 
     function openLast() {
-      cards[cards.length-1].render(true);
+      if (cards.length === 0) {
+        if (registry.default !== undefined) {
+          add(registry.default.componentId);
+        }
+      } else {
+        cards[cards.length-1].render(true);
+      }
     }
 
     function getCardRenderFunc(id) {
+      var index = getCardIndex(id);
+      if (index === undefined) {
+        return angular.noop;
+      }
       return cards[getCardIndex(id)].render;
     }
 
@@ -169,8 +179,8 @@ function expansionCardManagerDirective() {
     function register(options) {
       options = options || {};
 
-      // componenetId is used to interact with cards
-      if (!options.componenetId) {
+      // componentId is used to interact with cards
+      if (!options.componentId) {
         throw Error('$brExpansionCardManager registry.register() : Is missing required paramters to create. "componeneteId" is required');
       }
 
@@ -179,38 +189,41 @@ function expansionCardManagerDirective() {
         throw Error('$brExpansionCardManager registry.register() : Is missing required paramters to create. Required One of the following: template, templateUrl');
       }
 
-      if (registry[options.componenetId] !== undefined) {
-        throw Error('$brExpansionCardManager registry.register() : Must provide a unique componenetId');
+      if (registry[options.componentId] !== undefined) {
+        throw Error('$brExpansionCardManager registry.register() : Must provide a unique componentId');
       }
 
       options.parent = $element;
-      registry[options.componenetId] = options;
+      if (options.default === true) {
+        registry.default = options;
+      }
+      registry[options.componentId] = options;
     }
 
 
     // TODO allow for passing of objects into the scope
-    function add(componenetId, locals) {
-      if (componenetId === undefined) {
-        throw Error('$brExpansionCardManager registry.add() : Must provide a componenetId parameter');
+    function add(componentId, locals) {
+      if (componentId === undefined) {
+        throw Error('$brExpansionCardManager registry.add() : Must provide a componentId parameter');
       }
 
-      if (registry[componenetId] === undefined) {
-        throw Error("$brExpansionCardManager registry '" + componenetId + "' is not available!")
+      if (registry[componentId] === undefined) {
+        throw Error("$brExpansionCardManager registry '" + componentId + "' is not available!");
       }
 
-      return $brExpansionCard.add(registry[componenetId], locals).then();
+      return $brExpansionCard.add(registry[componentId], locals).then();
     }
 
-    function _remove(componenetId) {
-      if (componenetId === undefined) {
-        throw Error('$brExpansionCardManager registry.remove() : Must provide a componenetId parameter');
+    function _remove(componentId) {
+      if (componentId === undefined) {
+        throw Error('$brExpansionCardManager registry.remove() : Must provide a componentId parameter');
       }
 
-      if (registry[componenetId] === undefined) {
-        throw Error("$brExpansionCardManager registry '" + componenetId + "' is not available!")
+      if (registry[componentId] === undefined) {
+        throw Error("$brExpansionCardManager registry '" + componentId + "' is not available!");
       }
 
-      $brExpansionCard(componenetId).remove();
+      $brExpansionCard(componentId).remove();
     }
   }
 }

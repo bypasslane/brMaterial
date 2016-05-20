@@ -1,5 +1,14 @@
 <br-content br-scroll-y>
 
+<br-input>
+  <label>auto complete</label>
+  <input ng-model="vm.autocomplete" />
+  <br-autocomplete br-data="vm.correspondence" br-filter="vm.autocomplete" ng-model="vm.autoSelected" ng-change="vm.autoSelectChange()"></br-autocomplete>
+</br-input>
+
+
+<div style="padding-top: 300px;"></div>
+
 <br-expansion-card-manager br-auto-expand br-component-id="cardmanager">
 
   <br-expansion-card>

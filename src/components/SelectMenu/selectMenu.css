@@ -17,6 +17,7 @@ br-select-menu {
   padding: 13px 6px 1px;
   border-width: 1px;
   border-style: solid;
+  border-radius: 3px;
   background-color: transparent;
   position: relative;
   box-sizing: content-box;

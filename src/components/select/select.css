@@ -50,8 +50,8 @@
   line-height: 26px;
   height: 42px;
   -ms-flex-preferred-size: 26px;
-  border-radius: 0;
   border-style: solid;
+  border-radius: 3px;
   width: 100%;
   box-sizing: border-box;
   float: left;
@@ -117,7 +117,7 @@
 
 .br-select.br-select-focused .br-select-content {
   padding-bottom: 0px;
-  border-width: 1px 1px 2px 1px;
+  border-width: 1px 1px 1px 1px;
 }
 
 .br-select.br-small.br-select-focused .br-select-content {
