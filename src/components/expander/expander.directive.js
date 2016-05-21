@@ -30,8 +30,8 @@ angular
   *    </br-expander>
   *
   */
-expanderDirective.$inject = ['$brTheme'];
-function expanderDirective ($brTheme) {
+expanderDirective.$inject = ['$brTheme', '$parse'];
+function expanderDirective ($brTheme, $parse) {
   var directive = {
     restrict: 'E',
     require: 'brExpander',
@@ -56,14 +56,25 @@ function expanderDirective ($brTheme) {
     return postLink;
   }
 
-  function postLink(scope, element, attr) {
+  function postLink(scope, element, attr, ctrl) {
     $brTheme(element);
 
     // varefy the correct child elements exist
     var headerElement = element[0].querySelector('br-expander-header');
     var contentElement = element[0].querySelector('br-expander-content');
-    if (headerElement === null || contentElement === null) {
-      throw new Error('<br-expander> : Should contain both <br-expander-header> and <br-expander-content>');
+    if (contentElement === null) {
+      throw new Error('<br-expander> : Should contain <br-expander-content>');
+    }
+
+    if (attr.brOpen !== undefined) {
+      var openGetter = $parse(attr.brOpen);
+      scope.$watch(function () { return openGetter(scope); }, function (open) {
+        if (open === true) {
+          ctrl.open();
+        } else {
+          ctrl.close();
+        }
+      });
     }
   }
 
