@@ -79,8 +79,8 @@ gulp.task('copyDocJs', function () {
 });
 
 gulp.task('copyDocCss', function () {
-  return gulp.src('docs/js/**/*.css')
-    .pipe(gulp.dest(paths.dest + 'js'));
+  return gulp.src('docs/**/*.css')
+    .pipe(gulp.dest(paths.dest));
 });
 
 gulp.task('copyDocPartials', function () {
@@ -123,7 +123,6 @@ gulp.task('watch', function () {
 
 
   gulp.watch(paths.demoFiles, function (event) {
-    console.log('demo');
     demoBuild()
       .on('end', function () {
         gutil.log(gutil.colors.green('✔ Demo'), 'Built');
