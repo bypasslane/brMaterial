@@ -84,8 +84,8 @@ gulp.task('copyDocCss', function () {
 });
 
 gulp.task('copyDocPartials', function () {
-  return gulp.src('docs/partials/*.html')
-    .pipe(gulp.dest(paths.dest + 'partials'));
+  return gulp.src('docs/**/*.html')
+    .pipe(gulp.dest(paths.dest));
 });
 
 gulp.task('copyPostInjectModules', function () {
