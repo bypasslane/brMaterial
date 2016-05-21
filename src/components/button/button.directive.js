@@ -6,7 +6,30 @@
  */
 angular
   .module('brMaterial')
+  .directive('button', buttonExtendDirective)
   .directive('brButton', brButtonDirective);
+
+
+
+
+
+
+buttonExtendDirective.$inject = ['$brTheme'];
+function buttonExtendDirective($brTheme) {
+  var directive = {
+    restrict: 'E',
+    link: link
+  };
+  return directive;
+
+  function link(scope, element, attrs) {
+    if (!element.hasClass('br-button') && attrs.brNoOverride === undefined) {
+      $brTheme(element);
+      element.addClass('br-button');
+    }
+  }
+}
+
 
 
 /**
