@@ -10,16 +10,20 @@ var stripDebug = require('gulp-strip-debug');
 var rename = require("gulp-rename");
 var filter = require('gulp-filter');
 
-exports.dev = function () {
-  return gulp.src(paths.scripts, {base: paths.src})
-    .pipe(filterNonCodeFiles())
-    .pipe(wrap('(function(){"use strict";<%= contents %>}());'))
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(gulp.dest(paths.dest + 'modules/brmaterial/'))
-    .on('end', function() {
-      gutil.log(gutil.colors.green('✔ JS build'), 'Finished');
-    });
+exports.getDev = function (srcs) {
+  srcs = srcs || paths.scripts;
+
+  return function dev() {
+    return gulp.src(srcs, {base: paths.src})
+      .pipe(filterNonCodeFiles())
+      .pipe(wrap('(function(){"use strict";<%= contents %>}());'))
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'))
+      .pipe(gulp.dest(paths.dest + 'modules/brmaterial/'))
+      .on('end', function() {
+        gutil.log(gutil.colors.green('✔ JS build'), 'Finished');
+      });
+  };
 }
 
 

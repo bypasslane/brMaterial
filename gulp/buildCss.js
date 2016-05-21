@@ -7,16 +7,20 @@ var gulpFilter = require('gulp-filter');
 var concat = require('gulp-concat');
 var cssnano = require('gulp-cssnano');
 
-exports.dev = function () {
-  return gulp.src(paths.css, {base: paths.src})
-    .pipe(gulpFilter(function (file) {
-      return file.path.indexOf('-theme') === -1;
-    }))
-    .pipe(autoprefixer())
-    .pipe(gulp.dest(paths.dest + 'modules/brmaterial/'))
-    .on('end', function(){
-      gutil.log(gutil.colors.green('✔ CSS build'), 'Finished');
-    });
+exports.getDev = function (srcs) {
+  srcs = srcs || paths.css;
+
+  return function dev() {
+    return gulp.src(srcs, {base: paths.src})
+      .pipe(gulpFilter(function (file) {
+        return file.path.indexOf('-theme') === -1;
+      }))
+      .pipe(autoprefixer())
+      .pipe(gulp.dest(paths.dest + 'modules/brmaterial/'))
+      .on('end', function(){
+        gutil.log(gutil.colors.green('✔ CSS build'), 'Finished');
+      });
+  };
 };
 
 

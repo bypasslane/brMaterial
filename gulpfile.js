@@ -1,6 +1,7 @@
 var paths = require('./gulp/config').paths;
 
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var del = require('del');
 var bump = require('gulp-bump');
 var serve = require('gulp-serve');
@@ -8,14 +9,20 @@ var Dgeni = require('dgeni');
 var gulpSequence = require('gulp-sequence');
 
 
+var themeBuild = require('./gulp/themeBuilder');
+var jsBuild = require('./gulp/buildJs');
+var cssBuild = require('./gulp/buildCss');
+var indexBuild = require('./gulp/buildIndex');
+var demoBuild = require('./gulp/demos');
+
 
 // require tasks
 
-gulp.task('themeBuild', require('./gulp/themeBuilder').dev);
-gulp.task('jsBuild', require('./gulp/buildJs').dev);
-gulp.task('cssBuild', require('./gulp/buildCss').dev);
-gulp.task('indexBuild', require('./gulp/buildIndex').inject);
-gulp.task('demos', require('./gulp/demos'));
+gulp.task('themeBuild', themeBuild.dev);
+gulp.task('jsBuild', jsBuild.getDev());
+gulp.task('cssBuild', cssBuild.getDev());
+gulp.task('indexBuild', indexBuild.inject);
+gulp.task('demos', demoBuild);
 
 
 
@@ -96,6 +103,31 @@ gulp.task('serve', serve({
 }));
 
 gulp.task('watch', function () {
-  gulp.watch(paths.scripts, gulpSequence('jsBuild', 'indexBuild'));
-  gulp.watch(paths.css, gulpSequence('cssBuild', 'indexBuild'));
+  gulp.watch(paths.scripts, function (event) {
+    jsBuild.getDev(event.path)()
+      .on('end', function () {
+        if (event.type !== 'changed') { themeBuilder.inject(); }
+      });
+  });
+
+
+  gulp.watch(paths.css, function (event) {
+    if (event.path.indexOf('-theme.css') === -1) {
+      cssBuild.getDev(event.path)()
+        .on('end', function () {
+          if (event.type !== 'changed') { themeBuilder.inject(); }
+        });
+    }
+  });
+
+
+
+  gulp.watch(paths.demoFiles, function (event) {
+    console.log('demo');
+    demoBuild()
+      .on('end', function () {
+        gutil.log(gutil.colors.green('✔ Demo'), 'Built');
+        if (event.type !== 'changed') { themeBuilder.inject(); }
+      });
+  });
 });

@@ -27,7 +27,6 @@ module.exports = function () {
         .groupBy('moduleName')
         .map(function(moduleDemos, moduleName) {
           var componentName = moduleName.split('.').pop();
-          console.log(componentName);
           return {
             name: componentName,
             moduleName: moduleName,
@@ -39,7 +38,6 @@ module.exports = function () {
         .value();
 
       var dest = path.resolve(__dirname, '../dist/docs/js');
-      console.log(dest);
       var file = "angular.module('docsApp').constant('DEMOS', " +
         JSON.stringify(demoIndex, null, 2) + ");";
       mkdirp.sync(dest);
