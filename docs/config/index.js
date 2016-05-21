@@ -37,43 +37,43 @@ module.exports = new Package('angular-md', [
 })
 
 
-// .config(function(computeIdsProcessor, computePathsProcessor) {
-//
-//   computeIdsProcessor.idTemplates.push({
-//     docTypes: ['content'],
-//     idTemplate: 'content-${fileInfo.relativePath.replace("/","-")}',
-//     getAliases: function(doc) { return [doc.id]; }
-//   });
-//
-//   // Build custom paths and outputPaths for "content" pages (theming and CSS).
-//   computePathsProcessor.pathTemplates.push({
-//     docTypes: ['content'],
-//     getPath: function(doc) {
-//       var docPath = path.dirname(doc.fileInfo.relativePath);
-//       if ( doc.fileInfo.baseName !== 'index' ) {
-//         docPath = path.join(docPath, doc.fileInfo.baseName);
-//       }
-//       return docPath;
-//     },
-//     getOutputPath: function(doc) {
-//       return path.join(
-//         'partials',
-//         path.dirname(doc.fileInfo.relativePath),
-//         doc.fileInfo.baseName) + '.html';
-//     }
-//   });
-//
-//   // The default dgeni path for directives and services is something like
-//   // "api/material.components.autocomplete/directive/mdAutocomplete".
-//   // The module name is rather unnecessary, so we override with the shorter
-//   // "api/directive/mdAutocomplete".
-//   computePathsProcessor.pathTemplates.push({
-//     docTypes: ['directive', 'service'],
-//     getPath: function(doc) {
-//       return path.join(doc.area, doc.docType, doc.name);
-//     }
-//   });
-// })
+.config(function(computeIdsProcessor, computePathsProcessor) {
+
+  computeIdsProcessor.idTemplates.push({
+    docTypes: ['content'],
+    idTemplate: 'content-${fileInfo.relativePath.replace("/","-")}',
+    getAliases: function(doc) { return [doc.id]; }
+  });
+
+  // Build custom paths and outputPaths for "content" pages (theming and CSS).
+  computePathsProcessor.pathTemplates.push({
+    docTypes: ['content'],
+    getPath: function(doc) {
+      var docPath = path.dirname(doc.fileInfo.relativePath);
+      if ( doc.fileInfo.baseName !== 'index' ) {
+        docPath = path.join(docPath, doc.fileInfo.baseName);
+      }
+      return docPath;
+    },
+    getOutputPath: function(doc) {
+      return path.join(
+        'partials',
+        path.dirname(doc.fileInfo.relativePath),
+        doc.fileInfo.baseName) + '.html';
+    }
+  });
+
+  // The default dgeni path for directives and services is something like
+  // "api/material.components.autocomplete/directive/mdAutocomplete".
+  // The module name is rather unnecessary, so we override with the shorter
+  // "api/directive/mdAutocomplete".
+  computePathsProcessor.pathTemplates.push({
+    docTypes: ['directive', 'service'],
+    getPath: function(doc) {
+      return path.join(doc.area, doc.docType, doc.name);
+    }
+  });
+})
 
 .config(function(generateComponentGroupsProcessor) {
   generateComponentGroupsProcessor.$enabled = false;

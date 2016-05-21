@@ -1,3 +1,5 @@
+var paths = require('./gulp/config').paths;
+
 var fs = require('fs');
 var path = require('path');
 var gulp = require('gulp');
@@ -24,39 +26,71 @@ var mkdirp = require('mkdirp');
 var Dgeni = require('dgeni');
 
 
-var SRC_ROOT = 'src/';
-var paths = {
-  scripts: [SRC_ROOT + 'core/core.js', SRC_ROOT + '**/*.js'],
-  css: [SRC_ROOT + 'core/*.css', SRC_ROOT + 'components/**/*.css'],
-  font: [SRC_ROOT + 'core/brMaterialIcons.woff'],
-};
-
-
-
-
-
-// Default task
-// gulp.task('default', gulpSequence(
-//   'clean',
-//   'copyIndex',
-//   'copyPartials',
-//   'config',
-//   'buildJS',
-//   'buildCSS',
-//   'injectBower',
-//   'injectJs',
-//   'injectCss',
-//   'watch',
-//   'fileServer'
-// ));
-
-
 gulp.task('docs-generate', function() {
   var dgeni = new Dgeni([
     require('./docs/config')
   ]);
   return dgeni.generate();
 });
+
+
+
+gulp.task('themeBuild', require('./gulp/themeBuilder').dev);
+gulp.task('jsBuild', require('./gulp/buildJs').dev);
+gulp.task('cssBuild', require('./gulp/buildCss').dev);
+gulp.task('indexBuild', require('./gulp/buildIndex').inject);
+gulp.task('copyFont', function () {
+  return gulp.src(paths.font)
+    .pipe(gulp.dest(paths.dest + 'modules/brmaterial/core/'));
+});
+
+gulp.task('copyDocJs', function () {
+  return gulp.src(['docs/js/app.js', 'docs/js/**/*.js'])
+    .pipe(gulp.dest(paths.dest + 'js'));
+});
+
+gulp.task('copyDocCss', function () {
+  return gulp.src('docs/js/**/*.css')
+    .pipe(gulp.dest(paths.dest + 'js'));
+});
+
+gulp.task('copyDocPartials', function () {
+  return gulp.src('docs/partials/*.html')
+    .pipe(gulp.dest(paths.dest + 'partials'));
+});
+
+gulp.task('copyPostInjectModules', function () {
+  return gulp.src('docs/modules/**/*')
+    .pipe(gulp.dest(paths.dest + 'modules'));
+});
+
+gulp.task('clean', function () {
+  return del(paths.dest);
+});
+
+
+gulp.task('build', gulpSequence('clean', ['copyDocJs', 'copyDocCss', 'copyDocPartials', 'themeBuild', 'jsBuild', 'cssBuild', 'demos', 'copyFont', 'docs-generate'], 'indexBuild', 'copyPostInjectModules'));
+gulp.task('default', gulpSequence('build', ['serve', 'watch']));
+
+
+
+
+// Serve Locally
+gulp.task('serve', serve({
+  root: ['dist/docs', 'bower_components'],
+  port: 8081
+}));
+
+
+
+// --- watcher --------------------------------
+
+gulp.task('watch', function () {
+  gulp.watch(paths.scripts, gulpSequence('jsBuild', 'indexBuild'));
+  gulp.watch(paths.css, gulpSequence('cssBuild', 'indexBuild'));
+});
+
+
 
 
 // --- Version Tasks ----
@@ -100,6 +134,7 @@ gulp.task('demos', function() {
         .groupBy('moduleName')
         .map(function(moduleDemos, moduleName) {
           var componentName = moduleName.split('.').pop();
+          console.log(componentName);
           return {
             name: componentName,
             moduleName: moduleName,
@@ -124,14 +159,14 @@ gulp.task('gen', function () {
   return generateDemos();
 });
 function generateDemos() {
-  return gulp.src(SRC_ROOT + 'components/*/')
+  return gulp.src(paths.src + 'components/*/')
     .pipe(through2.obj(function(folder, enc, next) {
       var self = this;
       var split = folder.path.split(path.sep);
       var name = split.pop();
       var moduleName = name;
 
-      copyDemoAssets(name, SRC_ROOT + 'components/', 'dist/docs/demo-partials/');
+      copyDemoAssets(name, paths.src + 'components/', 'dist/docs/demo-partials/');
 
       readModuleDemos(moduleName, function(demoId) {
         return lazypipe()
@@ -179,10 +214,10 @@ function copyDemoAssets(component, srcDir, distDir) {
 
 function readModuleDemos(moduleName, fileTasks) {
   var name = moduleName.split('.').pop();
-  return gulp.src(SRC_ROOT + 'components/' + name + '/demo*/')
+  return gulp.src(paths.src + 'components/' + name + '/demo*/')
     .pipe(through2.obj(function(demoFolder, enc, next) {
       var demoId = name + path.basename(demoFolder.path);
-      var srcPath = demoFolder.path.substring(demoFolder.path.indexOf(SRC_ROOT) + 4);
+      var srcPath = demoFolder.path.substring(demoFolder.path.indexOf(paths.src) + 4);
       var split = srcPath.split('/');
 
       var demo = {

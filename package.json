@@ -27,6 +27,7 @@
     "gulp-if": "^2.0.1",
     "gulp-inject": "^3.0.0",
     "gulp-jshint": "^2.0.0",
+    "gulp-main-bower-files": "^1.5.1",
     "gulp-ngdocs": "^0.2.13",
     "gulp-rename": "^1.2.2",
     "gulp-sequence": "^0.4.5",

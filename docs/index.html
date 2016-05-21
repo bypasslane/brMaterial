@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="docsApp">
   <head>
+    <base href="/">
     <meta name="viewport" content="initial-scale=1">
     <title>Bypass Real Material</title>
 
-    <link rel="stylesheet" href="modules/brmaterial/brmaterial.css">
+    <!-- moduleCss:css -->
+    <!-- endinject -->
 
-    <script src="modules/angular/angular.js"></script>
-  	<script src="modules/angular/angular-route.js"></script>
-  	<script src="modules/angular/angular-messages.js"></script>
-  	<script src="modules/angular/angular-animate.js"></script>
-    <script src="modules/brmaterial/brmaterial.js"></script>
+    <!-- inject:css -->
+    <!-- endinject -->
+
+    <script src="modules/highlight/highlight.pack.js"></script>
+    <!-- bower:js  -->
+    <!-- endinject -->
+
+    <!-- moduleScripts:js -->
+    <!-- endinject  -->
+
+    <!-- appscripts:js -->
+    <!-- endinject  -->
 
   </head>
 
@@ -20,14 +29,12 @@
         <nav-menu>
           <nav-menu-item ng-repeat="item in vm.menu">
 
-            <br-button ng-if="item.link !== undefined" ng-href="{{item.link || '/'}}">
-              <br-icon br-font-icon="{{item.icon}}"></br-icon>
+            <br-button ng-href="#/{{item.url}}">
               {{item.label}}
             </br-button>
 
-            <nav-menu-expander ng-if="item.sub !== undefined" label="item.label" icon="item.icon">
-              <br-button ng-if="sub.link !== undefined" ng-repeat="sub in item.sub" ng-href="{{sub.link || '.'}}">
-                <br-icon br-font-icon="{{sub.icon}}"></br-icon>
+            <nav-menu-expander ng-if="item.sub !== undefined" label="item.label">
+              <br-button ng-if="sub.link !== undefined" ng-repeat="sub in item.sub" ng-href="#/{{sub.url || '.'}}">
                 {{sub.label}}
               </br-button>
             </nav-menu-expander>
@@ -36,7 +43,7 @@
         </nav-menu>
       </br-side-content>
 
-      <ui-view flex></ui-view>
+      <div flex style="padding-left: 12px; padding-right: 12px;" ng-view></div>
     </div>
   </body>
 </html>
