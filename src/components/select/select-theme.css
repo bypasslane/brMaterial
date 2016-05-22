@@ -1,13 +1,18 @@
 .br-select.br-THEME_NAME-theme .br-select-content {
   color: transparent;
 }
+
+select.br-select-standard.ng-not-empty,
 .br-select.br-THEME_NAME-theme.br-select-has-value .br-select-content {
   color: '{{font-default}}';
 }
+
+select.br-select-standard,
 .br-select.br-THEME_NAME-theme .br-select-content {
   border-color: '{{foreground-dark-4}}';
 }
 
+select[disabled].br-select-standard,
 .br-select.br-THEME_NAME-theme .br-select-content.br-disabled {
   color: '{{foreground-light-2}}';
   border-color: transparent;
@@ -18,11 +23,12 @@
   color: '{{font-light-5}}';
 }
 
-.br-select.br-THEME_NAME-theme label,
+
 .br-select.br-THEME_NAME-theme .br-placeholder {
   color: '{{font-light-4}}';
 }
 
+select.br-select-standard + label,
 .br-select.br-THEME_NAME-theme label {
   color: '{{font-light-2}}';
 }
@@ -31,10 +37,12 @@
 .br-select.br-THEME_NAME-theme.br-select-has-placeholder .br-select-content {
   color: '{{font-light-3}}';
 }
+
 .br-select.br-THEME_NAME-theme.br-select-has-value .br-select-content {
   color: '{{font-default}}';
 }
 
+select.br-select-standard.ng-not-empty + label,
 .br-select.br-THEME_NAME-theme.br-select-has-value label {
   color: '{{font-light-3}}';
 }
@@ -49,12 +57,12 @@
 
 
 
-
+select.br-select-standard:focus,
 .br-select.br-THEME_NAME-theme.br-select-focused .br-select-content {
   border-color: '{{primary-default}}';
 }
 
-
+select.br-select-standard:focus + label,
 .br-select.br-THEME_NAME-theme.br-select-focused label {
   color: '{{primary-default}}';
 }

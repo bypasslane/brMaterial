@@ -72,4 +72,22 @@
       </br-select-menu>
     </br-select>
   </section>
+
+
+
+  <section layout="row" layout-align="center center" layout-wrap>
+    <div class="section-label">standard HTML Select</div>
+
+    <div layout="column" style="padding-top: 22px;">
+      <div layout="column">
+        <select ng-model="selectedNoStyle" ng-options="item.name for item in selectList" placeholder="Select..."></select>
+        <label>Select Label</label>
+      </div>
+
+      <div style="padding-top: 22px;" layout="column">
+        <label>No Style</label>
+        <select ng-model="groupSelectedNoStyle" br-no-style ng-options="item.name group by item.age for item in selectList"></select>
+      </div>
+    </div>
+  </section>
 </div>

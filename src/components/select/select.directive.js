@@ -32,10 +32,14 @@ function selectAugmentDirective($brUtil, $compile) {
       attr.$set('tabindex', 0);
     }
 
+    if ( !containerCtrl ) {
+      if (attr.brNoStyle === undefined) { element.addClass('br-select-standard'); }
+      return;
+    }
+
     var errorsSpacer = angular.element('<div class="br-errors-spacer">');
     element.after(errorsSpacer);
 
-    if ( !containerCtrl ) return;
     containerCtrl.selectElement = element;
 
     var ngOptionsHelper = $brUtil.ngOptionsHelper(attr.ngOptions, scope);

@@ -1,3 +1,53 @@
+select.br-select-standard {
+  appearance: none;
+
+  outline: none;
+  order: 2;
+  display: flex;
+  margin-top: 0;
+  background: 0 0;
+  padding: 0 6px 0;
+  border-width: 1px;
+  line-height: 26px;
+  height: 42px;
+  width: initial;
+  -ms-flex-preferred-size: 26px;
+  border-style: solid;
+  border-radius: 3px;
+  box-sizing: border-box;
+  float: left;
+  box-shadow: none;
+  cursor: pointer;
+  outline: none;
+  transition: border cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+
+
+  background:
+    linear-gradient(45deg, transparent 50%, #7A7A7A 50%),
+    linear-gradient(135deg, #7A7A7A 50%, transparent 50%),
+    linear-gradient(to right, transparent, transparent);
+  background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 12px) calc(1em + 2px), 100% 0;
+  background-size: 6px 9px, 6px 9px;
+  background-repeat: no-repeat;
+}
+
+select.br-select-standard[disabled] {
+  cursor: not-allowed;
+}
+
+select.br-select-standard + label {
+  font-size: 14px;
+  font-weight: 700;
+  pointer-events: none;
+  position: relative;
+  top: -2px;
+  z-index: 1;
+  transition: color cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+}
+
+
+
+
 .br-select select::-ms-expand {
   display: none;
 }
@@ -11,8 +61,6 @@
   box-shadow: none;
   background-color: transparent;
   background-image: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
   color:rgba(0,0,0,0);
   cursor: inherit;
@@ -45,7 +93,7 @@
   display: flex;
   margin-top: 0;
   background: 0 0;
-  padding: 13px 6px 1px;
+  padding: 7px 6px 1px;
   border-width: 1px;
   line-height: 26px;
   height: 42px;
@@ -59,10 +107,6 @@
   cursor: pointer;
   outline: none;
   transition: border cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
-}
-
-.br-select:not(.br-has-label) .br-select-content {
-  padding: 7px 6px 1px;
 }
 
 .br-select .br-select-content span {
