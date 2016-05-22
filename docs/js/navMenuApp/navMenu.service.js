@@ -21,8 +21,36 @@ function navMenuService(DEMOS, $rootScope, $location, COMPONENTS) {
       },
       {
         label: 'Components',
-        sub: COMPONENTS
+        sub: filterDirectives(COMPONENTS)
+      },
+      {
+        label: 'Services',
+        sub: filterServices(COMPONENTS)
       }
     ];
+  }
+
+
+  function filterDirectives(arr) {
+    arr = angular.copy(arr);
+    arr.forEach(function (component) {
+      component.docs = component.docs.filter(function (doc) {
+        console.log(doc);
+        return doc.type === 'directive';
+      });
+    });
+
+    return arr;
+  }
+
+  function filterServices(arr) {
+    arr = angular.copy(arr);
+    arr.forEach(function (component) {
+      component.docs = component.docs.filter(function (doc) {
+        return doc.type === 'service';
+      });
+    });
+
+    return arr;
   }
 }
