@@ -8,6 +8,9 @@ input[type="checkbox"]:not([br-no-style]) {
   border-width: 2px;
   border-style: solid;
   border-radius: 2px;
+  transition: background 0.5s,
+              color 0.5s,
+              border 0.5s;
 }
 
 input[type="checkbox"]:not([br-no-style]).ng-not-empty {
@@ -95,8 +98,10 @@ br-checkbox .br-container:before {
   top: 0;
   right: 0;
   bottom: 0;
-  transition: all 0.5s;
   width: auto;
+  transition: background 0.5s,
+              color 0.5s,
+              border 0.5s;
 }
 
 br-checkbox .br-container:after {

@@ -1,3 +1,9 @@
+/**
+ * @ngdoc module
+ * @name dialog
+ * @description
+ * dialog
+ */
 angular
   .module('brMaterial')
   .factory('$brDialog', brDialogService);
@@ -5,8 +11,9 @@ angular
 
 
 /**
+  * @ngdoc service
   * @name $brDialog
-  * @module $brDialog
+  * @module dialog
   *
   *
   * @description
@@ -85,13 +92,12 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
 
   /**
-   * @name add
+   * @ngdoc method
+   * @name $brDialog#add
    * @function
-   *
    *
    * @description
    * creates a dialog popup
-   *
    *
    * @param {string} [options.message] - contains text that will be displayed
    * @param {srting} [options.template] - an html string to displayed
@@ -108,6 +114,7 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    * @param {scope} [options.controllerAs] - this will default to 'dialog' if not given
    * @param {scope} [options.allowBack] - By default the browser back button will run cancel on the dialog and prevent navigation, you can turn this off
    *
+   * @return {promise}
    */
   function add(options) {
     if (dialogBox) {
@@ -219,18 +226,16 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
 
   /**
-   * @name alert
+   * @ngdoc method
+   * @name $brDialog#alert
    * @function
-   *
    *
    * @description
    * creates a alert dialog popup
    * a queue is created if more than one are added
    *
-   *
    * @param {string} [options.message] - contains text that will be displayed
    * @param {boolean} [options.mobileFill] - this will turn the popup into a full page element if it is on a mobile touch device
-   *
    */
   function alert (options) {
     // if none of these exist then a dialog box cannot be created
@@ -260,13 +265,12 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
 
   /**
-   * @name lock
+   * @ngdoc method
+   * @name $brDialog#lock
    * @function
-   *
    *
    * @description
    * turns off all click events for the curretn dialog popup
-   *
    */
   function lock() {
     if (dialogBox !== undefined && typeof dialogBox.scope === 'function') {
@@ -276,13 +280,12 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
 
   /**
-   * @name unlock
+   * @ngdoc method
+   * @name $brDialog#unlock
    * @function
    *
-   *
    * @description
-   * turns on all click events for the curretn dialog popup
-   *
+   * turns on all click events for the current dialog popup
    */
   function unlock() {
     if (dialogBox !== undefined && typeof dialogBox.scope === 'function') {
@@ -292,13 +295,12 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
 
   /**
-   * @name remove
+   * @ngdoc method
+   * @name $brDialog#remove
    * @function
-   *
    *
    * @description
    * removes the current dialog popup
-   *
    */
   function remove () {
     if (dialogBox === undefined || typeof dialogBox.scope !== 'function') { return; }

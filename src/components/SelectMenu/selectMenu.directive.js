@@ -26,7 +26,7 @@ var selectNextId = 0;
   * @example
   * <br-select>
   *   <label>Label</label>
-  *   <br-select-menu ng-model="menuSelected4">
+  *   <br-select-menu ng-model="model" placeholder="Select">
   *     <br-select-header>
   *       <input type="search" ng-model="selectFilter2" placeholder="Search..." />
   *     </br-select-header>
@@ -838,7 +838,33 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
 
 // ---- Group Directive ---------------------
 
-
+/**
+  * @ngdoc directive
+  * @name brOptionGroup
+  * @module select
+  *
+  * @description
+  * `<br-option-group>` is used to create groupings of `<br-option>`
+  *
+  * @param {string} [ng-repeat]
+  * @param {string} [ng-label]
+  *
+  * @example
+  * <br-select>
+  *   <label>Label</label>
+  *   <br-select-menu ng-model="model" placeholder="Select">
+  *     <br-select-header>
+  *       <input type="search" ng-model="selectFilter2" placeholder="Search..." />
+  *     </br-select-header>
+  *
+  *     <br-option-group ng-repeat="group in selectListGrouped" label="{{group.label}}" ng-if="(group.people | filter:selectFilter2).length">
+  *       <br-option ng-value="item" ng-repeat="item in group.people | filter:selectFilter2">{{item.name}}</br-option>
+  *     </br-option-group>
+  *
+  *     <br-button class="br-primary" ng-click="vm.selectButtonTest();">Create New</br-button>
+  *   </br-select-menu>
+  * </br-select>
+  */
 function optionGroupDirective() {
   var directive = {
     restrict: 'E',
@@ -869,6 +895,33 @@ function optionGroupDirective() {
 
 var CHECKBOX_SELECTION_INDICATOR = angular.element('<div class="br-select-icon-container"><div class="br-select-menu-icon"></div></div>');
 
+/**
+  * @ngdoc directive
+  * @name brOption
+  * @module select
+  *
+  * @description
+  * `<br-option>` is the containing element for selecting
+  *
+  * @param {string} [ng-repeat]
+  * @param {any} [ng-value]
+  *
+  * @example
+  * <br-select>
+  *   <label>Label</label>
+  *   <br-select-menu ng-model="model" placeholder="Select">
+  *     <br-select-header>
+  *       <input type="search" ng-model="selectFilter2" placeholder="Search..." />
+  *     </br-select-header>
+  *
+  *     <br-option-group ng-repeat="group in selectListGrouped" label="{{group.label}}" ng-if="(group.people | filter:selectFilter2).length">
+  *       <br-option ng-value="item" ng-repeat="item in group.people | filter:selectFilter2">{{item.name}}</br-option>
+  *     </br-option-group>
+  *
+  *     <br-button class="br-primary" ng-click="vm.selectButtonTest();">Create New</br-button>
+  *   </br-select-menu>
+  * </br-select>
+  */
 function optionDirective() {
   var directive = {
     restrict: 'E',
@@ -985,7 +1038,30 @@ function optionDirective() {
 
 
 
-
+/**
+  * @ngdoc directive
+  * @name brSelectHeader
+  * @module select
+  *
+  * @description
+  * `<br-select-header>` is the containing element for search input
+  *
+  * @example
+  * <br-select>
+  *   <label>Label</label>
+  *   <br-select-menu ng-model="model" placeholder="Select">
+  *     <br-select-header>
+  *       <input type="search" ng-model="selectFilter2" placeholder="Search..." />
+  *     </br-select-header>
+  *
+  *     <br-option-group ng-repeat="group in selectListGrouped" label="{{group.label}}" ng-if="(group.people | filter:selectFilter2).length">
+  *       <br-option ng-value="item" ng-repeat="item in group.people | filter:selectFilter2">{{item.name}}</br-option>
+  *     </br-option-group>
+  *
+  *     <br-button class="br-primary" ng-click="vm.selectButtonTest();">Create New</br-button>
+  *   </br-select-menu>
+  * </br-select>
+  */
 function selectHeader() {
   var directive = {
     restrict: 'E'
