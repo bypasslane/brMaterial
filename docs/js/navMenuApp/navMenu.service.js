@@ -35,7 +35,6 @@ function navMenuService(DEMOS, $rootScope, $location, COMPONENTS) {
     arr = angular.copy(arr);
     arr.forEach(function (component) {
       component.docs = component.docs.filter(function (doc) {
-        console.log(doc);
         return doc.type === 'directive';
       });
     });

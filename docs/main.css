@@ -27,6 +27,16 @@ code {
   overflow-x: auto;
 }
 
+
+.description ul {
+  list-style: none;
+}
+
+.description li {
+  line-height: 14px;
+  font-size: 12px;
+}
+
 .api-section li {
   font-size: 12px;
 }
