@@ -1,4 +1,4 @@
-input[type="checkbox"]:not([br-no-override]) {
+input[type="checkbox"]:not([br-no-style]) {
   appearance: none;
   outline: none;
   margin: 10px;
@@ -10,11 +10,11 @@ input[type="checkbox"]:not([br-no-override]) {
   border-radius: 2px;
 }
 
-input[type="checkbox"]:not([br-no-override]).ng-not-empty {
+input[type="checkbox"]:not([br-no-style]).ng-not-empty {
   border: none;
 }
 
-input[type="checkbox"]:not([br-no-override]).ng-not-empty:after {
+input[type="checkbox"]:not([br-no-style]).ng-not-empty:after {
   box-sizing: border-box;
   transform: rotate(45deg);
   position: absolute;
@@ -31,7 +31,7 @@ input[type="checkbox"]:not([br-no-override]).ng-not-empty:after {
 }
 
 
-input[type="checkbox"]:not([br-no-override]) + label {
+input[type="checkbox"]:not([br-no-style]) + label {
   font-size: 13px;
   box-sizing: border-box;
   position: relative;

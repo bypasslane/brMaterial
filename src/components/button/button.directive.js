@@ -23,7 +23,7 @@ function buttonExtendDirective($brTheme) {
   return directive;
 
   function link(scope, element, attrs) {
-    if (!element.hasClass('br-button') && attrs.brNoOverride === undefined) {
+    if (!element.hasClass('br-button') && attrs.brNoStyle === undefined) {
       $brTheme(element);
       element.addClass('br-button');
     }

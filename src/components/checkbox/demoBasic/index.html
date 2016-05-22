@@ -1,6 +1,6 @@
 <div ng-controller="AppCtrl" ng-cloak>
   <section layout="row" layout-align="center center" layout-wrap>
-    <label>Componet</label>
+    <div class="section-label">Componet</div>
     <br-checkbox ng-model="switch1">Switch: {{ switch1 }}</br-checkbox>
     <br-checkbox class="br-primary" ng-model="switch2">Primary: {{ switch2 }}</br-checkbox>
     <br-checkbox class="br-accent" ng-model="switch3">Accent: {{ switch3 }}</br-checkbox>
@@ -9,7 +9,7 @@
 
 
   <section layout="row" layout-align="center center" layout-wrap>
-    <label>Standard HTML input checkbox</label>
+    <div class="section-label">Standard HTML input checkbox</div>
 
 
     <input type="checkbox" name="normalcheck" ng-model="switch1"/>
@@ -24,7 +24,7 @@
     <input type="checkbox" name="warnCheck" class="br-warn" ng-model="switch4"/>
     <label for="warnCheck">Warn</label>
 
-    <input type="checkbox" name="noOverride" br-no-override class="br-primary" ng-model="switch4"/>
-    <label for="noOverride">No Style Override</label>
+    <input type="checkbox" name="noOverride" br-no-style class="br-primary" ng-model="switch4"/>
+    <label for="noOverride">No Style</label>
   </section>
 </div>
