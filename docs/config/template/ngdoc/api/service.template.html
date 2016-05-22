@@ -2,8 +2,8 @@
 
 {% block related_components %}
   {% if doc.providerDoc -%}
-  <li>
+  <div flex>
     <a href="{$ doc.providerDoc.path $}">- {$ doc.providerDoc.name $}</a>
-  </li>
+  </div>
   {%- endif %}
 {% endblock %}

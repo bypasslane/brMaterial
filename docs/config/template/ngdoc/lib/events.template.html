@@ -1,9 +1,9 @@
 {%- if doc.events %}
 <section class="api-section">
   <h2>Events</h2>
-  <ul class="events">
+  <div layout="div" class="events">
     {%- for event in doc.events %}
-    <li id="{$ event.name $}">
+    <div flex id="{$ event.name $}">
       <h3>{$ event.name $}</h3>
       <div>{$ event.description | marked $}</div>
       {%- if event.eventType == 'listen' %}
@@ -20,8 +20,8 @@
         <div class="target">{$ event.eventTarget $}</div>
       </div>
       {% endif -%}
-    </li>
+    </div>
     {% endfor -%}
-  </ul>
+  </div>
 </section>
 {% endif -%}

@@ -2,9 +2,9 @@
 <section class="api-section">
   <h2>Methods</h2>
   <br/>
-  <ul class="methods">
+  <div layout="column" class="methods">
     {%- for method in doc.methods %}
-    <li id="{$ method.name $}">
+    <div flex id="{$ method.name $}">
       <h3 class="method-function-syntax">
         <code class="method-function-syntax">{$ doc.name $}.{$ functionSyntax(method) $}</code>
       </h3>
@@ -27,8 +27,8 @@
 
       </div>
 
-    </li>
+    </div>
     {% endfor -%}
-  </ul>
+  </div>
 </section>
 {%- endif -%}
