@@ -1,6 +1,7 @@
 angular
   .module('docsApp', ['ngRoute', 'ngMessages', 'brMaterial'])
   .config(configApp)
+  .controller('ComponentDocCtrl', ComponentDocCtrl)
   .controller('DemoCtrl', DemoCtrl);
 
 
@@ -16,7 +17,24 @@ function configApp($locationProvider, $routeProvider, DEMOS, COMPONENTS) {
     })
     .when('/demo/', {
       redirectTo: DEMOS[0].url
+    })
+    .when('/api/', {
+      redirectTo: COMPONENTS[0].docs[0].url
     });
+
+  COMPONENTS.forEach(function(component) {
+    component.docs.forEach(function(doc) {
+      console.log(doc.url);
+      $routeProvider.when('/' + doc.url, {
+        templateUrl: doc.outputPath,
+        resolve: {
+          component: function() { return component; },
+          doc: function() { return doc; }
+        },
+        controller: 'ComponentDocCtrl'
+      });
+    });
+  });
 
 
   DEMOS.forEach(function(componentDemos) {
@@ -74,4 +92,10 @@ function DemoCtrl($rootScope, $scope, component, demos, $http, $templateCache) {
   $scope.demos = $scope.demos.sort(function(a,b) {
     return a.name > b.name ? 1 : -1;
   });
+}
+
+
+function ComponentDocCtrl($scope, doc, component, $rootScope) {
+  $rootScope.currentComponent = component;
+  $rootScope.currentDoc = doc;
 }

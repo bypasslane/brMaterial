@@ -30,12 +30,12 @@
         <nav-menu>
           <nav-menu-item ng-repeat="item in vm.menu">
 
-            <br-button ng-href="#/{{item.url}}">
+            <br-button ng-if="item.url !== undefined" ng-href="#/{{item.url}}">
               {{item.label}}
             </br-button>
 
             <nav-menu-expander ng-if="item.sub !== undefined" label="item.label">
-              <br-button ng-if="sub.link !== undefined" ng-repeat="sub in item.sub" ng-href="#/{{sub.url || '.'}}">
+              <br-button ng-repeat="sub in item.sub" ng-href="#/{{sub.docs ? sub.docs[0].url : sub.url}}">
                 {{sub.label}}
               </br-button>
             </nav-menu-expander>
@@ -44,8 +44,8 @@
         </nav-menu>
       </br-side-content>
 
-      <br-content br-auto-height>
-        <div flex style="padding-left: 12px; padding-right: 12px; padding-top: 40px; width: 100%;" ng-view></div>
+      <br-content br-auto-height style="padding-top: 40px; width: 100%;">
+        <div flex style="padding-left: 8px; padding-right: 8px;" ng-view></div>
       </br-content>
     </div>
   </body>
