@@ -1,19 +1,19 @@
-br-input textarea,
-br-input input[type="text"],
-br-input input[type="password"],
-br-input input[type="datetime"],
-br-input input[type="datetime-local"],
-br-input input[type="date"],
-br-input input[type="month"],
-br-input input[type="time"],
-br-input input[type="week"],
-br-input input[type="number"],
-br-input input[type="email"],
-br-input input[type="url"],
-br-input input[type="search"],
-br-input input[type="tel"],
-br-input input[type="color"],
-br-input input[type="file"] {
+.br-input textarea,
+.br-input input[type="text"],
+.br-input input[type="password"],
+.br-input input[type="datetime"],
+.br-input input[type="datetime-local"],
+.br-input input[type="date"],
+.br-input input[type="month"],
+.br-input input[type="time"],
+.br-input input[type="week"],
+.br-input input[type="number"],
+.br-input input[type="email"],
+.br-input input[type="url"],
+.br-input input[type="search"],
+.br-input input[type="tel"],
+.br-input input[type="color"],
+.br-input input[type="file"] {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -27,7 +27,7 @@ br-input {
   vertical-align: middle;
 }
 
-br-input .br-input {
+.br-input {
   order: 2;
   display: block;
   margin-top: 0;
@@ -45,6 +45,12 @@ br-input .br-input {
   float: left;
   box-shadow: none;
   transition: border cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
+}
+
+.br-input-standard {
+  line-height: 42px;
+  padding: 0 6px 0;
+  width: initial;
 }
 
 br-input:not(.br-has-label) .br-input {
@@ -67,6 +73,7 @@ br-input textarea {
   overflow: hidden;
 }
 
+.br-input-standard + label,
 br-input label {
   font-size: 14px;
   font-weight: 700;
@@ -88,13 +95,20 @@ br-input label {
   transition: color cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
 }
 
-br-input .br-input[disabled] {
+.br-input-standard + label {
+  position: absolute;
+  top: initial;
+  left: initial;
+  transform: translate(0, -21px);
+}
+
+.br-input[disabled] {
   background-position: 0 bottom;
   background-size: 3px 1px;
   background-repeat: repeat-x;
 }
 
-br-input .br-input:focus {
+.br-input:focus {
   outline: none;
   box-shadow: none;
 }
