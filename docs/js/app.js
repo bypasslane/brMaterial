@@ -95,6 +95,8 @@ function DemoCtrl($rootScope, $scope, component, demos, $http, $templateCache) {
 
 
 function ComponentDocCtrl($scope, doc, component, $rootScope) {
+  hljs.initHighlighting.called = false;
+  hljs.initHighlighting();
   $rootScope.currentComponent = component;
   $rootScope.currentDoc = doc;
 }
