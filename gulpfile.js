@@ -106,6 +106,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.scripts, function (event) {
     jsBuild.getDev(event.path)()
       .on('end', function () {
+        demoBuild();
         if (event.type !== 'changed') { themeBuilder.inject(); }
       });
   });
@@ -117,6 +118,8 @@ gulp.task('watch', function () {
         .on('end', function () {
           if (event.type !== 'changed') { themeBuilder.inject(); }
         });
+    } else {
+      indexBuild.inject();
     }
   });
 

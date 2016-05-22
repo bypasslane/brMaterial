@@ -1,3 +1,48 @@
+input[type="checkbox"]:not([br-no-override]) {
+  appearance: none;
+  outline: none;
+  margin: 10px;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+input[type="checkbox"]:not([br-no-override]).ng-not-empty {
+  border: none;
+}
+
+input[type="checkbox"]:not([br-no-override]).ng-not-empty:after {
+  box-sizing: border-box;
+  transform: rotate(45deg);
+  position: absolute;
+  left: 6.66667px;
+  top: 2.22222px;
+  display: table;
+  width: 6.66667px;
+  height: 13.33333px;
+  border-width: 2px;
+  border-style: solid;
+  border-top: 0;
+  border-left: 0;
+  content: '';
+}
+
+
+input[type="checkbox"]:not([br-no-override]) + label {
+  font-size: 13px;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+  user-select: text;
+  margin-right: 30px;
+}
+
+
 br-checkbox {
   box-sizing: border-box;
   margin-bottom: 16px;

@@ -1,24 +1,34 @@
+/**
+ * @ngdoc module
+ * @name checkbox
+ * @description
+ * checkbox
+ */
 angular
   .module('brMaterial')
   .directive('brCheckbox', brCheckboxDirective);
 
 
 /**
+  * @ngdoc directive
   * @name brCheckbox
-  * @module brCheckbox
+  * @module checkbox
   *
   *
   * @description
-  * The <br-checkbox> standard checkbox
+  * The `<br-checkbox>` standard checkbox
   *
   *
   * @param {model} [ng-model]
+  * @param {boolean} [ng-checked]
+  * @param {boolean} [ng-disabled]
+  * @param {function} [ng-change]
+  * @param {function} [br-no-override] - use with standard HTML input checkbox to remove material styling
   *
   * @example
   * <br-checkbox ng-model="switch1">
 	*		Switch 1: {{ switch1 }}
 	*	</br-checkbox>
-  *
   */
 brCheckboxDirective.$inject = ['$timeout', 'inputDirective', '$brTheme', '$brUtil', '$brGesture', '$brConstant'];
 function brCheckboxDirective ($timeout, inputDirective, $brTheme, $brUtil, $brGesture, $brConstant) {
@@ -74,7 +84,7 @@ function brCheckboxDirective ($timeout, inputDirective, $brTheme, $brUtil, $brGe
 
       $brGesture.register(element, 'press');
 			element
-				.on('$br.pressup', onUp)
+				.on('click', onUp)
 				.on('keypress', keypressHandler)
 				.on('focus', function() {
 					element.addClass('br-focused');

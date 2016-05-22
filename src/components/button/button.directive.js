@@ -38,18 +38,12 @@ function buttonExtendDirective($brTheme) {
  * @module button
  *
  * @description
- * The <br-button> can be a button with txt, icons, or anything else you want
+ * The `<br-button>` can be a button with txt, icons, or anything else you want
  *
  *
- * @param {css} [br-primary] - sets he buttons color to the primary color
- * @param {css} [br-warn] - sets he buttons color to the warn color
- * @param {css} [br-accent] - sets he buttons color to the accent color
- * @param {css} [br-rasied] - gives the button a backgrouns and shadow by default
- * @param {css} [br-full] - tells button to fill avalable space
- * @param {css} [br-no-shadow] - remoes box shadow
- * @param {css} [br-no-margin] - removes default margin
- * @param {css} [br-circle] - makes the button round
- * @param {css} [br-small] - can be used along side br-circle to make the button smaller. This is good for icons
+ * @param {css} [br-no-override] - removes style from the standard HTML button
+ * @param {boolean} [ng-disabled]
+ * @param {function} [ng-change]
  *
  *
  * @example
@@ -57,8 +51,7 @@ function buttonExtendDirective($brTheme) {
  * <br-button class="br-primary">Primary button</br-button>
  * <br-button class="br-primary br-rasied">Primary Raised button</br-button>
  * <br-button class="br-circle br-small"><br-icon br-icon-font="edit"></br-icon></br-button>
- * <br-button class="br-accent br-rasied">br-icon br-icon-font="add"></br-icon>Icon & Text button</br-button>
- *
+ * <br-button class="br-accent br-rasied"><br-icon br-icon-font="add"></br-icon>Icon & Text button</br-button>
  */
 
 brButtonDirective.$inject = ['$brTheme', '$timeout', '$brRippleService'];
