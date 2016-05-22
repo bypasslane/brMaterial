@@ -22,7 +22,26 @@ angular
   * you can call the $cancel and $continue in the tempalte to trigger there scope functions
   * cancel is called on the completion of the removal animation
   *
-  * @example
+  * @usage
+  * ### Baisc Message
+  * This will give you a popup with a message and a continue and cancel button. The cancel button will close the dialog.
+  *
+  * <hljs lang="js">
+  * $brDialog.add({
+  * 	message: 'Hello World',
+  * 	controls: true,
+  *   scope: {
+  * 	 continue: function () {
+  *     $brDialog.remove();
+  *    },
+  *   }
+  * });
+  * </hljs>
+  *
+  * ### Advanced Message
+  * You can control the text used on the default continue and cancel button
+  *
+  * <hljs lang="js">
   * $brDialog.add({
   * 	message: 'Hello World',
   * 	controls: {
@@ -30,36 +49,43 @@ angular
   * 		cancelLabel: 'Close'
   *	  },
   *   scope: {
-  * 	 cancel: function () {
-  *
-  * 	 },
-  * 	 continue: function () {
-  *
-  * 	 }
+  * 	 cancel: function () {},
+  * 	 continue: function () {}
   *   },
   *   controller: function () {}
   * }).then(function () {
   *   // called post animation
   * });
+  * </hljs>
   *
+  * ### Templated
+  * you can add controllers and locals to create a dialog directive
+  *
+  * <hljs lang="js">
   * $brDialog.add({
   * 	teplateURL: 'theurl.html',
-  *   scope: {
-  *     someVar: true,
-  * 	  callback: function (value) {
-  *		    if (value === true) { console.log('continue'); }
-  * 		  else { console.log('close'); }
-  * 	  }
-  *   }
+  *   locals: {passedLocal: 'value'},
+  *   controllerAs: 'vm',
+  *   controller: ['$scope', 'passedLocal', function ($scope, passedLocal) {
+  *   })
   * });
+  * </hljs>
   *
-  * $brDialog.alert({message: 'The Alert Message'});
+  * ### Alert
+  * Alerts will queue and play sequencially.
   *
+  * <hljs lang="js">
+  * $brDialog.alert('The Alert Message');
+  * </hljs>
+  *
+  * ### Other
+  * <hljs lang="js">
   * $brDialog.lock();
   * $brDialog.unlock();
   * $brDialog.remove().then(function () {
   *   // called post animation
   * });
+  * </hljs>
   */
 brDialogService.$inject = ['$brMobile', '$timeout', '$document', '$rootScope', '$compile', '$brTheme', '$animateCss', '$brUtil', '$q', '$controller', '$window'];
 function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, $brTheme, $animateCss, $brUtil, $q, $controller, $window) {
@@ -99,20 +125,21 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    * @description
    * creates a dialog popup
    *
-   * @param {string} [options.message] - contains text that will be displayed
-   * @param {srting} [options.template] - an html string to displayed
-   * @param {string} [options.templateUrl] - A path to a html file to load into the dialog
-   * @param {boolean} [options.controls] - show cancel and continue buttons, this will callback with tru/false
-   * @param {object} [options.controls] - An object containing lbels for the concel/continue controls
-   * @param {string} [options.controls.continueLabel] - Label for continue button. This will default to "Continue"
-   * @param {string} [options.controls.cancelLabel] - Label for continue button. This will default to "Continue"
-   * @param {function} [options.callback] - callback function that returns true/fasle
-   * @param {number} [options.width] - set the maxWidth of the dialog
-   * @param {boolean} [options.mobileFill] - this will turn the popup into a full page element if it is on a mobile touch device
-   * @param {scope} [options.scope] - an object of properties that will be made available on scope
-   * @param {scope} [options.controller] - a controller function or string name
-   * @param {scope} [options.controllerAs] - this will default to 'dialog' if not given
-   * @param {scope} [options.allowBack] - By default the browser back button will run cancel on the dialog and prevent navigation, you can turn this off
+   * @param {object} options.message - Dialog options
+   * @param {string=} [options.message] - contains text that will be displayed
+   * @param {srting=} [options.template] - an html string to displayed
+   * @param {string=} [options.templateUrl] - A path to a html file to load into the dialog
+   * @param {boolean=} [options.controls] - show cancel and continue buttons, this will callback with tru/false
+   * @param {object=} [options.controls] - An object containing lbels for the concel/continue controls
+   * @param {string=} [options.controls.continueLabel] - Label for continue button. This will default to "Continue"
+   * @param {string=} [options.controls.cancelLabel] - Label for continue button. This will default to "Continue"
+   * @param {function=} [options.callback] - callback function that returns true/fasle
+   * @param {number=} [options.width] - set the maxWidth of the dialog
+   * @param {boolean=} [options.mobileFill] - this will turn the popup into a full page element if it is on a mobile touch device
+   * @param {scope=} [options.scope] - an object of properties that will be made available on scope
+   * @param {scope=} [options.controller] - a controller function or string name
+   * @param {scope=} [options.controllerAs] - this will default to 'dialog' if not given
+   * @param {scope=} [options.allowBack] - By default the browser back button will run cancel on the dialog and prevent navigation, you can turn this off
    *
    * @return {promise}
    */

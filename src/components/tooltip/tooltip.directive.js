@@ -1,3 +1,7 @@
+/**
+ * @ngdoc module
+ * @name tooltip
+ */
 angular
   .module('brMaterial')
   .directive('brTooltip', brTooltipDirective);
@@ -6,22 +10,31 @@ angular
 
 
 /**
+  * @ngdoc directive
   * @name brTooltip
-  * @module brTooltip
-  *
+  * @module tooltip
   *
   * @description
-  * The <br-ttooltip> directive can attact to any element. just place it inside of the element you want it to ativate on
+  * The `<br-ttooltip>` directive can attact to any element. just place it inside of the element you want it to ativate on
   *
   *
-  * @param {boolean} [br-visible] - show/hide tooltip
-  * @param {number} [br-delay=300] - delay for hidding the tooltip in millaseconds.
-  * @param {boolean} [br-autohide=true] - automatically hide on mouse exit
-  * @param {string} [br-position] - use "top", "left", "right" to change the position of the tooltip
+  * @param {boolean=} [br-visible] - show/hide tooltip
+  * @param {number=} [br-delay=300] - delay for hidding the tooltip in millaseconds.
+  * @param {boolean=} [br-autohide=true] - DEFAULT: true. automatically hide on mouse exit
+  * @param {string=} [br-position] - use "top", "left", "right" to change the position of the tooltip
   *
-  * @example
-  * <br-tooltip br-position="top">Tooltip Title</br-tooltip>
+  * - "right top"
+  * - "left top"
+  * - "right bottom"
+  * - "left bottom"
   *
+  * @usage
+  * <hljs lang="html">
+  * <br-button>
+  *   Button Label
+  *   <br-tooltip>Tooltip Title</br-tooltip>
+  * </br-button>
+  * </hljs>
   */
 
 brTooltipDirective.$inject = ['$brTheme', '$$rAF', '$brUtil', '$animate', '$q', '$timeout', '$window', '$rootElement', '$document'];

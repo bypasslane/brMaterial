@@ -17,13 +17,14 @@ var selectNextId = 0;
   * @description
   * `<br-select-menu>` is used in place of `<select>`. It it gives the flexibility for searching multiple groupings and buttons
   *
-  * @param {model} ng-model
-  * @param {function} [ng-change]
-  * @param {boolean} [ng-disabled]
-  * @param {string} [placeholder]
-  * @param {boolean} multiple - enables multi selection
+  * @param {model=} ng-model
+  * @param {function=} [ng-change]
+  * @param {boolean=} [ng-disabled]
+  * @param {string=} [placeholder]
+  * @param {boolean=} multiple - enables multi selection
   *
-  * @example
+  * @usage
+  * <hljs lang="html">
   * <br-select>
   *   <label>Label</label>
   *   <br-select-menu ng-model="model" placeholder="Select">
@@ -38,6 +39,7 @@ var selectNextId = 0;
   *     <br-button class="br-primary" ng-click="vm.selectButtonTest();">Create New</br-button>
   *   </br-select-menu>
   * </br-select>
+  * </hljs>
   */
 selectMenuDirective.$inject = ['$brUtil', '$brTheme', '$compile', '$parse', '$document', '$brBackdrop', '$animateCss', '$window', '$brConstant', '$$rAF', '$brMobile', '$interval', '$timeout'];
 function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $brBackdrop, $animateCss, $window, $brConstant, $$rAF, $brMobile, $interval, $timeout) {

@@ -5,18 +5,25 @@ angular
 
 
 /**
+  * @ngdoc service
   * @name $brExapnder
-  * @module $brExapnder
-  *
+  * @module expander
   *
   * @description
-  * $brExapnder controls the <br-expander> element
+  * `$brExapnder` controls the `<br-expander>` element
   *
-  * @example
-  * $brExapnder('theComponentId').open();
-  * $brExapnder('theComponentId').isOpen();
-  * $brExapnder('theComponentId').toggle();
-  * $brExapnder('theComponentId').close();
+  * @usage
+  * The `$brExpander` service has functions to control the expander based on its `[br-component-id]` name
+  *
+  * <hljs lang="js">
+  *   angular.controller('MyCtrl', function ($scope, $brExpander) {
+  *     $scope.isOpen = false;
+  *     $brExpander('expanderComponentId').open();
+  *     $brExpander('expanderComponentId').close();
+  *     $brExpander('expanderComponentId').toggle();
+  *     $brExpander('expanderComponentId').isOpen();
+  *   });
+  * </hljs>
   */
 brExpanderService.$inject = ['$brComponentRegistry', '$q'];
 function brExpanderService($brComponentRegistry, $q) {

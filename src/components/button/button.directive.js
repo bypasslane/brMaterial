@@ -1,8 +1,6 @@
 /**
  * @ngdoc module
  * @name button
- * @description
- * Button
  */
 angular
   .module('brMaterial')
@@ -40,18 +38,32 @@ function buttonExtendDirective($brTheme) {
  * @description
  * The `<br-button>` can be a button with txt, icons, or anything else you want
  *
+ * @param {boolean=} [br-no-style] - removes style from the standard HTML button
+ * @param {boolean=} [ng-disabled]
+ * @param {function=} [ng-change]
  *
- * @param {css} [br-no-override] - removes style from the standard HTML button
- * @param {boolean} [ng-disabled]
- * @param {function} [ng-change]
+ * @usage
+ * #### Class Names
+ * Buttons can have all the main theme classes applied to them
+ *  - `br-raised` - Adds backround to button
+ *  - `br-primary` - Themes primary color
+ *  - `br-accent` - Themes accent color
+ *  - `br-warn` - Themes warn color
+ *  - `br-circle` - Make button a circle
+ *  - `br-small` - Make button a circle smaller
+ *  - `br-fill` - Make button stretch to the full width of its container
+ *  - `br-shadow` - Add drop shadow to button
+ *  - `br-no-radius` - Remove border radius
+ *  - `br-no-padding` - Remove padding
+ *  - `br-no-margin` - Remove margin
  *
- *
- * @example
+ * <hljs lang="html">
  * <br-button>button</br-button>
  * <br-button class="br-primary">Primary button</br-button>
  * <br-button class="br-primary br-rasied">Primary Raised button</br-button>
  * <br-button class="br-circle br-small"><br-icon br-icon-font="edit"></br-icon></br-button>
  * <br-button class="br-accent br-rasied"><br-icon br-icon-font="add"></br-icon>Icon & Text button</br-button>
+ * </hljs>
  */
 
 brButtonDirective.$inject = ['$brTheme', '$timeout', '$brRippleService'];

@@ -1,3 +1,7 @@
+/**
+ * @ngdoc module
+ * @name list
+ */
 angular
   .module('brMaterial')
   .directive('brList', listDirective)
@@ -7,26 +11,22 @@ angular
 
 
 /**
+ * @ngdoc directive
  * @name brList
- * @module brList
- *
+ * @module list
  *
  * @description
- * The <br-list> contains a list of brItems
+ * The `<br-list>` contains a list of items
  *
+ * @param {model=} [ng-model] - used to manage selected items
+ * @param {function=} [ng-change]
+ * @param {Number=} [br-max-select] - the maximum number of items allowed to be selected
+ * @param {Boolean=} [br-toggle-selection] - shows and hides checkboxes
  *
- *
- * @param {Array} [ng-model] - a list of values based on your specified key on [br-select]
- * @param {Number} [br-max-select] - the maximum number of items allowed to be selected
- * @param {Boolean} [br-toggle-selection] - shows and hides checkboxes
- *
- *
- * @example
+ * @usage
+ * <hljs lang="html">
  * <br-list ng-model="theModel" br-max-select="1" br-toggle-select="theBoolValue">
  *  <br-item br-select="item.key" ng-repeat="item in list">
- *    <br-item-controls>
- *      <br-button class="br-primary br-raised">Edit</br-button>
- *    <br-item-controls>
  *    <br-item-content>
  *      <div flex class="br-item-title">{{item.title}}</div>
  *      <div layout="row" layout-fill class="br-item-sub-title">
@@ -36,6 +36,7 @@ angular
  *    </br-item-content>
  *  </br-item>
  * </br-list>
+ * </hljs>
  */
 listDirective.$inject = ['$brTheme', '$brUtil', '$brMobile'];
 function listDirective ($brTheme, $brUtil, $brMobile) {
@@ -187,6 +188,83 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
 
 
 
+/**
+ * @ngdoc directive
+ * @name brItem
+ * @module list
+ *
+ * @description
+ * The `<br-item>` is the containing element for lists
+ *
+ * @param {repeat=} [ng-repeat]
+ * @param {Number=} [br-select] - the value to use for selections
+ *
+ * @usage
+ * <hljs lang="html">
+ * <br-list ng-model="theModel" br-max-select="1" br-toggle-select="theBoolValue">
+ *  <br-item br-select="item.key" ng-repeat="item in list">
+ *    <br-item-content>
+ *      <div flex class="br-item-title">{{item.title}}</div>
+ *      <div layout="row" layout-fill class="br-item-sub-title">
+ *        <div>{{item.info}}</div>
+ *        <div>{{item.other}}</div>
+ *      </div>
+ *    </br-item-content>
+ *  </br-item>
+ * </br-list>
+ * </hljs>
+ */
+
+ /**
+  * @ngdoc directive
+  * @name brItemContent
+  * @module list
+  *
+  * @description
+  * The `<br-item-content>` is the container for any content you want to display
+  *
+  * @usage
+  * <hljs lang="html">
+  * <br-list ng-model="theModel" br-max-select="1" br-toggle-select="theBoolValue">
+  *  <br-item br-select="item.key" ng-repeat="item in list">
+  *    <br-item-content>
+  *      <div flex class="br-item-title">{{item.title}}</div>
+  *      <div layout="row" layout-fill class="br-item-sub-title">
+  *        <div>{{item.info}}</div>
+  *        <div>{{item.other}}</div>
+  *      </div>
+  *    </br-item-content>
+  *  </br-item>
+  * </br-list>
+  * </hljs>
+  */
+
+ /**
+  * @ngdoc directive
+  * @name brItemControls
+  * @module list
+  *
+  * @description
+  * The `<br-item-controls>` is an optional element to contain mobile hidden controls that show on swipe
+  *
+  * @usage
+  * <hljs lang="html">
+  * <br-list ng-model="theModel" br-max-select="1" br-toggle-select="theBoolValue">
+  *  <br-item br-select="item.key" ng-repeat="item in list">
+  *    <br-item-controls>
+  *      <br-button class="br-primary br-raised">Edit</br-button>
+  *    <br-item-controls>
+  *    <br-item-content>
+  *      <div flex class="br-item-title">{{item.title}}</div>
+  *      <div layout="row" layout-fill class="br-item-sub-title">
+  *        <div>{{item.info}}</div>
+  *        <div>{{item.other}}</div>
+  *      </div>
+  *    </br-item-content>
+  *  </br-item>
+  * </br-list>
+  * </hljs>
+  */
 itemDirective.$inject = ['$compile', '$brGesture', '$$rAF', '$brDialog', '$timeout'];
 function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
   var directive = {

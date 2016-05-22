@@ -19,16 +19,23 @@ angular
   * The `<br-checkbox>` standard checkbox
   *
   *
-  * @param {model} [ng-model]
-  * @param {boolean} [ng-checked]
-  * @param {boolean} [ng-disabled]
-  * @param {function} [ng-change]
-  * @param {function} [br-no-override] - use with standard HTML input checkbox to remove material styling
+  * @param {model=} [ng-model]
+  * @param {boolean=} [ng-checked]
+  * @param {boolean=} [ng-disabled]
+  * @param {function=} [ng-change]
+  * @param {function=} [br-no-override] - use with standard HTML input checkbox to remove material styling
   *
-  * @example
+  * @usage
+  * #### Class Names
+  *  - `br-primary` - Themes primary color
+  *  - `br-accent` - Themes accent color
+  *  - `br-warn` - Themes warn color
+  *
+  * <hljs lang="html">
   * <br-checkbox ng-model="switch1">
-	*		Switch 1: {{ switch1 }}
-	*	</br-checkbox>
+  *		Switch 1: {{ switch1 }}
+  *	</br-checkbox>
+  * </hljs>
   */
 brCheckboxDirective.$inject = ['$timeout', 'inputDirective', '$brTheme', '$brUtil', '$brGesture', '$brConstant'];
 function brCheckboxDirective ($timeout, inputDirective, $brTheme, $brUtil, $brGesture, $brConstant) {

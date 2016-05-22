@@ -1,3 +1,7 @@
+/**
+ * @ngdoc module
+ * @name subHeader
+ */
 angular
   .module('brMaterial')
   .directive('brSubheader', brSubheaderDirective);
@@ -5,21 +9,24 @@ angular
 
 
 /**
+  * @ngdoc directive
   * @name brSubheader
-  * @module brSubheader
-  *
+  * @module subHeader
   *
   * @description
-  * <br-subheader> are sticky headers, they will only be sticky inside of a <br-content> element
+  * `<br-subheader>` are sticky headers, they will only be sticky inside of a `<br-content>` element
   *
+  * @param {boolen=} br-no-sticky - disalbe sticky functionality
   *
-  * @example
-  * <br-subheader>
-  *    // Put stuff here
-  * </br-subheader>
-  *
+  * @usage
+  * <hljs lang="html">
+  * <br-content style="height: 400px">
+  *   <br-subheader>
+  *     // Put stuff here
+  *   </br-subheader>
+  * </br-content>
+  * </hljs>
   */
-
 brSubheaderDirective.$inject = ['$brTheme', '$compile', '$brSticky'];
 function brSubheaderDirective ($brTheme, $compile, $brSticky) {
   var directive = {

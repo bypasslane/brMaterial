@@ -22,14 +22,16 @@ angular.module('brMaterial')
  * @description
  * The `<br-input>` container that holds the input, label, and error messages
  *
- * @example
+ * @usage
+ * <hljs lang="html">
  * <br-input>
  * 	<label>Input Label</label>
  * 	<input ng-model="theModel" placeholder="The Placeholder" name="thInputName" required />
  * 	<div ng-messages="theFormName.thInputName.$error">
- *	 <div ng-message="required">This is required</div>
+ *    <div ng-message="required">This is required</div>
  * 	</div>
  * </br-input>
+ * </hljs>
  */
 brInputDirective.$inject = ['$brTheme'];
 function brInputDirective ($brTheme) {
@@ -94,20 +96,6 @@ function brInputDirective ($brTheme) {
 
 
 
-/**
- * @ngdoc directive
- * @name label
- * @module input
- *
- * @description
- * The `<label>` element sits inside of the `<br-input>` container
- *
- * @example
- * <br-input>
- * 	<label>Input Label</label>
- * 	<input ng-model="theModel" />
- * </br-input>
- */
 function labelDirective () {
 	var directive = {
 		restrict: 'E',
@@ -293,10 +281,12 @@ function placeholderDirective () {
 * @description
 * The '[br-x]' directive is an attribute of the `<input>` directive. This will show an x if there is input value. When clicked on it will clear the value
 *
-* @example
+* @usage
+* <hljs lang="html">
 * <br-input>
 * 	<input ng-model="theModel" placeholder="Enter Text" br-x />
 * </br-input>
+* </hljs>
 */
 xDirective.$inject = ['$compile'];
 function xDirective ($compile) {

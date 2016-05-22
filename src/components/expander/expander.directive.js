@@ -1,3 +1,7 @@
+/**
+ * @ngdoc module
+ * @name expander
+ */
 angular
   .module('brMaterial')
   .directive('brExpander', expanderDirective)
@@ -8,27 +12,43 @@ angular
 
 
 /**
+  * @ngdoc directive
   * @name brExpander
-  * @module brExpander
-  *
+  * @module expander
   *
   * @description
-  * The <br-expander> is a container that opens and closes
+  * The `<br-expander>` is a container that opens and closes
   *
+  * @param {boolean=} [br-width] - set width
+  * @param {boolean=} [br-height] - set height value. this will set scrolling in y
+  * @param {boolean=} [br-open] - bound value for opening and closing
+  * @param {string=} [br-component-id] - name that can be used with the `$brExpander`service
   *
-  * @param {boolean} [br-width] - set width
-  * @param {boolean} [br-height] - set height value. this will set scrolling in y
-  * @param {boolean} [br-open] - bound value for opening and closing
+  * @usage
+  * You can controll the expander in 3 ways.
+  * - The `<br-expander-header>` element will automatically expand when clicked
+  * - The `[br-open]` attribute will listen for changes
+  * - The `$brExpander` service has functions to control the expander based on its `[br-component-id]` name
   *
+  * <hljs lang="js">
+  *   angular.controller('MyCtrl', function ($scope, $brExpander) {
+  *     $scope.isOpen = false;
+  *     $brExpander('expanderComponentId').open();
+  *     $brExpander('expanderComponentId').close();
+  *     $brExpander('expanderComponentId').toggle();
+  *     $brExpander('expanderComponentId').isOpen();
+  *   });
+  * </hljs>
   *
-  * @example
-  *    <br-expander br-open="isOpen">
+  * <hljs lang="html">
+  *    <br-expander br-open="isOpen" br-component-id="expanderComponentId">
   *      <br-expander-header>Title</br-expander-header>
   *
   *      <br-expander-content>
+  *         <!-- content foes here -->
   *      </br-expander-content>
   *    </br-expander>
-  *
+  * </hljs>
   */
 expanderDirective.$inject = ['$brTheme', '$parse'];
 function expanderDirective ($brTheme, $parse) {

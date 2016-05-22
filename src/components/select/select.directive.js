@@ -1,8 +1,6 @@
 /**
  * @ngdoc module
  * @name select
- * @description
- * Select
  */
 angular
   .module('brMaterial')
@@ -123,11 +121,13 @@ function selectAugmentDirective($brUtil, $compile) {
   * @description
   * `<br-select>` is a wrapper for selects and select menus
   *
-  * @example
+  * @usage
+  * <hljs lang="html">
   * <br-select>
   *   <label>Label</label>
   *   <select ng-model="model" ng-options="item.name for item in list"></select>
   * </br-select>
+  * </hljs>
   */
 selectDirective.$inject = ['$brTheme'];
 function selectDirective ($brTheme) {

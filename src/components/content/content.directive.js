@@ -1,3 +1,9 @@
+/**
+ * @ngdoc module
+ * @name content
+ * @description
+ * content
+ */
 angular
   .module('brMaterial')
   .directive('brContent', brContentDirective);
@@ -5,22 +11,40 @@ angular
 
 
 /**
+ * @ngdoc directive
  * @name brContent
- * @module brContent
+ * @module content
  *
  *
  * @description
- * The <br-content> is a gerneal container, this is used to wrap sticky headers, tables, or any set of scrolling elements
+ * The `<br-content>` is a gerneal container, this is used to wrap sticky headers, tables, or any set of scrolling elements
  *
+ * @param {boolean=} [br-auto-height] - if this exits the brcontent will automatically fill the avalable viewable space and set its height propery
+ * @param {boolean=} [br-scroll-fix] - stop scrolling from continuing to the next element with scroll
+ * @param {boolean=} [br-scroll-y] - sets the overflow for scrolling vertically
+ * @param {boolean=} [br-scroll-x] - sets the overflow for scrolling horizontally
  *
- * @param {boolean} [br-auto-height] - if this exits the brcontent will automatically fill the avalable viewable space and set its height propery
- * @param {boolean} [br-scroll-fix] - stop scrolling from continuing to the next element with scroll
+ * @usage
+ * ### Basic
+ * You can wrap anything with `<br-content>` to create a scrollable container.
  *
- *
- * @example
- * <br-content br-auto-height>
+ * <hljs lang="html">
+ * <br-content style="height: 400px;" br-scroll-y>
+ *  <!-- html goes here -->
  * </br-content>
+ * </hljs>
  *
+ * ### Sticky Haaders
+ * If You place `<br-subheader>` inside of `<br-content>` they will act as sticky headers
+ * <hljs lang="html">
+ *
+ * <br-content style="height: 400px;" br-scroll-y>
+ *  <br-subheader>Title</br-subheader>
+ *  <!-- html goes here -->
+ *  <br-subheader>Title 2</br-subheader>
+ *  <!-- html goes here -->
+ * </br-content>
+ * </hljs>
  */
 brContentDirective.$inject = ['$brTheme', '$window', '$$rAF', '$brUtil'];
 function brContentDirective ($brTheme, $window, $$rAF, $brUtil) {

@@ -1,24 +1,34 @@
+/**
+ * @ngdoc module
+ * @name switch
+ */
 angular
   .module('brMaterial')
   .directive('brSwitch', brSwitchDirective);
 
 
 /**
+  * @ngdoc directive
   * @name brSwitch
-  * @module brSwitch
-  *
+  * @module switch
   *
   * @description
-  * The <br-switch> acts the same as a checkbox. It works with touchdevices for dragging
+  * The `<br-switch>` acts the same as a checkbox. It works with touchdevices for dragging
   *
+  * @param {model=} ng-model
+  * @param {function=} ng-change
   *
-  * @param {model} [ng-model]
+  * @usage
+  * #### Class Names
+  *  - `br-primary` - Themes primary color
+  *  - `br-accent` - Themes accent color
+  *  - `br-warn` - Themes warn color
   *
-  * @example
+  * <hljs lang="html">
   * <br-switch ng-model="switch1">
 	*		Switch 1: {{switch1}}
 	*	</br-switch>
-  *
+  * </hljs>
   */
 brSwitchDirective.$inject = ['brCheckboxDirective', '$brUtil', '$brTheme', '$brConstant', '$brGesture', '$$rAF'];
 function brSwitchDirective (brCheckboxDirective, $brUtil, $brTheme, $brConstant, $brGesture, $$rAF) {

@@ -1,24 +1,58 @@
+/**
+ * @ngdoc module
+ * @name file
+ */
 angular
   .module('brMaterial')
   .directive('brFile', brFileDirective);
 
 
 /**
+  * @ngdoc directive
  * @name brFile
- * @module brFile
+ * @module file
  *
  *
  * @description
  * The <br-file> is a button with a model that will set based on a picked file.
  * you can use the styling classes as a button
  *
- * @param {boolean} [br-show-label] - show file name next to button
- * @param {string} [br-file-types] - a comma deliminated string containg allowd extensions
- * @param {boolean} [br-file-name]
+ * @param {boolean=} [br-show-label] - show file name next to button
+ * @param {string=} [br-file-types] - a comma deliminated string containg allowd extensions
+ * @param {string=} [br-file-name] - Bound value that returns the filename
  *
- * @example
- * <br-file ng-model="filename" show-label="false" br-file-types=".jpg,.png"></br-file>
+ * @usage
+ * The `<br-file>` component can be treated the same as `<br-button>`
  *
+ * #### Class Names
+ * files can have all the main theme classes applied to them
+ *  - `br-raised` - Adds backround to button
+ *  - `br-primary` - Themes primary color
+ *  - `br-accent` - Themes accent color
+ *  - `br-warn` - Themes warn color
+ *  - `br-circle` - Make button a circle
+ *  - `br-small` - Make button a circle smaller
+ *  - `br-fill` - Make button stretch to the full width of its container
+ *  - `br-shadow` - Add drop shadow to button
+ *  - `br-no-radius` - Remove border radius
+ *  - `br-no-padding` - Remove padding
+ *  - `br-no-margin` - Remove margin
+ *
+ * <hljs lang="js">
+ *   angular.controller('MyCtrl', function ($scope) {
+ *     $scope.fileName = undefined;
+ *     $scope.fileName = file;
+ *     $scope.onFileSelect = function () {
+ *      // file selected
+ *     });
+ *   });
+ * </hljs>
+ *
+ * <hljs lang="html">
+ * <br-file ng-model="file" ng-change="onFileSelect" br-file-types=".jpg,.png,.gif" br-file-name="fileName">
+ *    Upload File
+ *  </br-file>
+ * </hljs>
  */
 brFileDirective.$inject = ['$brUtil'];
 function brFileDirective ($brUtil) {

@@ -1,3 +1,7 @@
+/**
+ * @ngdoc module
+ * @name sideContent
+ */
 angular
   .module('brMaterial')
   .directive('brSideContent', brSideContentDirective);
@@ -5,25 +9,32 @@ angular
 
 
 /**
+  * @ngdoc directive
   * @name brSideContent
-  * @module brSideContent
+  * @module sideContent
   *
   *
   * @description
-  * <br-side-content> is a side panel that will auto hide on touch devices and when the screen is too smalle.
+  * `<br-side-content>` is a side panel that will auto hide on touch devices and when the screen is too smalle.
   * you can call it to open using the service
   *
-  * @param {number} [br-width] - the widthed used when open and there is enough screen space
-	* @param {string} [br-component-id] - the name used when calling the content from $brSideContent service
-	* @param {boolean} [br-is-locked-open] - tells the side content to stay open or not. you can use $brMedia service to control this for mobile devices
-  * @param {CSS} [br-side-content-right] - tells the side content stick to the right side
-  * @param {CSS} [br-side-content-left] - tells the side content stick to the left side
-  * @param {CSS} [br-border-right] - shows border on right
-  * @param {CSS} [br-border-left] - shows border on left
+  * @param {number=} [br-width] - the widthed used when open and there is enough screen space
+	* @param {string=} [br-component-id] - the name used when calling the content from $brSideContent service
+	* @param {boolean=} [br-is-locked-open] - tells the side content to stay open or not. you can use $brMedia service to control this for mobile devices
   *
-  * @example
-  * <br-side-content class="br-side-content-right br-border-left" br-is-locked-open="$brMedia('md')" br-component-id="menuConfigSideContent" br-width="400">
+  * @usage
+  * ### Class Names
   *
+  * - br-side-content-right - tells the side content stick to the right side
+  * - br-side-content-left - tells the side content stick to the left side
+  * - br-border-right - shows border on right
+  * - br-border-left - shows border on left
+  *
+  * <hljs lang="html">
+  *   <br-side-content class="br-side-content-right br-border-left" br-is-locked-open="$brMedia('md')" br-component-id="sideContentId" br-width="400">
+  *     // content does here
+  *    </br-side-content>
+  * </hljs>
   */
 brSideContentDirective.$inject = ['$brTheme', '$q', '$parse', '$window', '$brMedia', '$animate', '$document', '$brUtil', '$brConstant'];
 function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animate, $document, $brUtil, $brConstant) {

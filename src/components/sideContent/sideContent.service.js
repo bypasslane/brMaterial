@@ -5,21 +5,32 @@ angular
 
 
 /**
+  * @ngdoc service
   * @name $brSideContent
-  * @module $brSideContent
+  * @module sideContent
   *
   *
   * @description
-  * $brSideContent controls the <br-side-content> element
+  * `$brSideContent` controls the `<br-side-content>` element
   *
-  * @example
-  * $brSideContent('theComponentId').open();
-  * $brSideContent('theComponentId').isOpen();
-  * $brSideContent('theComponentId').isLockedOpen();
-  * $brSideContent('theComponentId').close();
-  * $brSideContent('theComponentId').addBackdrop();
-  * $brSideContent('theComponentId').removeBackdrop();
   *
+  * @usage
+  * <hljs lang="js">
+  * angular.controller('MyCtrl', function ($brSideContent) {
+  *   $brSideContent('theComponentId').open();
+  *   $brSideContent('theComponentId').isOpen();
+  *   $brSideContent('theComponentId').isLockedOpen();
+  *   $brSideContent('theComponentId').close();
+  *   $brSideContent('theComponentId').addBackdrop();
+  *   $brSideContent('theComponentId').removeBackdrop();
+  * });
+  * </hljs>
+  *
+  * <hljs lang="html">
+  *   <br-side-content br-component-id="theComponentId" br-is-locked-open="$brMedia('md')" br-width="400">
+  *     // content does here
+  *    </br-side-content>
+  * </hljs>
   */
 brSideContentService.$inject = ['$brComponentRegistry', '$q'];
 function brSideContentService($brComponentRegistry, $q) {
@@ -45,14 +56,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name isOpen
+     * @ngdoc method
+     * @name $brSideContent#isOpen
      * @function
      *
      * @description
      * Returns boolean telling if the side content is currently opened
      *
      * @return {boolean}
-     *
      */
     function isOpen() {
       return instance && instance.isOpen();
@@ -60,14 +71,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name isLockedOpen
+     * @ngdoc method
+     * @name $brSideContent#isLockedOpen
      * @function
      *
      * @description
      * Returns boolean telling if the side content is currently locked open
      *
      * @return {boolean}
-     *
      */
     function isLockedOpen() {
       return instance && instance.isLockedOpen();
@@ -75,12 +86,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name toggle
+     * @ngdoc method
+     * @name $brSideContent#toggle
      * @function
      *
      * @description
      * Toggles open closed state. This will only close if the locked open state is false
      *
+     * @return {promise}
      */
     function toggle() {
       return instance ? instance.toggle() : $q.reject(errorMsg);
@@ -102,12 +115,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name close
+     * @ngdoc method
+     * @name $brSideContent#close
      * @function
      *
      * @description
      * Toggles closed state. This will only close if the locked open state is false
      *
+     * @return {promise}
      */
     function close() {
       return instance ? instance.close() : $q.reject(errorMsg);
@@ -115,12 +130,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name then
+     * @ngdoc method
+     * @name $brSideContent#then
      * @function
      *
      * @description
      * Function called post operation
      *
+     * @return {promise}
      */
     function then(callbackFn) {
       var promise = instance ? $q.when(instance) : waitForInstance();
@@ -129,12 +146,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name addBackdrop
+     * @ngdoc method
+     * @name $brSideContent#addBackdrop
      * @function
      *
      * @description
      * adds a backdrop behind the side content to prevent clicking
      *
+     * @return {promise}
      */
     function addBackdrop(clickCallback) {
       return instance ? instance.addBackdrop(clickCallback) : $q.reject(errorMsg);
@@ -142,12 +161,14 @@ function brSideContentService($brComponentRegistry, $q) {
 
 
     /**
-     * @name removeBackdrop
+     * @ngdoc method
+     * @name $brSideContent#removeBackdrop
      * @function
      *
      * @description
      * removes backdrop from behind the side content
      *
+     * @return {promise}
      */
     function removeBackdrop() {
       return instance ? instance.removeBackdrop() : $q.reject(errorMsg);

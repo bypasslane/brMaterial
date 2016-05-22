@@ -1,3 +1,7 @@
+/**
+ * @ngdoc module
+ * @name toast
+ */
 angular
   .module('brMaterial')
   .directive('brToast', toastDirective)
@@ -7,26 +11,21 @@ angular
 var DEFAULT_DELAY = '1400';
 
 /**
+ * @ngdoc service
  * @name $brToast
- * @module $brToast
- *
+ * @module toast
  *
  * @description
  * add toast notification
  *
- * @example
- * <br-menu br-position-mode="right target">
- *   <br-button ng-click="$brOpenMenu($event)" class="br-no-margin br-circle br-small"><br-icon br-font-icon="more_vert"></br-icon></br-button>
- *   <br-menu-content>
- *     <br-menu-item>
- *       <br-button ng-click=""><br-icon br-font-icon="edit" br-size="20"></br-icon>Change Image</br-button>
- *     </br-menu-item>
- *     <br-menu-item>
- *       <br-button ng-click=""><br-icon br-font-icon="add" br-size="20"></br-icon>Upload Image</br-button>
- *     </br-menu-item>
- *   </br-menu-content>
- * </br-menu>
- *
+ * @usage
+ * <hljs lang="js">
+ * angular.controller('MyCtrl', function ($brToast) {
+ *  $brToast.add({
+ *    message: 'The Toast Mesage'
+ *  });
+ * });
+ * </hljs>
  */
 toastService.$inject = ['$animateCss', '$compile', '$rootScope', '$document', '$brUtil', '$timeout'];
 function toastService($animateCss, $compile, $rootScope, $document, $brUtil, $timeout) {
@@ -39,6 +38,29 @@ function toastService($animateCss, $compile, $rootScope, $document, $brUtil, $ti
   };
   return service;
 
+
+
+  /**
+   * @ngdoc method
+   * @name $brToast#add
+   * @function
+   *
+   * @description
+   * add toast notification
+   *
+   * @param {object} options - options object
+   * @param {string} options.message - Message to Display
+   * @param {boolean=} options.primary - Primary color Background
+   * @param {boolean=} options.accent - Accent color Background
+   * @param {boolean=} options.warn - Warn color Background
+   * @param {number=} options.delay - delay in ms before the toast dissapears
+   * @param {string=} options.positionMode - DEFUALT: "left bottom"
+   *
+   * - "right top"
+   * - "left top"
+   * - "right bottom"
+   * - "left bottom"
+   */
   function add(options) {
     queue.push(options);
     nextToast();
