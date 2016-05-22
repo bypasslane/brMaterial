@@ -24,7 +24,6 @@ function configApp($locationProvider, $routeProvider, DEMOS, COMPONENTS) {
 
   COMPONENTS.forEach(function(component) {
     component.docs.forEach(function(doc) {
-      console.log(doc.url);
       $routeProvider.when('/' + doc.url, {
         templateUrl: doc.outputPath,
         resolve: {

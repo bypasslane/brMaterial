@@ -35,17 +35,22 @@
             </br-button>
 
             <nav-menu-expander ng-if="item.sub !== undefined" label="item.label">
-              <br-button ng-repeat="sub in item.sub" ng-href="#/{{sub.docs ? sub.docs[0].url : sub.url}}">
-                {{sub.label}}
-              </br-button>
+
+              <div ng-repeat="sub in item.sub">
+                <div ng-if="sub.docs">
+                  <br-button ng-repeat="doc in sub.docs" ng-href="#/{{doc.url}}">{{doc.label}}</br-button>
+                </div>
+
+                <br-button ng-if="!sub.docs" ng-href="#/{{sub.url}}">{{sub.label}}</br-button>
+              </div>
             </nav-menu-expander>
 
           </nav-menu-item>
         </nav-menu>
       </br-side-content>
 
-      <br-content br-auto-height style="padding-top: 40px; width: 100%;">
-        <div flex style="padding-left: 8px; padding-right: 8px;" ng-view></div>
+      <br-content br-auto-height style="width: 100%;">
+        <div flex style="padding-top: 50px; padding-left: 8px; padding-right: 8px;" ng-view></div>
       </br-content>
     </div>
   </body>
