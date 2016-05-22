@@ -1,3 +1,9 @@
+/**
+ * @ngdoc module
+ * @name select
+ * @description
+ * Select
+ */
 angular
   .module('brMaterial')
   .directive('select', selectAugmentDirective)
@@ -5,24 +11,6 @@ angular
 
 
 
-
-
-/**
-  * @name select
-  * @module select
-  *
-  *
-  * @description
-  * <select>
-  *
-  * @param {strng} [placeholder]
-  * @param {model} [ng-model]
-  * @param {strng} [ng-options]
-  *
-  * @example
-  * <br-select ng-model="info" br-list="list" br-key="name" placeholder="Select Value..."></br-select>
-  *
-  */
 selectAugmentDirective.$inject = ['$brUtil', '$compile'];
 function selectAugmentDirective($brUtil, $compile) {
   var directive = {
@@ -124,19 +112,19 @@ function selectAugmentDirective($brUtil, $compile) {
 
 
 /**
+  * @ngdoc directive
   * @name brSelect
-  * @module brSelect
-  *
+  * @module select
   *
   * @description
-  * <br-select> drop down. this used native methods
-  *
+  * `<br-select>` is a wrapper for selects and select menus
   *
   * @example
-  * <br-select ng-model="info" br-list="list" br-key="name" placeholder="Select Value..."></br-select>
-  *
+  * <br-select>
+  *   <label>Label</label>
+  *   <select ng-model="model" ng-options="item.name for item in list"></select>
+  * </br-select>
   */
-
 selectDirective.$inject = ['$brTheme'];
 function selectDirective ($brTheme) {
 

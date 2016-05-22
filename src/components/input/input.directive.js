@@ -150,11 +150,11 @@ function inputTextareaDirective ($brUtil, $window, $$rAF) {
 		var ngModelCtrl = ctrls[1] || $brUtil.fakeNgModel();
 		var isReadonly = angular.isDefined(attr.readonly);
 
-		if (!containerCtrl) {
-      if (attr.brNoStyle === undefined) { element.addClass('br-input br-input-standard'); }
+    if (!containerCtrl) {
+      if (attr.brNoStyle === undefined && attr.type !== "checkbox") { element.addClass('br-input br-input-standard'); }
       return;
     }
-		containerCtrl.input = element;
+    containerCtrl.input = element;
 
 		containerCtrl.clearValueHook(function () {
 			ngModelCtrl.$setViewValue('');

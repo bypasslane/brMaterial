@@ -14,7 +14,9 @@ br-select-menu {
 .br-select-menu-content {
   display: flex;
   align-items: center;
-  padding: 13px 6px 1px;
+  line-height: 26px;
+  height: 42px;
+  padding: 0 6px 0;
   border-width: 1px;
   border-style: solid;
   border-radius: 3px;
@@ -24,21 +26,8 @@ br-select-menu {
   min-width: 64px;
   min-height: 26px;
   flex-grow: 1;
-  /*transition: border cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;*/
 }
 
-br-select:not(.br-has-label) .br-select-menu-label {
-  margin-top: -13px;
-}
-
-br-select:not(.br-has-label) .br-select-icon:after {
-  top: -4px;
-}
-
-.br-select.br-select-focused .br-select-menu-content {
-  /*padding-bottom: 0px;*/
-  /*border-width: 1px 1px 2px 1px;*/
-}
 
 .br-select-menu-content {
   cursor: pointer;
@@ -51,7 +40,6 @@ br-select:not(.br-has-label) .br-select-icon:after {
 .br-select-menu-content > span:not(.br-select-menu-icon) {
   max-width: 100%;
   flex: 1 1 auto;
-  transform: translate3d(0,2px,0);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -76,7 +64,6 @@ br-select:not(.br-has-label) .br-select-icon:after {
 .br-optionsgroup-scroll {
   display: flex;
   overflow-y: hidden;
-  /*max-height: 256px;*/
   max-height: 304px;
   min-height: 48px;
   transform: scale(1);
@@ -119,7 +106,6 @@ br-select:not(.br-has-label) .br-select-icon:after {
   overflow-y: auto;
   min-width: 136px;
   min-height: 48px;
-  /*max-height: 256px;*/
   max-height: 304px;
 }
 

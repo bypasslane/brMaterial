@@ -84,9 +84,7 @@
 
   line-height: initial;
   position: absolute;
-  /*left: 6px;*/
   left: 0;
-  /*top: -12px;*/
   top: -44px;
   order: 1;
   pointer-events: none;
@@ -95,11 +93,8 @@
   z-index: 1;
   transform: translate3d(0, 24px, 0) scale(1);
   transform-origin: left top;
-  /*transition: transform cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;*/
   transition: color cubic-bezier(0.25, 0.8, 0.25, 1) 0.25s;
 }
-
-
 
 
 .br-select .br-real-select:focus {
@@ -108,22 +103,11 @@
 }
 
 
-.br-select.br-select-focused label,
-.br-select.br-select-has-placeholder label,
-.br-select.br-select-has-value label {
-  /*transform: translate3d(0, 17px, 0) scale(0.75);*/
-  /*transform: translate3d(0, -10px, 0) scale(1);*/
-}
-
 .br-select.br-select-focused .br-select-content {
   padding-bottom: 0px;
   border-width: 1px 1px 1px 1px;
 }
 
-.br-select.br-small.br-select-focused .br-select-content {
-  /*padding-bottom: 2px;*/
-  /*border-width: 1px 1px 2px 1px;*/
-}
 
 
 
@@ -173,8 +157,4 @@ br-select.br-input-has-value .br-placeholder {
   top: 2px;
   speak: none;
   transform: scaleY(.6) scaleX(1);
-}
-
-br-select.br-has-label .br-select-icon:after {
-  top: -4px;
 }

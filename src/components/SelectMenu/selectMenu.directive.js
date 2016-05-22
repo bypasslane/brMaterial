@@ -9,7 +9,36 @@ angular
 
 var selectNextId = 0;
 
-
+/**
+  * @ngdoc directive
+  * @name brSelectMenu
+  * @module select
+  *
+  * @description
+  * `<br-select-menu>` is used in place of `<select>`. It it gives the flexibility for searching multiple groupings and buttons
+  *
+  * @param {model} ng-model
+  * @param {function} [ng-change]
+  * @param {boolean} [ng-disabled]
+  * @param {string} [placeholder]
+  * @param {boolean} multiple - enables multi selection
+  *
+  * @example
+  * <br-select>
+  *   <label>Label</label>
+  *   <br-select-menu ng-model="menuSelected4">
+  *     <br-select-header>
+  *       <input type="search" ng-model="selectFilter2" placeholder="Search..." />
+  *     </br-select-header>
+  *
+  *     <br-option-group ng-repeat="group in selectListGrouped" label="{{group.label}}" ng-if="(group.people | filter:selectFilter2).length">
+  *       <br-option ng-value="item" ng-repeat="item in group.people | filter:selectFilter2">{{item.name}}</br-option>
+  *     </br-option-group>
+  *
+  *     <br-button class="br-primary" ng-click="vm.selectButtonTest();">Create New</br-button>
+  *   </br-select-menu>
+  * </br-select>
+  */
 selectMenuDirective.$inject = ['$brUtil', '$brTheme', '$compile', '$parse', '$document', '$brBackdrop', '$animateCss', '$window', '$brConstant', '$$rAF', '$brMobile', '$interval', '$timeout'];
 function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $brBackdrop, $animateCss, $window, $brConstant, $$rAF, $brMobile, $interval, $timeout) {
   var driectve = {
@@ -76,6 +105,11 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
     var contentElement = angular.element(element[0].querySelector('br-content'))[0];
     var debounceUpdatePos = $$rAF.throttle(updatePosition);
     var searchInputElement = containerElement[0].querySelector('br-select-header input');
+
+    if (searchInputElement !== null) {
+      // remvoe default styling from input
+      angular.element(searchInputElement).removeClass('br-input br-input-standard');
+    }
 
     $brTheme(containerElement);
 
