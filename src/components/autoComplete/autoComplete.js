@@ -1,8 +1,61 @@
+/**
+ * @ngdoc module
+ * @name autocomplete
+ */
 angular
   .module('brMaterial')
   .directive('brAutocomplete', autocompleteDirective);
 
 
+
+
+  /**
+   * @ngdoc directive
+   * @name brAutocomplete
+   * @module autocomplete
+   *
+   * @description
+   * The `<br-autocomplete>` can be placed inside of `<br-input>` and given a data set to displaya autocomplete list
+   *
+   * @param {array|object} br-data - data used to search through
+   * @param {string} br-label - If `[br-data]` is an object you can pass in the property name to use as the display label. Otherwise the entire item will be displayed. If you pass in an array of strings you can ignore this attribute
+   * @param {string|object} br-filter - The value used to filter `[br-data]`. See `{@link https://docs.angularjs.org/api/ng/filter/filter Angular Filer}` for how/what you can pass in.
+   * @param {model=} ng-model - `{@link https://docs.angularjs.org/api/ng/directive/ngModel Angular ngModel}`
+   * @param {function=} ng-change - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChange}`
+   *
+   * @usage
+   * ### Controller
+   * <hljs lang="js">
+   * angular.controller(function ($scope) {
+   *  $scope.correspondence = [
+   *    {
+   *      label: 'Ben',
+   *      searchTerms: ['Programer', 'Human', 'Not a Robot']
+   *    },
+   *    {
+   *      label: 'Susan',
+   *      searchTerms: ['Service Manager', 'Cat']
+   *    },
+   *    {
+   *      label: 'Steve',
+   *      searchTerms: ['Bens are Better', 'Not Ben']
+   *    }
+   *  ];
+   *
+   *  $scope.autoSelectChange = function () {
+   *    console.log($scope.autoSelected);
+   *  };
+   * });
+   * </hljs>
+   *
+   * ### HTML
+   * <hljs lang="html">
+   * <br-input>
+   *  <input ng-model="inputText" placeholder="Search..." br-x />
+   *  <br-autocomplete br-data="correspondence" br-label="label" br-filter="inputText" ng-model="autoSelected" ng-change="autoSelectChange()"></br-autocomplete>
+   * </br-input>
+   * </hljs>
+   */
 autocompleteDirective.$inject = ['$brTheme', '$parse', '$filter', '$timeout', '$brUtil'];
 function autocompleteDirective($brTheme, $parse, $filter, $timeout, $brUtil) {
   var directive = {

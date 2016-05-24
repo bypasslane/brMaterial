@@ -19,10 +19,10 @@ angular
   * @description
   * The `<br-expander>` is a container that opens and closes
   *
-  * @param {boolean=} [br-width] - set width
-  * @param {boolean=} [br-height] - set height value. this will set scrolling in y
-  * @param {boolean=} [br-open] - bound value for opening and closing
-  * @param {string=} [br-component-id] - name that can be used with the `$brExpander`service
+  * @param {boolean=} br-width - Set expander width
+  * @param {boolean=} br-height - Set epander height, this will set scrolling in y
+  * @param {boolean=} br-open - Bound value for opening and closing
+  * @param {string=} br-component-id - Name that can be used with the `$brExpander` service
   *
   * @usage
   * You can controll the expander in 3 ways.

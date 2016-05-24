@@ -15,8 +15,10 @@ angular
   * @description
   * The `<br-switch>` acts the same as a checkbox. It works with touchdevices for dragging
   *
-  * @param {model=} ng-model
-  * @param {function=} ng-change
+  * @param {model=} ng-model - `{@link https://docs.angularjs.org/api/ng/directive/ngModel Angular ngModel}`
+  * @param {boolean=} ng-checked - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChecked}`
+  * @param {boolean=} ng-disabled - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngDisabled}`
+  * @param {function=} ng-change - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChange}`
   *
   * @usage
   * #### Class Names

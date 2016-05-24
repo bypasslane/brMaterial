@@ -36,11 +36,12 @@ function buttonExtendDirective($brTheme) {
  * @module button
  *
  * @description
- * The `<br-button>` can be a button with txt, icons, or anything else you want
+ * The `<br-button>` can be a button with txt, icons, or anything else you want. The button type will default to `[type="button"]`
  *
- * @param {boolean=} [br-no-style] - removes style from the standard HTML button
- * @param {boolean=} [ng-disabled]
- * @param {function=} [ng-change]
+ * @param {boolean=} br-no-style - removes material style from the standard HTML button
+ * @param {boolean=} ng-disabled - `{@link https://docs.angularjs.org/api/ng/directive/ngDisabled Angular ngDisabled}`
+ * @param {function=} ng-click - `{@link https://docs.angularjs.org/api/ng/directive/ngClick Angular ngClick}`
+ * @param {string=} ng-href - `{@link https://docs.angularjs.org/api/ng/directive/ngHref Angular ngHref}`
  *
  * @usage
  * #### Class Names
@@ -49,9 +50,9 @@ function buttonExtendDirective($brTheme) {
  *  - `br-primary` - Themes primary color
  *  - `br-accent` - Themes accent color
  *  - `br-warn` - Themes warn color
- *  - `br-circle` - Make button a circle
- *  - `br-small` - Make button a circle smaller
- *  - `br-fill` - Make button stretch to the full width of its container
+ *  - `br-circle` - Makes button a circle
+ *  - `br-small` - Makes button a smaller circle
+ *  - `br-fill` - Makes button stretch to the full width of its container
  *  - `br-shadow` - Add drop shadow to button
  *  - `br-no-radius` - Remove border radius
  *  - `br-no-padding` - Remove padding
@@ -65,7 +66,6 @@ function buttonExtendDirective($brTheme) {
  * <br-button class="br-accent br-rasied"><br-icon br-icon-font="add"></br-icon>Icon & Text button</br-button>
  * </hljs>
  */
-
 brButtonDirective.$inject = ['$brTheme', '$timeout', '$brRippleService'];
 function brButtonDirective ($brTheme, $timeout, $brRippleService) {
   var directive = {

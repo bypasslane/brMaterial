@@ -27,9 +27,9 @@ angular
   * </hljs>
   *
   * <hljs lang="html">
-  *   <br-side-content br-component-id="theComponentId" br-is-locked-open="$brMedia('md')" br-width="400">
-  *     // content does here
-  *    </br-side-content>
+  * <br-side-content br-component-id="theComponentId" br-is-locked-open="$brMedia('md')" br-width="400">
+  *   // content does here
+  * </br-side-content>
   * </hljs>
   */
 brSideContentService.$inject = ['$brComponentRegistry', '$q'];
@@ -61,9 +61,9 @@ function brSideContentService($brComponentRegistry, $q) {
      * @function
      *
      * @description
-     * Returns boolean telling if the side content is currently opened
+     * Check to see is a side content is open
      *
-     * @return {boolean}
+     * @return {boolean} - true if open, false if closed
      */
     function isOpen() {
       return instance && instance.isOpen();
@@ -76,9 +76,9 @@ function brSideContentService($brComponentRegistry, $q) {
      * @function
      *
      * @description
-     * Returns boolean telling if the side content is currently locked open
+     * Check to see if the br-locked-open attribute is true or false
      *
-     * @return {boolean}
+     * @return {boolean} - True id locked open, flase is not locked open
      */
     function isLockedOpen() {
       return instance && instance.isLockedOpen();
@@ -93,7 +93,7 @@ function brSideContentService($brComponentRegistry, $q) {
      * @description
      * Toggles open closed state. This will only close if the locked open state is false
      *
-     * @return {promise}
+     * @return {promise} - promise resolved post animation
      */
     function toggle() {
       return instance ? instance.toggle() : $q.reject(errorMsg);
@@ -108,6 +108,7 @@ function brSideContentService($brComponentRegistry, $q) {
      * @description
      * Toggles content open state
      *
+     * @return {promise} - promise resolved post animation
      */
     function open() {
       return instance ? instance.open() : $q.reject(errorMsg);
@@ -122,7 +123,7 @@ function brSideContentService($brComponentRegistry, $q) {
      * @description
      * Toggles closed state. This will only close if the locked open state is false
      *
-     * @return {promise}
+     * @return {promise} - promise resolved post animation
      */
     function close() {
       return instance ? instance.close() : $q.reject(errorMsg);
@@ -137,7 +138,7 @@ function brSideContentService($brComponentRegistry, $q) {
      * @description
      * Function called post operation
      *
-     * @return {promise}
+     * @return {promise} - promise resolved post animation
      */
     function then(callbackFn) {
       var promise = instance ? $q.when(instance) : waitForInstance();
@@ -151,9 +152,9 @@ function brSideContentService($brComponentRegistry, $q) {
      * @function
      *
      * @description
-     * adds a backdrop behind the side content to prevent clicking
+     * Adds a backdrop behind the side content to prevent clicking
      *
-     * @return {promise}
+     * @return {promise} - promise resolved post backdrop being added
      */
     function addBackdrop(clickCallback) {
       return instance ? instance.addBackdrop(clickCallback) : $q.reject(errorMsg);
@@ -166,9 +167,9 @@ function brSideContentService($brComponentRegistry, $q) {
      * @function
      *
      * @description
-     * removes backdrop from behind the side content
+     * Removes backdrop from behind the side content
      *
-     * @return {promise}
+     * @return {promise} - promise resolved post backdrop being removed
      */
     function removeBackdrop() {
       return instance ? instance.removeBackdrop() : $q.reject(errorMsg);

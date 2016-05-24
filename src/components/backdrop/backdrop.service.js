@@ -51,11 +51,11 @@ function brBackdropService ($compile, $animate) {
    * @function
    *
    * @description
-   * The add function will add abackdrop to any element you give it. it will also call a function when the backdrop is clicked
+   * The add function will add a backdrop to any element you give it. it will also call a function when the backdrop is clicked
    *
-   * @param {elemnt} element - the element to place the backdrop behind
-   * @param {scope} scope - the scope to tie the backdrop to
-   * @param {function} [clickCallback] - the function to call when backdrop is clicked
+   * @param {elemnt} element - An element to place the backdrop behind
+   * @param {scope} scope - A scope to tie the backdrop to
+   * @param {function=} clickCallback - A function to call when backdrop is clicked
    */
   function add (element, scope, clickCallback) {
     if(!isValidAdd(element, scope, clickCallback)) return;

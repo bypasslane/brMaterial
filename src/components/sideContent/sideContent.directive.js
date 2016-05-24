@@ -15,16 +15,15 @@ angular
   *
   *
   * @description
-  * `<br-side-content>` is a side panel that will auto hide on touch devices and when the screen is too smalle.
-  * you can call it to open using the service
+  * `<br-side-content>` is a side panel that will auto hide on mobile devices and when the screen is too small.
+  * You can open it using the `$brContentService`
   *
-  * @param {number=} [br-width] - the widthed used when open and there is enough screen space
-	* @param {string=} [br-component-id] - the name used when calling the content from $brSideContent service
-	* @param {boolean=} [br-is-locked-open] - tells the side content to stay open or not. you can use $brMedia service to control this for mobile devices
+  * @param {number=} br-width - The width used when open and there is enough screen space
+	* @param {string=} br-component-id - The name used when calling the content from `$brSideContent` service
+	* @param {boolean=} br-is-locked-open - Tells the side content to stay open or not. you can use `$brMedia` service to control this for mobile devices
   *
   * @usage
   * ### Class Names
-  *
   * - br-side-content-right - tells the side content stick to the right side
   * - br-side-content-left - tells the side content stick to the left side
   * - br-border-right - shows border on right

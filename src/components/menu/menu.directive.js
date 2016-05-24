@@ -13,7 +13,7 @@ angular
  * @name brMenu
  * @module menu
  *
- * @param {string=} [br-position-mode] - A space seperated string to declare what the origin for the animation is
+ * @param {string=} br-position-mode - A space seperated string to declare what the origin for the animation is
  *
  * - "target target"
  * - "right top"
@@ -25,7 +25,7 @@ angular
  * - "left target"
  * - "right target"
  *
- * @param {string=} [br-offset] - A space seperated string to declare what the menu offsets are in pixels
+ * @param {string=} br-offset - A space seperated string to declare what the menu offsets are in pixels
  *
  * @description
  * The `<br-menu>` directive provides a popout menu

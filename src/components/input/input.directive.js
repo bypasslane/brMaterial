@@ -1,8 +1,6 @@
 /**
  * @ngdoc module
  * @name input
- * @description
- * input
  */
 angular.module('brMaterial')
 	.directive('brInput', brInputDirective)
@@ -20,7 +18,7 @@ angular.module('brMaterial')
  * @module input
  *
  * @description
- * The `<br-input>` container that holds the input, label, and error messages
+ * The `<br-input>` container holds inputs, labels, and ngMessages
  *
  * @usage
  * <hljs lang="html">

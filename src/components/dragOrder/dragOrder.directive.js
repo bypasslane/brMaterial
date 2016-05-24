@@ -16,11 +16,11 @@ angular
  * @name brDragOrder
  * @module dragOrder
  *
- * @param {function=} [br-drag-order] - pass in an optinal function the will get called when the order changes
- * @param {boolean=} [br-drag-order-allowed=true] - set if the drag ordering can be done
+ * @param {function=} br-drag-order - Pass in an optinal function the will get called when the order changes
+ * @param {boolean=} br-drag-order-allowed - Set if the drag ordering can be done
  *
  * @description
- * The [br-drag-order] this will use the ng-repeat and its ordinal filter to allow you to click-drag reorder elements
+ * The `[br-drag-order]` this will use the ng-repeat and its ordinal filter to allow you to click-drag reorder elements
  * This will set a new ordinal value between the two items you dragged between.
  * decimals are used for this process.
  * The drag reorder is initiated after holding the element for 500 ms

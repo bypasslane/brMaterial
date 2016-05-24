@@ -1,8 +1,6 @@
 /**
  * @ngdoc module
  * @name checkbox
- * @description
- * checkbox
  */
 angular
   .module('brMaterial')
@@ -14,16 +12,14 @@ angular
   * @name brCheckbox
   * @module checkbox
   *
-  *
   * @description
   * The `<br-checkbox>` standard checkbox
   *
-  *
-  * @param {model=} [ng-model]
-  * @param {boolean=} [ng-checked]
-  * @param {boolean=} [ng-disabled]
-  * @param {function=} [ng-change]
-  * @param {function=} [br-no-override] - use with standard HTML input checkbox to remove material styling
+  * @param {model=} ng-model - `{@link https://docs.angularjs.org/api/ng/directive/ngModel Angular ngModel}`
+  * @param {boolean=} ng-checked - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChecked}`
+  * @param {boolean=} ng-disabled - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngDisabled}`
+  * @param {function=} ng-change - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChange}`
+  * @param {boolean=} br-no-style - use with standard HTML input checkbox to remove material styling
   *
   * @usage
   * #### Class Names

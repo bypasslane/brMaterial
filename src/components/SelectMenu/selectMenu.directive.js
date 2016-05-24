@@ -17,11 +17,11 @@ var selectNextId = 0;
   * @description
   * `<br-select-menu>` is used in place of `<select>`. It it gives the flexibility for searching multiple groupings and buttons
   *
-  * @param {model=} ng-model
-  * @param {function=} [ng-change]
-  * @param {boolean=} [ng-disabled]
-  * @param {string=} [placeholder]
-  * @param {boolean=} multiple - enables multi selection
+  * @param {boolean=} multiple - Enables multi selection
+  * @param {model=} ng-model - `{@link https://docs.angularjs.org/api/ng/directive/ngModel Angular ngModel}`
+  * @param {boolean=} ng-disabled - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngDisabled}`
+  * @param {function=} ng-change - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChange}`
+  * @param {string=} placeholder - Same as input palceholder
   *
   * @usage
   * <hljs lang="html">

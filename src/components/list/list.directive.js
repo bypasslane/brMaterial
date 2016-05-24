@@ -18,10 +18,10 @@ angular
  * @description
  * The `<br-list>` contains a list of items
  *
- * @param {model=} [ng-model] - used to manage selected items
- * @param {function=} [ng-change]
- * @param {Number=} [br-max-select] - the maximum number of items allowed to be selected
- * @param {Boolean=} [br-toggle-selection] - shows and hides checkboxes
+ * @param {model=} ng-model - Used to manage selected items
+ * @param {function=} ng-change - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChange}`
+ * @param {Number=} br-max-select - The maximum number of items allowed to be selected
+ * @param {Boolean=} br-toggle-selection - Shows and hides checkboxes
  *
  * @usage
  * <hljs lang="html">
@@ -194,10 +194,10 @@ function listDirective ($brTheme, $brUtil, $brMobile) {
  * @module list
  *
  * @description
- * The `<br-item>` is the containing element for lists
+ * The `<br-item>` is the containing element for list items
  *
- * @param {repeat=} [ng-repeat]
- * @param {Number=} [br-select] - the value to use for selections
+ * @param {string=} ng-repeat - `{@link https://docs.angularjs.org/api/ng/directive/ngRepeat Angular ngRepeat}`
+ * @param {Number=} br-select - the value to use for selections
  *
  * @usage
  * <hljs lang="html">

@@ -17,12 +17,12 @@ angular
  *
  *
  * @description
- * The `<br-content>` is a gerneal container, this is used to wrap sticky headers, tables, or any set of scrolling elements
+ * The `<br-content>` is a general container, this is used to wrap sticky headers, tables, or any set of scrolling elements
  *
- * @param {boolean=} [br-auto-height] - if this exits the brcontent will automatically fill the avalable viewable space and set its height propery
- * @param {boolean=} [br-scroll-fix] - stop scrolling from continuing to the next element with scroll
- * @param {boolean=} [br-scroll-y] - sets the overflow for scrolling vertically
- * @param {boolean=} [br-scroll-x] - sets the overflow for scrolling horizontally
+ * @param {boolean=} br-auto-height - If this exits `<br-content>` will automatically fill the avalable viewable space and set its height propery
+ * @param {boolean=} br-scroll-fix - Stop scrolling from continuing to the next element with scroll
+ * @param {boolean=} br-scroll-y - Sets the overflow for scrolling vertically
+ * @param {boolean=} br-scroll-x - Sets the overflow for scrolling horizontally
  *
  * @usage
  * ### Basic

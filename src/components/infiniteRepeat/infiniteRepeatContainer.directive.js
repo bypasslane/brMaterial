@@ -7,20 +7,23 @@ var MAX_ELEMENT_SIZE = 1533917;
 
 
 /**
+ * @ngdoc directive
  * @name brInfiniteRepeatContainer
- * @module brInfiniteRepeatContainer
+ * @module infinteRepeat
  *
+ * @param {number=} br-min-width - Set the minimum width of the inner element, this will allow horizontal scrolling
  *
  * @description
- * <br-infiinite-repeat-container> This is the wrapping element needed for [br-ifinite-repeat]
+ * `<br-infiinite-repeat-container>` is the wrapping element needed for `[br-ifinite-repeat]`
  *
- *
- * @example
+ * @usage
+ * <hljs lang="html">
  * <br-infinite-repeat-container>
  * 	<div br-inifinte-repeat="item in list">
  * 		{{item.name}}
  * 	</div>
  * </br-infinite-repeat-container>
+ * </hljs>
  */
 function brInfiniteRepeatContainer() {
   var directive = {

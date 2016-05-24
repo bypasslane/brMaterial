@@ -28,8 +28,8 @@ angular
   *
   * <hljs lang="js">
   * $brDialog.add({
-  * 	message: 'Hello World',
-  * 	controls: true,
+  *   message: 'Hello World',
+  *   controls: true,
   *   scope: {
   * 	 continue: function () {
   *     $brDialog.remove();
@@ -43,11 +43,11 @@ angular
   *
   * <hljs lang="js">
   * $brDialog.add({
-  * 	message: 'Hello World',
-  * 	controls: {
-  *		  continueLabel: 'Continue',
-  * 		cancelLabel: 'Close'
-  *	  },
+  *   message: 'Hello World',
+  *   controls: {
+  *     continueLabel: 'Continue',
+  *     cancelLabel: 'Close'
+  *   },
   *   scope: {
   * 	 cancel: function () {},
   * 	 continue: function () {}
@@ -63,7 +63,7 @@ angular
   *
   * <hljs lang="js">
   * $brDialog.add({
-  * 	teplateURL: 'theurl.html',
+  *   teplateURL: 'theurl.html',
   *   locals: {passedLocal: 'value'},
   *   controllerAs: 'vm',
   *   controller: ['$scope', 'passedLocal', function ($scope, passedLocal) {
@@ -125,23 +125,23 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    * @description
    * creates a dialog popup
    *
-   * @param {object} options.message - Dialog options
-   * @param {string=} [options.message] - contains text that will be displayed
-   * @param {srting=} [options.template] - an html string to displayed
-   * @param {string=} [options.templateUrl] - A path to a html file to load into the dialog
-   * @param {boolean=} [options.controls] - show cancel and continue buttons, this will callback with tru/false
-   * @param {object=} [options.controls] - An object containing lbels for the concel/continue controls
-   * @param {string=} [options.controls.continueLabel] - Label for continue button. This will default to "Continue"
-   * @param {string=} [options.controls.cancelLabel] - Label for continue button. This will default to "Continue"
-   * @param {function=} [options.callback] - callback function that returns true/fasle
-   * @param {number=} [options.width] - set the maxWidth of the dialog
-   * @param {boolean=} [options.mobileFill] - this will turn the popup into a full page element if it is on a mobile touch device
-   * @param {scope=} [options.scope] - an object of properties that will be made available on scope
-   * @param {scope=} [options.controller] - a controller function or string name
-   * @param {scope=} [options.controllerAs] - this will default to 'dialog' if not given
-   * @param {scope=} [options.allowBack] - By default the browser back button will run cancel on the dialog and prevent navigation, you can turn this off
+   * @param {object} options - Dialog options
+   * @param {string=} options.message - Text to be displayed
+   * @param {srting=} options.template - HTML template string
+   * @param {string=} options.templateUrl - HTML template path
+   * @param {object|boolean=} options.controls - If you set controls to true, then you will get the default continue and cancel buttons. Other widse you can pass in an object containing "continueLabel" and "cancelLabel" to change the default names
+   * @param {string=} options.controls.continueLabel - Label for continue button. This will default to "Continue"
+   * @param {string=} options.controls.cancelLabel - Label for continue button. This will default to "Continue"
+   * @param {function=} options.callback - callback function that returns true/fasle, based on the default continue and cancel functions
+   * @param {number=} options.width - set the maxWidth of the dialog
+   * @param {boolean=} options.mobileFill - This will turn the popup into a full page element if on a mobile device
+   * @param {scope=} options.scope - an object of properties that will be made available on scope
+   * @param {object=} options.locals - an object of properties that will be available for injection in the provided controller
+   * @param {controller=} options.controller - Controller function or string name
+   * @param {string=} options.controllerAs - Controller as name
+   * @param {boolean=} options.allowBack - By default the browser back button will run cancel on the dialog and prevent navigation, you can turn this off
    *
-   * @return {promise}
+   * @return {promise} - a promis called post animation
    */
   function add(options) {
     if (dialogBox) {
@@ -258,11 +258,12 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    * @function
    *
    * @description
-   * creates a alert dialog popup
-   * a queue is created if more than one are added
+   * creates a alert dialog popup, a queue is created if more than one are added
    *
-   * @param {string} [options.message] - contains text that will be displayed
-   * @param {boolean} [options.mobileFill] - this will turn the popup into a full page element if it is on a mobile touch device
+   * @param {string=} message - Ypu can pass just a string message to this function
+   * @param {object=} options - On object of otpions you can pass in
+   * @param {string=} options.message - contains text that will be displayed
+   * @param {boolean=} options.mobileFill - this will turn the popup into a full page element if it is on a mobile touch device
    */
   function alert (options) {
     // if none of these exist then a dialog box cannot be created
@@ -328,6 +329,8 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    *
    * @description
    * removes the current dialog popup
+   *
+   * @returns {promise} - A promise that returns post animation
    */
   function remove () {
     if (dialogBox === undefined || typeof dialogBox.scope !== 'function') { return; }

@@ -15,12 +15,12 @@ angular
   * @module icon
   *
   * @description
-  * `<br-icon>` will dispaly svg and font iconService
-  * you can add more font icons by using icomoon.io and creating a font
+  * `<br-icon>` will dispaly font icons.
+  * You can add more font icons by using icomoon.io and creating a font icon set
   *
-  * @param {pixels=} [br-size] - The size in pixels
-  * @param {HEX=} [br-color] - The color. If you place icons in button they will inherit the buttons color
-  * @param {string} [br-font-icon] - The values you can use
+  * @param {pixels=} br-size - The size in pixels
+  * @param {HEX=} br-color - The color. If you place icons in button they will inherit the buttons color
+  * @param {string} br-font-icon - The values you can use
   *
   * - alarm
   * - schedule

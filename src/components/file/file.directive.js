@@ -8,18 +8,21 @@ angular
 
 
 /**
-  * @ngdoc directive
+ * @ngdoc directive
  * @name brFile
  * @module file
  *
  *
  * @description
- * The <br-file> is a button with a model that will set based on a picked file.
+ * The `<br-file>` is a button with a model that will set based on a picked file.
  * you can use the styling classes as a button
  *
- * @param {boolean=} [br-show-label] - show file name next to button
- * @param {string=} [br-file-types] - a comma deliminated string containg allowd extensions
- * @param {string=} [br-file-name] - Bound value that returns the filename
+ * @param {boolean=} br-show-label - show file name next to button
+ * @param {string=} br-file-types - a comma deliminated string containg allowd extensions
+ * @param {string=} br-file-name - Bound value that returns the filename
+ * @param {model=} ng-model - `{@link https://docs.angularjs.org/api/ng/directive/ngModel Angular ngModel}`
+ * @param {function=} ng-change - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngChange}`
+ * @param {boolean=} ng-disabled - `{@link https://docs.angularjs.org/api/ng/directive/ngChange Angular ngDisabled}`
  *
  * @usage
  * The `<br-file>` component can be treated the same as `<br-button>`
@@ -30,9 +33,9 @@ angular
  *  - `br-primary` - Themes primary color
  *  - `br-accent` - Themes accent color
  *  - `br-warn` - Themes warn color
- *  - `br-circle` - Make button a circle
- *  - `br-small` - Make button a circle smaller
- *  - `br-fill` - Make button stretch to the full width of its container
+ *  - `br-circle` - Makes button a circle
+ *  - `br-small` - Makes button a smaller circle
+ *  - `br-fill` - Makes button stretch to the full width of its container
  *  - `br-shadow` - Add drop shadow to button
  *  - `br-no-radius` - Remove border radius
  *  - `br-no-padding` - Remove padding
