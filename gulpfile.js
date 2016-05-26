@@ -19,8 +19,12 @@ var demoBuild = require('./gulp/demos');
 // require tasks
 
 gulp.task('themeBuild', themeBuild.dev);
+gulp.task('themeBuildRelease', themeBuild.release);
+gulp.task('removeReleaseThemeFile', themeBuild.removeReleaseThemeFile);
 gulp.task('jsBuild', jsBuild.getDev());
+gulp.task('jsBuildRelease', jsBuild.release);
 gulp.task('cssBuild', cssBuild.getDev());
+gulp.task('cssBuildRelease', cssBuild.release);
 gulp.task('indexBuild', indexBuild.inject);
 gulp.task('demos', demoBuild);
 
@@ -30,8 +34,42 @@ gulp.task('demos', demoBuild);
 
 // -- main tasks. use these to watch and build and release
 
-gulp.task('build', gulpSequence('clean', ['copyDocJs', 'copyDocCss', 'copyDocPartials', 'themeBuild', 'jsBuild', 'cssBuild', 'demos', 'copyFont', 'docs-generate'], 'indexBuild', 'copyPostInjectModules'));
 gulp.task('default', gulpSequence('build', ['serve', 'watch']));
+
+gulp.task('build', gulpSequence(
+  'clean',
+  [
+    'copyDocJs',
+    'copyDocCss',
+    'copyDocPartials',
+    'themeBuild',
+    'jsBuild',
+    'cssBuild',
+    'demos',
+    'copyFont',
+    'docs-generate'
+  ],
+  'indexBuild',
+  'copyPostInjectModules'
+));
+
+gulp.task('release', gulpSequence(
+  'clean',
+  [
+    'copyDocJs',
+    'copyDocCss',
+    'copyDocPartials',
+    'themeBuildRelease',
+    'jsBuildRelease',
+    'cssBuildRelease',
+    'demos',
+    'copyFontRelease',
+    'docs-generate'
+  ],
+  'indexBuild',
+  'copyPostInjectModules',
+  'removeReleaseThemeFile'
+));
 
 
 
@@ -71,6 +109,12 @@ gulp.task('docs-generate', function() {
 gulp.task('copyFont', function () {
   return gulp.src(paths.font)
     .pipe(gulp.dest(paths.dest + 'modules/brmaterial/core/'));
+});
+
+gulp.task('copyFontRelease', function () {
+  return gulp.src(paths.font)
+    .pipe(gulp.dest(paths.dest + 'modules/brmaterial/'))
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('copyDocJs', function () {

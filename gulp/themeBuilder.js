@@ -6,6 +6,7 @@ var gulpFilter = require('gulp-filter');
 var concat = require('gulp-concat');
 var cssnano = require('gulp-cssnano');
 var through = require('through2');
+var del = require('del');
 
 
 exports.dev = function() {
@@ -35,6 +36,10 @@ exports.release = function () {
     .on('end', function() {
       gutil.log(gutil.colors.green('✔ Theme Release'), 'Finished');
     });
+};
+
+exports.removeReleaseThemeFile = function () {
+  return del('src/theme.js');
 };
 
 

@@ -28,7 +28,7 @@ exports.getDev = function (srcs) {
 
 
 exports.release = function () {
-  return gulp.src(paths.appScripts, {base: paths.src})
+  return gulp.src(paths.scripts.concat('src/theme.js'), {base: paths.src})
     .pipe(filterNonCodeFiles())
     .pipe(wrap('(function(){"use strict";<%= contents %>}());'))
     .pipe(jshint())

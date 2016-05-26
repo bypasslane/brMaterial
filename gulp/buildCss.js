@@ -26,13 +26,13 @@ exports.getDev = function (srcs) {
 
 
 exports.release = function () {
-  return gulp.src(paths.css, {base: BASE})
+  return gulp.src(paths.css, {base: paths.src})
     .pipe(gulpFilter(function (file) {
       return file.path.indexOf('-theme') === -1;
     }))
     .pipe(autoprefixer())
     .pipe(concat('brmaterial.css'))
-    .pipe(cssnano())
+    .pipe(cssnano({zindex: false}))
     .pipe(gulp.dest(paths.dest + 'modules/brmaterial/'))
     .pipe(gulp.dest('dist/'))
     .on('end', function () {
