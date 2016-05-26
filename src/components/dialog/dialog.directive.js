@@ -3,6 +3,8 @@ angular
   .directive('brDialog', brDialogDirective)
   .run(['$rootScope', '$brDialog', function ($rootScope, $brDialog) {
     $rootScope.$on( "$locationChangeStart", function (event, next, current) {
+      if (next === current) { return; }
+      
       if ($brDialog.canRemove() === true) {
         event.preventDefault();
         $brDialog.remove();

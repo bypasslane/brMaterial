@@ -94,6 +94,8 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
   var alertBox;
   var alertQueue = [];
   var dialogMobileFill = $brTheme.dialogMobileFill;
+  var DEFAULT_CONTINUE_LABLE = 'Continue';
+  var DEFAULT_CANCEL_LABEL = 'Cancel';
 
   var service = {
     add: add,
@@ -149,43 +151,15 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
       return;
     }
 
-    options = options || {};
+    // validate required options are present
+    checkOptions(options);
+    // setup scope and extend with any passed in scope vars
 
-    // if none of these exist then a dialog box cannot be created
-    if (!options.template && !options.templateUrl && !options.controls && !options.message) {
-      console.log('$brDialog.add() : Is missing required paramters to create. Required One of the following: template, templateUrl, controls, message');
-      return;
-    }
-
-    var scope = $rootScope.$new();
-    angular.extend(scope, options.scope);
-    scope._brLock = false;
-    scope._brEvent = true;
-
-
-    // check for mobile fill
-    if (options.mobileFill === false || $brMobile.isMobile === false) {
-      scope._brMobileFill = false;
-    } else if (options.mobileFill === true && $brMobile.isMobile === true) {
-      scope._brMobileFill = true;
-    } else if (dialogMobileFill === true && $brMobile.isMobile === true) {
-      scope._brMobileFill = true;
-    }
-    if (options.allowBack === true) { scope.allowBack = true; }
-
-    var element = angular.element('<div>').html(getTemplate(options)).contents();
+    var template = getTemplate(options);
+    var scope = setupScope(options);
+    var element = angular.element('<div>').append(template).contents();
     var linkFunc = $compile(element);
-
-    if (options.controller) {
-      options.locals = options.locals || {};
-      options.locals.$scope = scope;
-      var invokeCtrl = $controller(options.controller, options.locals, true);
-      var ctrl = invokeCtrl();
-      element.data('$ngControllerController', ctrl);
-      element.children().data('$ngControllerController', ctrl);
-      scope[options.controllerAs || 'dialog'] = ctrl;
-    }
-
+    setupController(options, scope, element);
     dialogBox = linkFunc(scope);
     addDialogStyle(dialogBox, options);
     body.append(dialogBox);
@@ -201,6 +175,8 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
     }).start().then(function () {
       scope.init();
     });
+
+
 
 
     function getTargetPosition() {
@@ -226,8 +202,86 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
       return $brUtil.toCss({transform: 'translate3d(' + zoomStyle.centerX + 'px, ' + zoomStyle.centerY + 'px, 0) scale(' + zoomStyle.scaleX + ',0.4)'});
     }
-
   }
+
+
+  function checkOptions(options) {
+    if (options === undefined || options === null || typeof options !== 'object') {
+      throw Error('$brDialog.add() is expection and object of options');
+    }
+
+    // if none of these exist then a dialog box cannot be created
+    if (!options.template && !options.templateUrl && (!options.controls || !options.message)) {
+      console.log('$brDialog.add() : Is missing required paramters to create. Required One of the following: template, templateUrl, or message with controls');
+      return;
+    }
+  }
+
+
+  function setupScope(options) {
+    var scope = $rootScope.$new();
+    angular.extend(scope, options.scope);
+    scope._brLock = false;
+    scope._brEvent = true;
+
+    if (options.mobileFill === false || $brMobile.isMobile === false) {
+      scope._brMobileFill = false;
+    } else if (options.mobileFill === true && $brMobile.isMobile === true) {
+      scope._brMobileFill = true;
+    } else if (dialogMobileFill === true && $brMobile.isMobile === true) {
+      scope._brMobileFill = true;
+    }
+    if (options.allowBack === true) { scope.allowBack = true; }
+
+    return scope;
+  }
+
+
+  function setupController(options, scope, element) {
+    if (options.controller === undefined) { return; }
+
+    var locals = options.locals || {};
+    locals.$scope = scope;
+
+    var invokeCtrl = $controller(options.controller, options.locals, true);
+    var ctrl = invokeCtrl();
+
+    element.data('$ngControllerController', ctrl);
+    element.children().data('$ngControllerController', ctrl);
+    if (options.controllerAs !== undefined) {
+      scope[options.controllerAs] = ctrl;
+    }
+  }
+
+
+  function getTemplate(options) {
+    var templateOpen = '<br-dialog class="hide" ng-class="_brLock ? \'br-lock\' : \'\'">';
+    var templateClose = '</br-dialog>';
+
+    if(options.templateUrl) {
+      templateOpen += '<ng-include src="\'' + options.templateUrl + '\'"></ng-include>';
+    } else if (options.template) {
+      templateOpen += options.template;
+    } else {
+      templateOpen += '<div class="br-dialog-label">' + options.message + '</div>';
+
+      var continueLabel = DEFAULT_CONTINUE_LABLE;
+      var cancelLable = DEFAULT_CANCEL_LABEL;
+
+      if(typeof options.controls === 'object') {
+        continueLabel = options.controls.continueLabel;
+        cancelLable = options.controls.cancelLabel;
+      }
+
+      templateOpen += '<div layout="row" layout-align="center" layout-full>';
+      templateOpen += '<br-button class="br-primary" ng-click="$continue()">' + continueLabel + '</br-button>';
+      templateOpen += '<br-button class="br-warn" ng-click="$cancel()">' + cancelLable + '</br-button>';
+      templateOpen += '</div>';
+    }
+
+    return templateOpen + templateClose;
+  }
+
 
   function centerPointFor(targetRect) {
     return targetRect ? {
@@ -332,7 +386,7 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
    *
    * @returns {promise} - A promise that returns post animation
    */
-  function remove () {
+  function remove() {
     if (dialogBox === undefined || typeof dialogBox.scope !== 'function') { return; }
 
     // document.activeElement.blur();
@@ -416,35 +470,6 @@ function brDialogService ($brMobile, $timeout, $document, $rootScope, $compile, 
 
       if(alertQueue.length > 0) nextAlert();
     }, 220);
-  }
-
-
-
-  // creat template for dialog box and add()
-  function getTemplate(options) {
-    var template = '<br-dialog class="hide" ng-class="_brLock ? \'br-lock\' : \'\'">';
-
-    if(options.template) {
-      template += options.template;
-    } else if(options.templateUrl) {
-      template += '<ng-include src="\'' + options.templateUrl + '\'"></ng-include>';
-    } else if(options.message) {
-      template += '<div class="br-dialog-label">' + options.message + '</div>';
-    }
-
-    if(options.controls) {
-      var continueLabel = options.controls.continueLabel || 'Continue';
-      var cancelLable = options.controls.cancelLabel || 'Cancel';
-
-      template += '<div layout="row" layout-align="center" layout-full>';
-      template += '<br-button class="br-primary" ng-click="$continue()">' + continueLabel + '</br-button>';
-      template += '<br-button class="br-warn" ng-click="$cancel()">' + cancelLable + '</br-button>';
-      template += '</div>';
-    }
-
-    template += '</br-dialog>';
-
-    return template;
   }
 
 }
