@@ -105,7 +105,7 @@ function expanderDirective ($brTheme, $parse) {
 
     var _isOpen = false;
 
-    vm.height = $attrs.brWidth || $attrs.width;
+    vm.height = $attrs.brHeight || $attrs.height;
     vm.headerHook = headerHook;
     vm.contentHook = contentHook;
 
@@ -213,6 +213,7 @@ function expanderContentDirective($timeout) {
     function expandContent() {
       if (height !== undefined) {
         element.css('height', height);
+        element.css('overflow', 'auto');
       } else {
         setHeight();
       }
