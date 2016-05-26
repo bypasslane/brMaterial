@@ -43,8 +43,8 @@ angular
    * }, 100);
    * </hljs>
    */
-brUtilService.$inject = ['$brMobile', '$timeout', '$rootScope', '$brConstant', '$document', '$parse'];
-function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document, $parse) {
+brUtilService.$inject = ['$brMobile', '$timeout', '$rootScope', '$brConstant', '$document', '$parse', '$templateRequest', '$templateCache'];
+function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document, $parse, $templateRequest, $templateCache) {
   var nextUniqueId = [];
   var now = window.performance ?
       angular.bind(window.performance, window.performance.now) :
@@ -67,9 +67,29 @@ function brUtilService ($brMobile, $timeout, $rootScope, $brConstant, $document,
     getClosest: getClosest,
     getNode: getNode,
     parseAttributeBoolean: parseAttributeBoolean,
-    scrollbarWidth: getScrollbarWidth()
+    scrollbarWidth: getScrollbarWidth(),
+    getTemplateFromUrl: getTemplateFromUrl
   };
   return service;
+
+
+
+
+
+
+  function getTemplateFromUrl(templateUrl, callback) {
+    var template;
+
+    template = $templateCache.get(templateUrl);
+    if (template === undefined) {
+      $templateRequest(templateUrl).then(function (_template) {
+        callback(_template);
+      });
+    } else {
+      // fix for template cache cahcing the entire response not just the string
+      callback(template);
+    }
+  }
 
 
 

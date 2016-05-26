@@ -5,8 +5,8 @@ angular
 
 
 
-exapnsionCardService.$inject = ['$rootScope', '$compile', '$q', '$controller', '$brComponentRegistry', '$templateCache', '$templateRequest', '$timeout'];
-function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponentRegistry, $templateCache, $templateRequest, $timeout) {
+exapnsionCardService.$inject = ['$rootScope', '$compile', '$q', '$controller', '$brComponentRegistry', '$templateCache', '$templateRequest', '$timeout', '$brUtil'];
+function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponentRegistry, $templateCache, $templateRequest, $timeout, $brUtil) {
   var handler = function (handle) {
     handle = handle || '';
     var errorMsg = "$brExpansionCard '" + handle + "' is not available!";
@@ -209,15 +209,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
     var template;
 
     if (options.templateUrl !== undefined) {
-      template = $templateCache.get(options.templateUrl);
-      if (template === undefined) {
-        $templateRequest(options.templateUrl).then(function (_template) {
-          callback(_template);
-        });
-      } else {
-        // fix for template cache cahcing the entire response not just the string
-        callback(template);
-      }
+      $brUtil.getTemplateFromUrl(options.templateUrl, callback);
     } else {
       callback(options.template);
     }
