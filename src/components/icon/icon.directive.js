@@ -53,7 +53,6 @@ angular
   * - cancel
   * - chat
   * - chat_bubble
-  * - check
   * - cloud_download
   * - photo_library
   * - edit
@@ -98,7 +97,6 @@ angular
   * - power_settings_new
   * - priority_high
   * - refresh
-  * - remove_shopping_cart
   * - search
   * - settings
   * - sort_by_alpha
