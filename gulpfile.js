@@ -55,11 +55,11 @@ gulp.task('build', gulpSequence(
 
 gulp.task('release', gulpSequence(
   'clean',
+  'themeBuildRelease',
   [
     'copyDocJs',
     'copyDocCss',
     'copyDocPartials',
-    'themeBuildRelease',
     'jsBuildRelease',
     'cssBuildRelease',
     'demos',

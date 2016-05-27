@@ -89,6 +89,7 @@ function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animat
       };
 
 
+      scope.disableLockedOpen = false;
       scope.$watch(isLocked, updateIsLocked);
       scope.$watch('isOpen', updateIsOpen);
       element.on('$destroy', sideContentCtrl.destroy);
@@ -108,7 +109,13 @@ function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animat
       }
 
 
-      function updateIsLocked(isLocked, oldValue){
+      function updateIsLocked(isLocked){
+        if (scope.disableLockedOpen === true) {
+          scope.isLockedOpen = false;
+          element.removeClass('br-locked-open');
+          return;
+        }
+
         scope.isLockedOpen = isLocked;
         element.toggleClass('br-locked-open', !isLocked);
       }
@@ -220,6 +227,8 @@ function brSideContentDirective($brTheme, $q, $parse, $window, $brMedia, $animat
 
     vm.isOpen = function () { return !!$scope.isOpen; };
     vm.isLockedOpen = function () { return !!$scope.isLockedOpen; };
+    vm.hide = function () { $element.addClass('br-side-content-hide'); };
+    vm.show = function () { $element.removeClass('br-side-content-hide'); };
     vm.open = function () { return vm.$toggleOpen(true); };
     vm.close = function () { return vm.$toggleOpen( false ); };
     vm.toggle = function () { return vm.$toggleOpen( !$scope.isOpen ); };

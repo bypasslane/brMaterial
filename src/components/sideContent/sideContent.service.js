@@ -45,6 +45,8 @@ function brSideContentService($brComponentRegistry, $q) {
     var service = {
       isOpen: isOpen,
       isLockedOpen: isLockedOpen,
+      hide: hide,
+      show: show,
       toggle: toggle,
       open: open,
       close: close,
@@ -82,6 +84,30 @@ function brSideContentService($brComponentRegistry, $q) {
      */
     function isLockedOpen() {
       return instance && instance.isLockedOpen();
+    }
+
+    /**
+     * @ngdoc method
+     * @name $brSideContent#hide
+     * @function
+     *
+     * @description
+     * hide
+     */
+    function hide() {
+      if (instance) instance.hide();
+    }
+
+    /**
+     * @ngdoc method
+     * @name $brSideContent#show
+     * @function
+     *
+     * @description
+     * show
+     */
+    function show() {
+      if (instance) instance.show();
     }
 
 

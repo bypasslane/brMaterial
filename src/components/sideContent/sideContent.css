@@ -5,9 +5,16 @@ br-side-content {
   z-index: 60;
   overflow: auto;
   flex-direction: column;
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+              min-width 0.26s cubic-bezier(0.25, 0.8, 0.25, 1);
   outline: none;
   min-height: 100%;
+}
+
+br-side-content.br-side-content-hide {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
 }
 
 br-side-content *,
