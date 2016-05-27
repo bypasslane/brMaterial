@@ -66,7 +66,8 @@ function brFileDirective ($brUtil) {
     scope: {
       brFileName: '=',
       brShowLabel: '=',
-      brFileTypes: '@'
+      brFileTypes: '@',
+      ngDisabled: '=?'
     },
     template: getTemplate,
     link: link
@@ -77,7 +78,7 @@ function brFileDirective ($brUtil) {
 
   function getTemplate (tElement, tAttr) {
     return '<input type="file" class="ng-hide" accept="{{brFileTypes}}"/>'+
-          '<br-button type="button" class="' + tAttr.class + '" ng-click="getImage()"><div ng-transclude></div></br-button>'+
+          '<br-button type="button" class="' + tAttr.class + '" ng-click="getImage()" ng-disabled="ngDisabled"><div ng-transclude></div></br-button>'+
           '<div flex class="br-file-label" ng-if="brShowLabel">{{fileName}}</div>';
   }
 
@@ -95,9 +96,9 @@ function brFileDirective ($brUtil) {
       }, 0);
     };
 
-
     input.on('change', function (event) {
       scope.brFileName = input.val().split('/').pop().split('\\').pop();
+      scope.$apply();
       ngModelCtrl.$setViewValue(event.target.files, event && event.type);
     });
 
