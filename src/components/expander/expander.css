@@ -8,8 +8,15 @@ br-expander-content {
   display: block;
   overflow: hidden;
   opacity: 0;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
   transition: height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
               opacity 0.56s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-expander.br-no-border br-expander-content,
+br-expander-content.br-no-border {
+  border: none;
 }
 
 br-expander.br-open br-expander-content {
@@ -31,11 +38,12 @@ br-expander-header {
   min-height: 47px;
   box-shadow: none;
   cursor: pointer;
-  ransition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 2;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 br-expander.br-open:not(.br-no-shadow) br-expander-header {
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.12),0 2px 3px -1px rgba(0,0,0,.14),0 2px 1px -2px rgba(0,0,0,.12);
 }
 
 

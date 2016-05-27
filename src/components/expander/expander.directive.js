@@ -175,8 +175,8 @@ function expanderHeaderDirective() {
 
 
 
-expanderContentDirective.$inject = ['$timeout'];
-function expanderContentDirective($timeout) {
+expanderContentDirective.$inject = ['$timeout', '$document'];
+function expanderContentDirective($timeout, $document) {
   var directive = {
     restrict: 'E',
     require: '^?brExpander',
@@ -211,17 +211,17 @@ function expanderContentDirective($timeout) {
 
 
     function expandContent() {
-      if (height !== undefined) {
-        element.css('height', height);
-        element.css('overflow', 'auto');
-      } else {
-        setHeight();
-      }
+      element.css('height', getHeight());
+      element.css('overflow', 'auto');
     }
 
 
-    function setHeight() {
-      element.css('height', element[0].scrollHeight + 'px');
+    function getHeight() {
+      if (height) {
+        return height;
+      } else {
+        return element[0].scrollHeight + 'px';
+      }
     }
 
 

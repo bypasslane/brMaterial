@@ -9,8 +9,8 @@
 }
 
 
-.br-expander.br-THEME_NAME-theme .br-expander-content {
-  border-color: '{{background-1}}';
+.br-expander.br-THEME_NAME-theme br-expander-content {
+  border-color: '{{foreground-dark-4}}';
 }
 
 
