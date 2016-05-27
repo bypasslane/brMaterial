@@ -163,7 +163,11 @@ gulp.task('watch', function () {
           if (event.type !== 'changed') { themeBuilder.inject(); }
         });
     } else {
-      indexBuild.inject();
+      del.sync([paths.dest + 'modules/brmaterial/theme.js']);
+      themeBuild.dev()
+        .on('end', function () {
+            jsBuild.getDev()
+        });
     }
   });
 
