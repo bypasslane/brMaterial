@@ -314,6 +314,13 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
       scope.blockDrag = blockDrag;
       scope.unblockDrag = unblockDrag;
 
+      console.log(attr.brShowControlsClick);
+      if (attr.brShowControlsClick !== undefined) {
+        element.on('click', function () {
+          showControls();
+        });
+      }
+
       // is br-select attricute is present add a checkbox
       if (brSelect !== undefined) {
         if (listController.hasAccent === true) { selectClasses = 'br-accent'; }
@@ -321,7 +328,7 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
 
         scope._checked = false;
 
-        selectTemplate = $compile('<div class="br-select"><br-checkbox ng-checked="_checked" class="' + selectClasses + '"></br-checkbox></div>')(scope);
+        selectTemplate = $compile('<div class="br-select"><br-checkbox br-no-click ng-checked="_checked" class="' + selectClasses + '"></br-checkbox></div>')(scope);
         element.append(selectTemplate);
 
         listController.add(renderCheckBox);
@@ -354,7 +361,10 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
 
       if (attr.brRowSelect !== undefined) {
         element.on('click', listener);
-        selectTemplate.off('click', listener);
+
+        if (selectTemplate) {
+          selectTemplate.addClass('br-no-event');
+        }
       }
 
 
@@ -362,8 +372,9 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
       // --- Select function ----------------
 
 
-      function listener (ev) {
+      function listener(ev) {
         scope._checked = !scope._checked;
+        element.toggleClass('br-selected', scope._checked);
 
         scope.$apply(function () {
           if (scope._checked === true) {

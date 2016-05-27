@@ -12,6 +12,7 @@ section:not(.demo-container) {
   background: #fbfbfb;
   border-radius: 6px;
   margin: 6px;
+  margin-bottom: 64px;
 }
 
 .section-label {

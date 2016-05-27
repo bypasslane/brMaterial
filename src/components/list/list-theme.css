@@ -21,7 +21,7 @@ br-list.br-THEME_NAME-theme .br-item-sub-title {
 /* --- default --- */
 
 br-list.br-THEME_NAME-theme br-item.br-selected{
-  background-color: '{{foreground-light-4}}';
+  background-color: '{{foreground-default}}';
 }
 
 br-list.br-THEME_NAME-theme:not(.br-touch):not(.br-no-hover) br-item:not(.br-no-hover):hover{
