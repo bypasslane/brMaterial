@@ -73,6 +73,7 @@ function expanderDirective ($brTheme, $parse) {
       angular.element(tElement[0].querySelector('.br-expander-hide')).attr('ng-if', '$brOpen');
     }
 
+
     return postLink;
   }
 
@@ -213,6 +214,12 @@ function expanderContentDirective($timeout, $document) {
     function expandContent() {
       element.css('height', getHeight());
       element.css('overflow', 'auto');
+
+      if (!height) {
+        $timeout(function () {
+          element.css('height', 'auto');
+        }, 560);
+      }
     }
 
 
@@ -226,8 +233,14 @@ function expanderContentDirective($timeout, $document) {
 
 
     function contractContent() {
+      if (scope.$brOpen !== true) { return; }
+      
       if (typeof killWatch === 'function') { killWatch(); }
-      element.css('height', '0');
+      element.css('height', getHeight());
+
+      $timeout(function () {
+        element.css('height', '0');
+      }, 100);
     }
   }
 }
