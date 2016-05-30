@@ -89,7 +89,9 @@ function expanderDirective ($brTheme, $parse) {
 
     if (attr.brOpen !== undefined) {
       var openGetter = $parse(attr.brOpen);
-      scope.$watch(function () { return openGetter(scope); }, function (open) {
+      scope.$watch(function () { return openGetter(scope); }, function (open, oldOpen) {
+        if (open === oldOpen) { return; }
+        
         if (open === true) {
           ctrl.open();
         } else {
@@ -233,8 +235,6 @@ function expanderContentDirective($timeout, $document) {
 
 
     function contractContent() {
-      if (scope.$brOpen !== true) { return; }
-      
       if (typeof killWatch === 'function') { killWatch(); }
       element.css('height', getHeight());
 
