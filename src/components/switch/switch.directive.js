@@ -44,6 +44,7 @@ function brSwitchDirective (brCheckboxDirective, $brUtil, $brTheme, $brConstant,
 			'<div ng-transclude flex class="br-label"></div>'+
 			'<div class="br-container">' +
 				'<div class="br-bar"></div>' +
+        '<div class="br-check"></div>' +
 				'<div class="br-thumb-container">' +
 					'<div class="br-thumb"></div>' +
 				'</div>'+
@@ -76,7 +77,6 @@ function brSwitchDirective (brCheckboxDirective, $brUtil, $brTheme, $brConstant,
       });
 
 
-      element.off('click');
       $brGesture.register(switchContainer, 'drag');
 			$brGesture.register(switchContainer, 'scroll');
 			switchContainer

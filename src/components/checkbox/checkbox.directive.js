@@ -85,16 +85,18 @@ function brCheckboxDirective ($timeout, inputDirective, $brTheme, $brUtil, $brGe
 			ngModelCtrl.$render = render;
 
 
-      $brGesture.register(element, 'press');
-			element
-				.on('click', onUp)
-				.on('keypress', keypressHandler)
-				.on('focus', function() {
-					element.addClass('br-focused');
-				})
-				.on('blur', function() {
-					element.removeClass('br-focused');
-				});
+      if (attr.brNoClick === undefined) {
+        $brGesture.register(element, 'press');
+  			element
+  				.on('click', onClick)
+  				.on('keypress', keypressHandler)
+  				.on('focus', function() {
+  					element.addClass('br-focused');
+  				})
+  				.on('blur', function() {
+  					element.removeClass('br-focused');
+  				});
+      }
 
 
 
@@ -109,7 +111,7 @@ function brCheckboxDirective ($timeout, inputDirective, $brTheme, $brUtil, $brGe
 
 
 
-      function onUp (e) {
+      function onClick(e) {
 				if (attr.disabled === true || attr.readonly === true) return;
 
 				listener(e);

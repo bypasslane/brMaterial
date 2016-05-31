@@ -31,7 +31,6 @@ angular
   * - add_alert
   * - add_box
   * - add_circle
-  * - add_location
   * - add_shopping_cart
   * - alarm_off
   * - announcement
@@ -41,13 +40,8 @@ angular
   * - arrow_upward
   * - close
   * - poll
-  * - assignment
-  * - assignment_late
-  * - assignment_turned_in
   * - flag
   * - attach_file
-  * - attach_money
-  * - autorenew
   * - cloud_upload
   * - battery_alert
   * - battery_charging_full
@@ -59,7 +53,6 @@ angular
   * - cancel
   * - chat
   * - chat_bubble
-  * - check
   * - cloud_download
   * - photo_library
   * - edit
@@ -70,14 +63,11 @@ angular
   * - not_interested
   * - done_all
   * - error
-  * - insert_invitation
   * - event_available
   * - event_busy
   * - event_note
   * - favorite
   * - favorite_border
-  * - get_app
-  * - file_upload
   * - filter_list
   * - question_answer
   * - forward
@@ -94,7 +84,6 @@ angular
   * - local_drink
   * - shopping_cart
   * - local_offer
-  * - location_off
   * - room
   * - more_horiz
   * - more_vert
@@ -105,21 +94,14 @@ angular
   * - notifications_paused
   * - pause
   * - play_arrow
-  * - playlist_add
-  * - playlist_add_check
-  * - polymer
   * - power_settings_new
   * - priority_high
   * - refresh
-  * - remove_shopping_cart
   * - search
   * - settings
   * - sort_by_alpha
   * - swap_horiz
   * - swap_vert
-  * - vpn_key
-  * - work
-  * - wrap_text
   * - zoom_in
   * - zoom_out
   * - zoom_out_map

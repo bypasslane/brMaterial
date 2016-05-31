@@ -28,6 +28,10 @@ body {
   user-select: none;
 }
 
+.br-no-event {
+  pointer-events: none;
+}
+
 button, select, html, textarea, input {
   /*font-family: 'Roboto', 'Helvetica Neue', sans-serif;*/
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
