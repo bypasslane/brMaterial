@@ -314,7 +314,6 @@ function itemDirective ($compile, $brGesture, $$rAF, $brDialog, $timeout) {
       scope.blockDrag = blockDrag;
       scope.unblockDrag = unblockDrag;
 
-      console.log(attr.brShowControlsClick);
       if (attr.brShowControlsClick !== undefined) {
         element.on('click', function () {
           showControls();
