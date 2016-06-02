@@ -25,69 +25,65 @@ function expandedContentDirective($animateCss, $brUtil, $timeout) {
     };
     disableSubHeaders();
 
-    function show() {
-      enableSubHeaders();
 
+    function show() {
       container.addClass('br-show');
 
-      // minus 24 to compensate for the margin and padding
-      var height = container[0].scrollHeight - 24;
-      // var fromProps = $brUtil.toCss({height: 80, transform: 'translate3d(0,12px,0)'});
-      var fromProps = $brUtil.toCss({height: 80, transform: 'translate3d(0,0,0)'});
+      // plus 20 for buffer room
+      // console.log(container[0].scrollHeight, container[0].offsetHeight);
+      var height = container[0].scrollHeight + 20;
+
+      var fromProps = $brUtil.toCss({'max-height': 80, transform: 'translate3d(0,0,0)'});
       fromProps.opacity = 0;
       fromProps.marginLeft = '16px';
       fromProps.marginRight = '16px';
 
-      // var toProps = $brUtil.toCss({height: height, transform: 'translate3d(0,16px,0)'});
-      var toProps = $brUtil.toCss({height: height, transform: 'translate3d(0,-2px,0)'});
+      var toProps = $brUtil.toCss({'max-height': height, transform: 'translate3d(0,-2px,0)'});
       fromProps.opacity = 1;
       toProps.marginLeft = '4px';
       toProps.marginRight = '4px';
 
-      container.addClass('br-overflow');
       $animateCss(container, {
+        removeClass: 'br-hide',
+        addClass: 'br-overflow',
         from: fromProps,
         to: toProps
       })
       .start()
       .then(function () {
         container.removeClass('br-overflow');
-        container.css('height', 'auto');
+        container.css('max-height', 'auto');
+        enableSubHeaders();
       });
     }
 
     function hide() {
       disableSubHeaders();
 
-      // minus 24 to compensate for the margin and padding
-      var height = container[0].scrollHeight - 24;
+      // plus 20 for buffer room
+      var height = container[0].scrollHeight + 20;
 
-      // var fromProps = $brUtil.toCss({height: height, transform: 'translate3d(0,16px,0)'});
-      var fromProps = $brUtil.toCss({height: height, transform: 'translate3d(0,2px,0)'});
+      var fromProps = $brUtil.toCss({'max-height': height, transform: 'translate3d(0,2px,0)'});
       fromProps.marginLeft = '4px';
       fromProps.marginRight = '4px';
       fromProps.opacity = 1;
 
-      // var toProps = $brUtil.toCss({height: 80, transform: 'translate3d(0,12px,0)'});
-      var toProps = $brUtil.toCss({height: 80, transform: 'translate3d(0,0,0)'});
+      var toProps = $brUtil.toCss({'max-height': 80, transform: 'translate3d(0,0,0)'});
       toProps.marginLeft = '16px';
       toProps.marginRight = '16px';
       toProps.opacity = 0;
 
-      container.removeClass('br-show');
-      container.addClass('br-hide');
-      container.addClass('br-overflow');
       $animateCss(container, {
+        addClass: 'br-hide',
+        removeClass: 'br-show',
         from: fromProps,
         to: toProps
       })
       .start()
       .then(function () {
         container.removeClass('br-hide');
-        container.removeClass('br-overflow');
       });
     }
-
 
 
 
