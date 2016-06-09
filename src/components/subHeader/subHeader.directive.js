@@ -44,6 +44,10 @@ function brSubheaderDirective ($brTheme, $compile, $brSticky) {
   return directive;
 
   function compile (tElement, tAttr, transclude) {
+    if (tAttr.brNoStyle !== undefined) {
+      tElement.addClass('br-no-style');
+    }
+
     return function postLink (scope, element, attrs) {
       $brTheme(element);
 

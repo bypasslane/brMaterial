@@ -1,0 +1,36 @@
+<div ng-controller="AppCtrl" ng-cloak>
+  <section>
+    <div class="section-label">Flat</div>
+
+    <br-expansion-card>
+      <br-collapsed-content>
+        <h4>Card</h4>
+      </br-collapsed-content>
+
+      <br-expanded-content>
+
+        <h2>Card</h2>
+
+        <form name="orgForm">
+          <br-input class="br-fill">
+            <label>Organization Name</label>
+            <input name="orgName" ng-model="vm.org" placeholder="Enter Name" required />
+            <div ng-messages="orgForm.orgName.$error">
+              <div ng-message="required">Name Required</div>
+            </div>
+          </br-input>
+        </form>
+
+        <div layout="row" layout-align="center center">
+          <br-button class="br-warn br-raised" ng-click="$card.collapse()">Collapse</br-button>
+          <br-button class="br-accent br-raised" ng-disabled="orgForm.$invalid">Save</br-button>
+        </div>
+
+      </br-expanded-content>
+    </br-expansion-card>
+
+
+    <h2>Content Below</h2>
+
+  </section>
+</div>

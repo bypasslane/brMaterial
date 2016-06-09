@@ -45,7 +45,9 @@ function brComponentRegistry($q) {
     function resolveWhen() {
       var dfd = pendings[handle];
       if (dfd) {
-        dfd.resolve(instance);
+        dfd.forEach(function (promise) {
+          promise.resolve(instance);
+        });
         delete pendings[handle];
       }
     }
@@ -73,14 +75,17 @@ function brComponentRegistry($q) {
 
 
   function when(handle) {
-    if (isValidID(handle) === true) {
+    if (isValidID(handle)) {
       var deferred = $q.defer();
       var instance = get(handle);
 
-      if (instance) {
+      if (instance)  {
         deferred.resolve(instance);
       } else {
-        pendings[handle] = deferred;
+        if (pendings[handle] === undefined) {
+          pendings[handle] = [];
+        }
+        pendings[handle].push(deferred);
       }
 
       return deferred.promise;
