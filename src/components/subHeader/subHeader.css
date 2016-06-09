@@ -51,7 +51,7 @@
   position: relative;
 }
 
-.br-subheader .br-subheader-inner {
+.br-subheader:not(.br-no-style) .br-subheader-inner {
   padding: 12px;
 }
 
