@@ -125,7 +125,7 @@ br-option {
   align-content: center;
   align-items: center;
   justify-content: flex-start;
-  transition: background .15s linear;
+  transition: background .05s linear;
   padding: 0 16px;
   cursor: pointer;
   outline: none;

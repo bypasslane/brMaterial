@@ -244,7 +244,7 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
 
     function handleKeypress(ev) {
       var keyCodes = $brConstant.KEY_CODE;
-      var allowedCodes = [32, 13, 38, 40];
+      var allowedCodes = [13, 38, 40];
       if (allowedCodes.indexOf(ev.keyCode) !== -1) {
         openSelect(ev);
         ev.preventDefault();
@@ -281,7 +281,17 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
             ev.preventDefault();
             var optNode = selectMenuCtrl.optNodeForKeyboardSearch(ev);
             selectMenuCtrl.setFocusNode(optNode);
-            if (optNode !== undefined) { optNode.focus(); }
+
+            if (optNode !== undefined) {
+              if (isOpen === false) {
+                var optionCtrl = angular.element(optNode).data('$brOptionController');
+                var optionHashKey = selectMenuCtrl.hashGetter(optionCtrl.value);
+                selectMenuCtrl.select(optionHashKey, optionCtrl.value);
+                selectMenuCtrl.refreshViewValue();
+              } else {
+                optNode.focus();
+              }
+            }
           }
       }
     }
@@ -809,9 +819,10 @@ function selectMenuDirective($brUtil, $brTheme, $compile, $parse, $document, $br
         optNodes = undefined;
       }, CLEAR_SEARCH_AFTER);
       searchStr += String.fromCharCode(e.keyCode);
+
       var search = new RegExp('^' + searchStr, 'i');
       if (!optNodes) {
-        optNodes = $element.find('br-option');
+        optNodes = vm.containerElement.find('br-option');
         optText = new Array(optNodes.length);
         angular.forEach(optNodes, function(el, i) {
           optText[i] = el.textContent.trim();
