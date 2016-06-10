@@ -1,6 +1,6 @@
 angular
   .module('brMaterial')
-  .directive('brCollapsedContent', collapsedContentDirective);
+  .directive('brCardCollapsed', collapsedContentDirective);
 
 
 collapsedContentDirective.$injeect = ['$timeout', '$animateCss', '$brUtil'];
@@ -8,18 +8,18 @@ function collapsedContentDirective($timeout, $animateCss, $brUtil) {
   var directive = {
     restrict: 'E',
     transclude: true,
-    template: '<div class="br-collapsed-content" ng-transclude></div>',
+    template: '<div class="br-card-collapsed" ng-transclude></div>',
     require: '^brExpansionCard',
     link: link
   };
   return directive;
 
   function link(scope, element, attrs, ecCtrl) {
-    var container = angular.element(element[0].querySelector('.br-collapsed-content'));
+    var container = angular.element(element[0].querySelector('.br-card-collapsed'));
     var color = attrs.brColor !== undefined ? '#' + attrs.brColor.replace('#', '') : undefined;
     scope.$expand = ecCtrl.expand;
     scope.$card = ecCtrl.$card;
-    ecCtrl.collaspedCtrl = {
+    ecCtrl.collapsedCtrl = {
       show: show,
       hide: hide,
       flash: flash

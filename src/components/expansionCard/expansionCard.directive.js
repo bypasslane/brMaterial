@@ -75,7 +75,7 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
     vm.destroy = $brComponentRegistry.register(vm, $attrs.brComponentId);
 
     vm.expandedCtrl = undefined;
-    vm.collaspedCtrl = undefined;
+    vm.collapsedCtrl = undefined;
 
     function expand() {
       vm.isExpanded = true;
@@ -83,13 +83,13 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
         vm.mangerController.expandCard(vm.id);
       }
       vm.expandedCtrl.show();
-      vm.collaspedCtrl.hide();
+      vm.collapsedCtrl.hide();
     }
 
     function collapse() {
       vm.isExpanded = false;
       vm.expandedCtrl.hide();
-      vm.collaspedCtrl.show();
+      vm.collapsedCtrl.show();
       setMinHeight();
     }
 
@@ -104,13 +104,13 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
 
     function setMinHeight() {
       // add 1px for spacing
-      $element.css('min-height', $element[0].querySelector('.br-collapsed-content').offsetHeight + 1 + 'px');
+      $element.css('min-height', $element[0].querySelector('.br-card-collapsed').offsetHeight + 1 + 'px');
     }
 
 
 
     function flash() {
-      vm.collaspedCtrl.flash();
+      vm.collapsedCtrl.flash();
     }
 
     function removeCard() {

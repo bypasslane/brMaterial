@@ -4,13 +4,13 @@ br-expansion-card {
 }
 
 
-/* --- header --- */
-br-collapsed-content {
+/* --- collapsed content --- */
+br-card-collapsed {
   backface-visibility: hidden;
   display: block;
   position: relative;
 }
-.br-collapsed-content {
+.br-card-collapsed {
   backface-visibility: hidden;
   transform-style: preserve-3d;
   display: block;
@@ -28,7 +28,7 @@ br-collapsed-content {
   cursor: pointer;
   box-shadow: 0 -1px 0 #e5e5e5,0 0 2px rgba(0,0,0,.12),0 2px 4px rgba(0,0,0,.24)
 }
-.br-collapsed-content.br-show {
+.br-card-collapsed.br-show {
   transition: margin-left 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
               margin-right 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
               transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -36,17 +36,16 @@ br-collapsed-content {
 }
 
 
-/* --- footer --- */
-br-expanded-content {
+/* --- expanded content --- */
+br-card-expanded{
   backface-visibility: hidden;
   display: block;
   position: relative;
 }
-.br-expanded-content {
+.br-card-expanded{
   backface-visibility: hidden;
   transform-style: preserve-3d;
   display: block;
-  padding: 12px;
   margin-left: 16px;
   margin-right: 16px;
   margin-bottom: 16px;
@@ -62,7 +61,7 @@ br-expanded-content {
               0 1px 1px 0 rgba(0,0,0,.14),
               0 2px 1px -1px rgba(0,0,0,.12);
 }
-.br-expanded-content.br-show:not(br-hide) {
+.br-card-expanded.br-show:not(br-hide) {
   display: block;
   margin-bottom: 0;
   transition: margin-left 0.16s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -72,7 +71,7 @@ br-expanded-content {
               max-height 0.16s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.br-expanded-content.br-hide {
+.br-card-expanded.br-hide {
   display: block;
   transition: all 0.12s cubic-bezier(0.55, 0, 0.55, 0.2),
               margin-right 0.12s cubic-bezier(0.55, 0, 0.55, 0.2),
@@ -80,7 +79,7 @@ br-expanded-content {
               opacity 0.12s cubic-bezier(0.55, 0, 0.55, 0.2),
               max-height 0.12s cubic-bezier(0.55, 0, 0.55, 0.2);
 }
-.br-expanded-content.br-overflow {
+.br-card-expanded.br-overflow {
   overflow: hidden;
 }
 
@@ -93,7 +92,7 @@ br-expanded-content {
   100% { background: rgba(255, 255, 255, 0); }
 }
 
-.br-collapsed-content.br-flash:before {
+.br-card-collapsed.br-flash:before {
   content: '';
   position: absolute;
   width: 100%;
@@ -104,4 +103,10 @@ br-expanded-content {
   animation-duration: 600ms;
   animation-iteration-count: 2;
   animation-timing-function: ease-in-out;
+}
+
+
+br-expansion-card br-card-content {
+  display: block;
+  padding: 16px;
 }

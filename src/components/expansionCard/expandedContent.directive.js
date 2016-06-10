@@ -1,6 +1,6 @@
 angular
   .module('brMaterial')
-  .directive('brExpandedContent', expandedContentDirective);
+  .directive('brCardExpanded', expandedContentDirective);
 
 
 expandedContentDirective.$inject = ['$animateCss', '$brUtil', '$timeout'];
@@ -8,14 +8,14 @@ function expandedContentDirective($animateCss, $brUtil, $timeout) {
   var directive = {
     restrict: 'E',
     transclude: true,
-    template: '<div class="br-expanded-content" ng-transclude></div>',
+    template: '<div class="br-card-expanded" ng-transclude></div>',
     require: '^brExpansionCard',
     link: link
   };
   return directive;
 
   function link(scope, element, attrs, ecCtrl) {
-    var container = angular.element(element[0].querySelector('.br-expanded-content'));
+    var container = angular.element(element[0].querySelector('.br-card-expanded'));
 
     scope.$collapse = ecCtrl.collapse;
     scope.$card = ecCtrl.$card;

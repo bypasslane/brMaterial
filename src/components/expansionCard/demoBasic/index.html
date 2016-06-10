@@ -3,30 +3,36 @@
     <div class="section-label">Flat</div>
 
     <br-expansion-card>
-      <br-collapsed-content>
+
+      <!-- content shown when card is in collapsed state -->
+      <br-card-collapsed>
         <h4>Card</h4>
-      </br-collapsed-content>
+      </br-card-collapsed>
 
-      <br-expanded-content>
 
+      <!-- content shown when card is in exapnded state -->
+      <br-card-expanded>
         <h2>Card</h2>
 
-        <form name="orgForm">
-          <br-input class="br-fill">
-            <label>Organization Name</label>
-            <input name="orgName" ng-model="vm.org" placeholder="Enter Name" required />
-            <div ng-messages="orgForm.orgName.$error">
-              <div ng-message="required">Name Required</div>
-            </div>
-          </br-input>
-        </form>
+        <!-- gives padding and will apply other styles based on what is above it -->
+        <br-card-content>
+          <form name="orgForm">
+            <br-input class="br-fill">
+              <label>Organization Name</label>
+              <input name="orgName" ng-model="vm.org" placeholder="Enter Name" required />
+              <div ng-messages="orgForm.orgName.$error">
+                <div ng-message="required">Name Required</div>
+              </div>
+            </br-input>
+          </form>
 
-        <div layout="row" layout-align="center center">
-          <br-button class="br-warn br-raised" ng-click="$card.collapse()">Collapse</br-button>
-          <br-button class="br-accent br-raised" ng-disabled="orgForm.$invalid">Save</br-button>
-        </div>
+          <div layout="row" layout-align="center center">
+            <br-button class="br-warn br-raised" ng-click="$card.collapse()">Collapse</br-button>
+            <br-button class="br-accent br-raised" ng-disabled="orgForm.$invalid">Save</br-button>
+          </div>
+        </br-card-content>
 
-      </br-expanded-content>
+      </br-content-card>
     </br-expansion-card>
 
 

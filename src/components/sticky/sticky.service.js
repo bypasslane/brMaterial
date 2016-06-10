@@ -61,7 +61,7 @@ function brStickyService($document, $$rAF, $brUtil, $timeout, $brConstant) {
     function add(element, stickyClone) {
       stickyClone.addClass('br-sticky-clone');
 
-      if ($brUtil.getClosest(element, 'br-expanded-content') !== null) {
+      if ($brUtil.getClosest(element, 'br-card-expanded') !== null) {
         stickyClone.addClass('br-card-header');
       }
 
@@ -172,6 +172,13 @@ function brStickyService($document, $$rAF, $brUtil, $timeout, $brConstant) {
       }
 
       if (self.current) {
+
+        // NOTE added this to remove top subheader in situations when usings exapansion cards and the onyl active header is not at the top of br-content
+        if (self.current.top > scrollTop) {
+          setCurrentItem(null);
+          return;
+        }
+
         translate(self.current, scrollTop);
       }
     }
@@ -179,7 +186,7 @@ function brStickyService($document, $$rAF, $brUtil, $timeout, $brConstant) {
 
 
     function setCurrentItem(item) {
-      if (self.current === item) { return; }
+      if (self.current === item && self.current !== undefined) { return; }
 
       if (self.current) {
         translate(self.current, null);

@@ -167,11 +167,11 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
       if (element[0].nodeName !== 'BR-EXPANSION-CARD') {
         throw Error('$brExpansionCard.add(): Invalid HTML. Must provide <br-expansion-card>');
       }
-      if (element.find('br-expanded-content').length === 0) {
-        throw Error('$brExpansionCard.add(): Invalid HTML. Must provide <br-expanded-content>');
+      if (element.find('br-card-expanded').length === 0) {
+        throw Error('$brExpansionCard.add(): Invalid HTML. Must provide <br-card-expanded>');
       }
-      if (element.find('br-collapsed-content').length === 0) {
-        throw Error('$brExpansionCard.add(): Invalid HTML. Must provide <br-collapsed-content>');
+      if (element.find('br-card-collapsed').length === 0) {
+        throw Error('$brExpansionCard.add(): Invalid HTML. Must provide <br-card-collapsed>');
       }
 
 
