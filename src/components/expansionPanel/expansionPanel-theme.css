@@ -1,0 +1,11 @@
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-footer,
+br-expansion-panel.br-THEME_NAME-theme .br-expansion-panel-footer-container,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-body,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-header {
+  background: #FFF;
+}
+
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-body-header.br-title,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-header.br-summary {
+  color: '{{font-default}}';
+}

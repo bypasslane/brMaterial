@@ -1,0 +1,125 @@
+br-expansion-panel {
+  display: block;
+  position: relative;
+  box-shadow: 0 -1px 0 #e5e5e5,
+              0 0 2px rgba(0,0,0,.12),
+              0 2px 4px rgba(0,0,0,.24);
+}
+
+
+br-expansion-panel-body-header,
+.br-expansion-panel-footer-container,
+br-expansion-panel-header {
+  display: flex;
+  min-height: 48px;
+  line-height: 48px;
+  padding: 0 24px;
+}
+
+
+
+
+/* --- header --- */
+
+
+br-expansion-panel-header {
+  opacity: 1;
+  z-index: 1;
+}
+
+br-expansion-panel-header.br-absolute {
+  position: absolute;
+}
+
+br-expansion-panel-header.br-show {
+  transition: opacity 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+br-expansion-panel-header.br-hide {
+  transition: opacity 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-expansion-panel-header.br-hide {
+  opacity: 0;
+}
+
+
+br-expansion-panel-body-header .br-title,
+br-expansion-panel-header .br-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 80px;
+  max-width: 184px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  white-space: nowrap;
+}
+
+br-expansion-panel-body-header .br-summary,
+br-expansion-panel-header .br-summary {
+  flex: 1;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  white-space: nowrap;
+}
+
+
+
+/* --- content ---- */
+
+br-expansion-panel-body {
+  display: none;
+  z-index: 2;
+  min-height: 48px;
+  line-height: 48px;
+}
+
+br-expansion-panel-body.br-show {
+  transition: max-height 0.12s cubic-bezier(0.25, 0.8, 0.25, 1),
+              opacity 0.12s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+br-expansion-panel-body.br-hide {
+  transition: max-height 0.16s cubic-bezier(0.25, 0.8, 0.25, 1),
+              opacity 0.16s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-expansion-panel-body.br-hide,
+br-expansion-panel-body.br-show {
+  display: block;
+}
+
+br-expansion-panel-body.br-overflow {
+  overflow: hidden;
+}
+
+br-expansion-panel-content {
+  display: block;
+  padding: 16px 24px;
+}
+
+
+
+
+/* --- footer --- */
+br-expansion-panel-footer {
+  display: none;
+}
+
+br-expansion-panel-footer.br-show {
+  transition: opacity 0.12s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+br-expansion-panel-footer.br-hide {
+  transition: opacity 0.16s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-expansion-panel-footer.br-hide,
+br-expansion-panel-footer.br-show {
+  display: block;
+}
+
+.br-expansion-panel-footer-container {
+
+}

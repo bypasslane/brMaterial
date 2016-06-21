@@ -18,9 +18,10 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
   function link(scope, element, attrs, ctrl) {
     var expandGetter;
     var cardController = ctrl[0];
-    var mangerController = ctrl[1];
+    var mangerController = element[0].parentNode.nodeName === 'BR-EXPANSION-CARD-MANAGER' ? ctrl[1] : undefined;
     var id = $brUtil.nextUid();
     cardController.id = id;
+    cardController.$card.topCard = mangerController ? !mangerController.hasCards() : true;
 
     element.attr('br-card-id', id);
 
@@ -64,6 +65,7 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
       collapse: collapse,
       flash: flash
     };
+    $scope.$card = vm.$card;
 
     vm.isExpanded = false;
     vm.expand = expand;
@@ -79,7 +81,7 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
 
     function expand() {
       vm.isExpanded = true;
-      if (vm.mangerController) {
+      if (vm.mangerController && $element[0].parentNode.nodeName === 'BR-EXPANSION-CARD-MANAGER') {
         vm.mangerController.expandCard(vm.id);
       }
       vm.expandedCtrl.show();
@@ -104,7 +106,18 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
 
     function setMinHeight() {
       // add 1px for spacing
-      $element.css('min-height', $element[0].querySelector('.br-card-collapsed').offsetHeight + 1 + 'px');
+      var collHeight = $element[0].querySelector('.br-card-collapsed').offsetHeight;
+      $element.css('min-height', collHeight + 1 + 'px');
+
+
+      // recheck height
+      // NOTE this solves a problem when multiple cards are added at the same time
+      // TODO find a better solution to getting height when animation is cut short by adding multiple cards at the same time
+      $timeout(function () {
+        if (vm.isExpanded !== true && $element[0].querySelector('.br-card-collapsed').offsetHeight !== collHeight) {
+          $element.css('min-height', $element[0].querySelector('.br-card-collapsed').offsetHeight + 1 + 'px');
+        }
+      }, 120);
     }
 
 
@@ -114,13 +127,13 @@ function expansionCardDirective($timeout, $parse, $brUtil) {
     }
 
     function removeCard() {
-      if (vm.mangerController) {
+      if (vm.mangerController && $element[0].parentNode.nodeName === 'BR-EXPANSION-CARD-MANAGER') {
         vm.mangerController.removeCard(vm.id);
         return;
       }
 
-      scope.$destroy();
-      element.remove();
+      $scope.$destroy();
+      $element.remove();
     }
 
     function on(eventName, callback) {

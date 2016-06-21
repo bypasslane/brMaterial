@@ -19,11 +19,6 @@ br-expander-content.br-no-border {
   border: none;
 }
 
-br-expander.br-open > br-expander-content {
-  overflow-y: hidden;
-  opacity: 1;
-}
-
 br-expander.br-open.br-scroll > br-expander-content {
   overflow-y: auto;
 }
@@ -52,6 +47,11 @@ br-expander.br-open:not(.br-no-shadow) > br-expander-header {
   flex: 1;
   text-align: right;
   padding-right: 12px;
+}
+
+.br-expander-icon-container:first-child {
+  flex: none;
+  padding-left: 12px;
 }
 
 .br-expander-icon {

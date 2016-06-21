@@ -5,8 +5,8 @@ angular
 
 
 
-exapnsionCardService.$inject = ['$rootScope', '$compile', '$q', '$controller', '$brComponentRegistry', '$templateCache', '$templateRequest', '$timeout', '$brUtil'];
-function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponentRegistry, $templateCache, $templateRequest, $timeout, $brUtil) {
+exapnsionCardService.$inject = ['$rootScope', '$compile', '$q', '$controller', '$brComponentRegistry', '$templateCache', '$templateRequest', '$timeout', '$brUtil', '$brBackdrop'];
+function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponentRegistry, $templateCache, $templateRequest, $timeout, $brUtil, $brBackdrop) {
   var handler = function (handle) {
     handle = handle || '';
     var errorMsg = "$brExpansionCard '" + handle + "' is not available!";
@@ -134,7 +134,7 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
    * @param {string} [options.controller] - controller
    * @param {string} [options.controllerAs] - controller as name
    */
-  function add(options, locals) {
+  function add(options, locals, closed) {
     options = options || {};
     var deferred = $q.defer();
 
@@ -199,6 +199,10 @@ function exapnsionCardService($rootScope, $compile, $q, $controller, $brComponen
       } else {
         deferred.resolve(scope.$card);
       }
+
+
+      // TODO temp solution for menu backgrounds not getting removed
+      $brBackdrop.remove();
     });
 
     return deferred.promise;

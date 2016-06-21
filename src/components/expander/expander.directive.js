@@ -6,6 +6,7 @@ angular
   .module('brMaterial')
   .directive('brExpander', expanderDirective)
   .directive('brExpanderHeader', expanderHeaderDirective)
+  .directive('brExpanderIcon', expanderIconDirective)
   .directive('brExpanderContent', expanderContentDirective);
 
 
@@ -90,8 +91,8 @@ function expanderDirective ($brTheme, $parse) {
     if (attr.brOpen !== undefined) {
       var openGetter = $parse(attr.brOpen);
       scope.$watch(function () { return openGetter(scope); }, function (open, oldOpen) {
-        if (open === oldOpen) { return; }
-        
+        if (open === ctrl.isOpen()) { return; }
+
         if (open === true) {
           ctrl.open();
         } else {
@@ -166,13 +167,22 @@ function expanderHeaderDirective() {
 
 
   function link (scope, element, attr, ctrl) {
-    element.append(angular.element('<div class="br-expander-icon-container"><div class="br-expander-icon"></div></div>'));
     element.on('click', function () {
       scope.$apply(function () {
         ctrl.headerHook();
       });
     });
   }
+}
+
+
+function expanderIconDirective() {
+  var directive = {
+    restrict: 'E',
+    template: '<div class="br-expander-icon-container"><div class="br-expander-icon"></div></div>',
+    replace: true
+  };
+  return directive;
 }
 
 
@@ -215,11 +225,16 @@ function expanderContentDirective($timeout, $document) {
 
     function expandContent() {
       element.css('height', getHeight());
-      element.css('overflow', 'auto');
+      element.css('overflow', 'hidden');
+      element.css('opacity', '1');
 
       if (!height) {
         $timeout(function () {
           element.css('height', 'auto');
+        }, 560);
+      } else {
+        $timeout(function () {
+          element.css('overflow', 'auto');
         }, 560);
       }
     }
@@ -239,8 +254,10 @@ function expanderContentDirective($timeout, $document) {
       element.css('height', getHeight());
 
       $timeout(function () {
+        element.css('overflow', 'hidden');
+        element.css('opacity', '0');
         element.css('height', '0');
-      }, 100);
+      }, 0);
     }
   }
 }

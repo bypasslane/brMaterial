@@ -25,8 +25,8 @@ var selectNextId = 0;
   * @param {number} [inner-width] - width of table scroll area
   * @param {object} [br-filter] - object containing keys that match the table data with values to search on
   */
-tableDirective.$inject = ['$brUtil', '$brTheme', '$parse'];
-function tableDirective($brUtil, $brTheme, $parse) {
+tableDirective.$inject = ['$brUtil', '$brTheme', '$parse', '$window', '$$rAF'];
+function tableDirective($brUtil, $brTheme, $parse, $window, $$rAF) {
   var directive = {
     restrict: 'E',
     require: ['brTable', '?ngModel'],
@@ -43,6 +43,7 @@ function tableDirective($brUtil, $brTheme, $parse) {
     var innerWidth = tAttrs.brInnerWidth || tAttrs.innerWidth;
     var width = tAttrs.brWidth || tAttrs.width;
     var height = tAttrs.brHeight || tAttrs.height;
+    var autoHeight = tAttrs.brAutoHeight;
 
     if (width !== undefined) {
       tElement.css('width', $brUtil.valueToCss(width));
@@ -92,6 +93,26 @@ function tableDirective($brUtil, $brTheme, $parse) {
       });
     } else {
       headElement.css('width', '100%');
+    }
+
+
+    if (attrs.brHeight === undefined && attrs.brAutoHeight !== false) {
+      var debouncedUpdateAll = $$rAF.throttle(updateAll);
+      debouncedUpdateAll();
+
+      scope.$watch(function () { return element[0].offsetHeight; }, function (data){
+        debouncedUpdateAll();
+      });
+
+      angular.element($window).on('resize', debouncedUpdateAll);
+      scope.$on('$destroy', function () {
+        angular.element($window).off('resize', debouncedUpdateAll);
+      });
+    }
+
+    function updateAll() {
+      var rect = element[0].getBoundingClientRect();
+      element.css('height', ($window.innerHeight - rect.top) + 'px');
     }
 
 

@@ -34,6 +34,10 @@ function expansionCardManagerDirective() {
     vm.off = off;
     vm.postMessage = postMessage;
 
+    vm.hasCards = function () {
+      return cards.length > 0;
+    };
+
 
 
 
@@ -202,7 +206,7 @@ function expansionCardManagerDirective() {
 
 
     // TODO allow for passing of objects into the scope
-    function add(componentId, locals) {
+    function add(componentId, locals, closed) {
       if (componentId === undefined) {
         throw Error('$brExpansionCardManager registry.add() : Must provide a componentId parameter');
       }
@@ -211,7 +215,7 @@ function expansionCardManagerDirective() {
         throw Error("$brExpansionCardManager registry '" + componentId + "' is not available!");
       }
 
-      return $brExpansionCard.add(registry[componentId], locals).then();
+      return $brExpansionCard.add(registry[componentId], locals, closed).then();
     }
 
     function _remove(componentId) {

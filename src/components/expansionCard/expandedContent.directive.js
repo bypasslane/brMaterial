@@ -61,7 +61,7 @@ function expandedContentDirective($animateCss, $brUtil, $timeout) {
       disableSubHeaders();
 
       // plus 20 for buffer room
-      var height = container[0].scrollHeight + 20;
+      var height = container[0].scrollHeight;
 
       var fromProps = $brUtil.toCss({'max-height': height, transform: 'translate3d(0,2px,0)'});
       fromProps.marginLeft = '4px';

@@ -115,7 +115,7 @@ function navMenuExpanderDirective($parse, $compile, $brUtil) {
 
     // create the elements needed for br-expander
     var expanderElement = angular.element('<br-expander br-hide="true" class="br-no-border" br-open="false" br-component-id="nav-expander-' + $brUtil.nextUid() + '">');
-    var expanderHeaderElement = angular.element('<br-expander-header class="nav-expander-header"><br-icon br-font-icon="' + icon + '"></br-icon>' + label + '</br-expander-header>');
+    var expanderHeaderElement = angular.element('<br-expander-header class="nav-expander-header"><br-icon br-font-icon="' + icon + '"></br-icon>' + label + '<br-expander-icon></br-expander-icon></br-expander-header>');
     var expanderContentElement = angular.element('<br-expander-content>');
 
 
