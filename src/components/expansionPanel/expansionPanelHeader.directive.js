@@ -26,8 +26,7 @@ function expansionPanelHeaderDirective($animateCss) {
 
 
     function hide() {
-      // remove 48 for padding
-      element.css('width', (element[0].offsetWidth - 48) + 'px');
+      element.css('width', element[0].offsetWidth + 'px');
       expansionPanelCtrl.$element.css('min-height', element[0].offsetHeight + 'px');
       $animateCss(element, {
         addClass: 'br-absolute br-hide',
@@ -43,8 +42,7 @@ function expansionPanelHeaderDirective($animateCss) {
 
 
     function show() {
-      // remove 48 for padding
-      element.css('width', (element[0].parentNode.offsetWidth - 48) + 'px');
+      element.css('width', element[0].parentNode.offsetWidth + 'px');
       $animateCss(element, {
         addClass: 'br-show',
         from: {opacity: 0},

@@ -14,16 +14,24 @@ function expansionPanelBodyDirective($animateCss) {
 
 
   function link(scope, element, attrs, expansionPanelCtrl) {
+    var bodyHeight = attrs.brHeight || attrs.height;
+    if (bodyHeight !== undefined) {
+      bodyHeight = bodyHeight.replace('px', '');
+    }
+
     expansionPanelCtrl.registerBody({
       show: show,
-      hide: hide
+      hide: hide,
+      heightSet: bodyHeight !== undefined,
+      $element: element
     });
 
 
     function hide() {
-      var height = element[0].scrollHeight;
+      var height = bodyHeight ? bodyHeight : element[0].scrollHeight;
       element.addClass('br-hide');
       element.removeClass('br-show');
+      element.removeClass('br-scroll-y');
 
       $animateCss(element, {
         from: {'max-height': height + 'px', opacity: 1},
@@ -40,7 +48,7 @@ function expansionPanelBodyDirective($animateCss) {
       element.addClass('br-show');
       element.addClass('br-overflow');
 
-      var height = element[0].scrollHeight + 20;
+      var height = bodyHeight ? bodyHeight : element[0].scrollHeight + 20;
 
       $animateCss(element, {
         from: {'max-height': '48px', opacity: 0},
@@ -48,8 +56,12 @@ function expansionPanelBodyDirective($animateCss) {
       })
       .start()
       .then(function () {
+        if (bodyHeight !== undefined) {
+          element.addClass('br-scroll-y');
+        } else {
+          element.css('max-height', 'none');
+        }
         element.removeClass('br-overflow');
-        element.css('max-height', 'none');
       });
     }
   }

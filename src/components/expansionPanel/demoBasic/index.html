@@ -2,18 +2,122 @@
   <section>
     <div class="section-label">Flat</div>
 
-    <br-expansion-panel>
+    <br-expansion-panel ng-disabled="true">
       <br-expansion-panel-header>
         <span class="br-title">Title</span>
         <span class="br-summary">Summary sdfdsf sdfsdf sdfsdf</span>
-        <br-expansion-panel-header-icon></br-expansion-panel-header-icon>
+        <br-expansion-panel-icon></br-expansion-panel-icon>
       </br-expansion-panel-header>
 
       <br-expansion-panel-body>
         <br-expansion-panel-body-header>
           <span class="br-title">Body Title</span>
           <span class="br-summary">Body Summary</span>
-          <br-expansion-panel-header-icon></br-expansion-panel-header-icon>
+          <br-expansion-panel-icon></br-expansion-panel-icon>
+        </br-expansion-panel-body-header>
+
+        <br-expansion-panel-content>
+          <form name="orgForm">
+            <br-input class="br-fill">
+              <label>Organization Name</label>
+              <input name="orgName" ng-model="vm.org" placeholder="Enter Name" required />
+              <div ng-messages="orgForm.orgName.$error">
+                <div ng-message="required">Name Required</div>
+              </div>
+            </br-input>
+          </form>
+
+          <div layout="row" layout-align="center center">
+            <br-button class="br-warn br-raised" ng-click="$card.contract()">Collapse</br-button>
+            <br-button class="br-accent br-raised" ng-disabled="orgForm.$invalid">Save</br-button>
+          </div>
+        </br-expansion-panel-content>
+      </br-expansion-panel-body>
+
+      <br-expansion-panel-footer>
+        footer
+      </br-expansion-panel-footer>
+    </br-expansion-panel>
+
+
+
+    <br-expansion-panel br-component-id="expansionPanelId">
+      <br-expansion-panel-header>
+        <span class="br-title">Title</span>
+        <span class="br-summary">Summary sdfdsf sdfsdf sdfsdf</span>
+        <br-expansion-panel-icon></br-expansion-panel-icon>
+      </br-expansion-panel-header>
+
+      <br-expansion-panel-body>
+        <br-expansion-panel-body-header>
+          <span class="br-title">Body Title</span>
+          <span class="br-summary">Body Summary</span>
+          <br-expansion-panel-icon></br-expansion-panel-icon>
+        </br-expansion-panel-body-header>
+
+        <br-expansion-panel-content>
+          <form name="orgForm">
+            <br-input class="br-fill">
+              <label>Organization Name</label>
+              <input name="orgName" ng-model="vm.org" placeholder="Enter Name" required />
+              <div ng-messages="orgForm.orgName.$error">
+                <div ng-message="required">Name Required</div>
+              </div>
+            </br-input>
+          </form>
+
+
+          <div>
+            <h5>Some Title</h5>
+            <p>Some text to use up space and make this panel taller</p>
+            <h5>Some Title</h5>
+            <p>Some text to use up space and make this panel taller</p>
+            <h5>Some Title</h5>
+            <p>Some text to use up space and make this panel taller</p>
+          </div>
+
+
+          <br-input class="br-fill">
+            <label>Organization Name</label>
+            <input name="orgName" ng-model="vm.org" placeholder="Enter Name" required />
+            <div ng-messages="orgForm.orgName.$error">
+              <div ng-message="required">Name Required</div>
+            </div>
+          </br-input>
+
+          <div>
+            <h5>Some Title</h5>
+            <p>Some text to use up space and make this panel taller</p>
+            <h5>Some Title</h5>
+            <p>Some text to use up space and make this panel taller</p>
+            <h5>Some Title</h5>
+            <p>Some text to use up space and make this panel taller</p>
+          </div>
+        </br-expansion-panel-content>
+      </br-expansion-panel-body>
+
+      <br-expansion-panel-footer>
+        <div flex></div>
+        <br-button class="br-warn br-raised" ng-click="$card.contract()">Collapse</br-button>
+        <br-button class="br-accent br-raised" ng-disabled="orgForm.$invalid">Save</br-button>
+      </br-expansion-panel-footer>
+    </br-expansion-panel>
+
+
+
+
+    <br-expansion-panel>
+      <br-expansion-panel-header>
+        <span class="br-title">Title</span>
+        <span class="br-summary">Summary sdfdsf sdfsdf sdfsdf</span>
+        <br-expansion-panel-icon></br-expansion-panel-icon>
+      </br-expansion-panel-header>
+
+      <br-expansion-panel-body>
+        <br-expansion-panel-body-header>
+          <span class="br-title">Body Title</span>
+          <span class="br-summary">Body Summary</span>
+          <br-expansion-panel-icon></br-expansion-panel-icon>
         </br-expansion-panel-body-header>
 
         <br-expansion-panel-content>

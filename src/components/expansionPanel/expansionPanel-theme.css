@@ -1,11 +1,29 @@
-br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-footer,
-br-expansion-panel.br-THEME_NAME-theme .br-expansion-panel-footer-container,
-br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-body,
-br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-header {
+br-expansion-panel.br-THEME_NAME-theme,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-header,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-footer .br-expansion-panel-footer-container,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-body-header .br-expansion-panel-body-header-container {
   background: #FFF;
+}
+
+br-expansion-panel.br-THEME_NAME-theme[disabled] br-expansion-panel-header {
+  color: #DDD;
+}
+
+br-expansion-panel.br-THEME_NAME-theme:not(.br-open):not([disabled]):focus,
+br-expansion-panel.br-THEME_NAME-theme:not(.br-open):not([disabled]):focus br-expansion-panel-header {
+  background: #EEE;
 }
 
 br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-body-header.br-title,
 br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-header.br-summary {
   color: '{{font-default}}';
+}
+
+br-expansion-panel.br-THEME_NAME-theme .br-expansion-panel-icon-container .br-expansion-panel-icon {
+  color: '{{font-light-5}}';
+}
+
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-body-header .br-expansion-panel-body-header-container,
+br-expansion-panel.br-THEME_NAME-theme br-expansion-panel-footer .br-expansion-panel-footer-container {
+  border-color: #DDD;
 }

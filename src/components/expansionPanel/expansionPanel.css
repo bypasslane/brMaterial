@@ -1,14 +1,38 @@
 br-expansion-panel {
   display: block;
   position: relative;
+  outline: none;
+  margin-top: 0;
+  margin-bottom: 0;
   box-shadow: 0 -1px 0 #e5e5e5,
               0 0 2px rgba(0,0,0,.12),
               0 2px 4px rgba(0,0,0,.24);
 }
 
+br-expansion-panel.br-close,
+br-expansion-panel.br-open {
+  transition: margin-top 0.12s cubic-bezier(0.25, 0.8, 0.25, 1),
+              margin-bottom 0.12s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-br-expansion-panel-body-header,
-.br-expansion-panel-footer-container,
+br-expansion-panel.br-open {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+br-expansion-panel.br-open:first-of-type {
+  margin-top: 0;
+}
+
+br-expansion-panel.br-close {
+  overflow: hidden;
+}
+
+
+
+
+br-expansion-panel-body-header .br-expansion-panel-body-header-container,
+br-expansion-panel-footer .br-expansion-panel-footer-container,
 br-expansion-panel-header {
   display: flex;
   min-height: 48px;
@@ -24,7 +48,8 @@ br-expansion-panel-header {
 
 br-expansion-panel-header {
   opacity: 1;
-  z-index: 1;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
 br-expansion-panel-header.br-absolute {
@@ -32,7 +57,8 @@ br-expansion-panel-header.br-absolute {
 }
 
 br-expansion-panel-header.br-show {
-  transition: opacity 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: opacity 0.04s linear;
+  transition-delay: 0.08s;
 }
 br-expansion-panel-header.br-hide {
   transition: opacity 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -72,7 +98,6 @@ br-expansion-panel-header .br-summary {
 
 br-expansion-panel-body {
   display: none;
-  z-index: 2;
   min-height: 48px;
   line-height: 48px;
 }
@@ -91,6 +116,11 @@ br-expansion-panel-body.br-show {
   display: block;
 }
 
+
+br-expansion-panel-body.br-scroll-y {
+  overflow-y: auto;
+}
+
 br-expansion-panel-body.br-overflow {
   overflow: hidden;
 }
@@ -102,17 +132,53 @@ br-expansion-panel-content {
 
 
 
+br-expansion-panel-body-header {
+  display: block;
+  position: relative;
+}
+
+br-expansion-panel-body-header .br-expansion-panel-body-header-container {
+  box-sizing: border-box;
+  border-bottom: 1px solid;
+}
+
+br-expansion-panel-body-header.br-stick .br-expansion-panel-body-header-container {
+  position: fixed;
+  z-index: 2;
+  animation: panelBodyHeaderStickyHoverIn 0.3s ease-out both;
+}
+
+br-expansion-panel-body-header.br-no-stick .br-expansion-panel-body-header-container {
+  animation: panelBodyHeaderStickyHoverOut 0.3s ease-out both;
+}
+
+
+
 
 /* --- footer --- */
 br-expansion-panel-footer {
   display: none;
+  position: relative;
+}
+
+
+br-expansion-panel-footer .br-expansion-panel-footer-container {
+  border-top: 1px solid;
+  box-sizing: border-box;
+}
+
+br-expansion-panel-footer.br-stick .br-expansion-panel-footer-container {
+  position: fixed;
+  bottom: 0;
 }
 
 br-expansion-panel-footer.br-show {
-  transition: opacity 0.12s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: opacity 0.12s cubic-bezier(0.25, 0.8, 0.25, 1),
+              margin-top 0.12s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 br-expansion-panel-footer.br-hide {
-  transition: opacity 0.16s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: opacity 0.16s cubic-bezier(0.25, 0.8, 0.25, 1),
+              margin-top 0.16s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 br-expansion-panel-footer.br-hide,
@@ -120,6 +186,49 @@ br-expansion-panel-footer.br-show {
   display: block;
 }
 
-.br-expansion-panel-footer-container {
 
+
+
+/* --- expand icon --- */
+
+.br-expansion-panel-icon-container:first-child {
+  padding-right: 12px;
+}
+
+.br-expansion-panel-icon-container .br-expansion-panel-icon:after {
+  font-family: 'brMaterialIcons';
+  font-size: 18px;
+  font-weight: 600;
+  display: block;
+  content: '\e315';
+  position: relative;
+  speak: none;
+  transform: rotate(0deg);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+br-expansion-panel.br-open > br-expansion-panel-header .br-expansion-panel-icon-container .br-expansion-panel-icon:after,
+br-expansion-panel.br-open > br-expansion-panel-body .br-expansion-panel-icon-container .br-expansion-panel-icon:after {
+  transform: rotate(90deg);
+}
+
+
+
+
+@keyframes panelBodyHeaderStickyHoverIn {
+  0% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  100% {
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16);
+  }
+}
+
+@keyframes panelBodyHeaderStickyHoverOut {
+  0% {
+    box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16);
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
 }
