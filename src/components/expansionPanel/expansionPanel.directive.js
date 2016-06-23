@@ -33,10 +33,12 @@ function expansionPanelDirective($brTheme) {
     var bodyOptions;
     var bodyHeaderOptions;
     var footerOptions;
+    var widthKiller;
+    var brContentKiller;
     var isOpen = false;
     var isDisabled = false;
-    var debouncedUpdateAll = $$rAF.throttle(updateAll);
-
+    var debouncedUpdateScroll = $$rAF.throttle(updateScroll);
+    var debouncedUpdateResize = $$rAF.throttle(updateResize);
 
     vm.registerHeader = registerHeader;
     vm.registerBody = registerBody;
@@ -53,8 +55,7 @@ function expansionPanelDirective($brTheme) {
     };
 
 
-    $scope.$on('$destroy', killScrollEvents);
-
+    $scope.$on('$destroy', killEvents);
     $attrs.$observe('disabled', function(disabled) {
       isDisabled = disabled;
       if (disabled === true) {
@@ -89,6 +90,7 @@ function expansionPanelDirective($brTheme) {
     function expand() {
       if (isOpen === true || isDisabled === true) { return; }
       isOpen = true;
+
       $element.removeClass('br-close');
       $element.addClass('br-open');
 
@@ -96,16 +98,17 @@ function expansionPanelDirective($brTheme) {
       if (bodyHeaderOptions) { bodyHeaderOptions.show(); }
       if (footerOptions) { footerOptions.show(); }
       if (headerOptions) { headerOptions.hide(); }
-      initScrollEvents();
+      initEvents();
     }
 
     function contract() {
       if (isOpen === false) { return; }
       isOpen = false;
+
       $element.addClass('br-close');
       $element.removeClass('br-open');
 
-      killScrollEvents();
+      killEvents();
       if (bodyOptions) { bodyOptions.hide(); }
       if (bodyHeaderOptions) { bodyHeaderOptions.hide(); }
       if (footerOptions) { footerOptions.hide(); }
@@ -115,47 +118,65 @@ function expansionPanelDirective($brTheme) {
 
 
 
-    function initScrollEvents() {
+    function initEvents() {
       if ((!footerOptions || footerOptions.noSticky === true) && (!bodyHeaderOptions || bodyHeaderOptions.noSticky === true)) {
         return;
       }
+
+      // wtach for width changes
+      widthKiller = $scope.$watch(function () { return $element[0].offsetWidth; }, debouncedUpdateResize, true);
+
+      // if body has height set listen to its scroll event
+      if (bodyOptions && bodyOptions.heightSet === true) { bodyOptions.$element.on('scroll', debouncedUpdateScroll); }
+
       // find any containing content element to watch for scroll events
       brContent = $brUtil.getClosest($element, 'BR-CONTENT');
-      if (brContent) { angular.element(brContent).on('scroll', debouncedUpdateAll); }
+      if (brContent) {
+        angular.element(brContent).on('scroll', debouncedUpdateScroll);
 
-      if (bodyOptions) {
-        bodyOptions.$element.on('scroll', debouncedUpdateAll);
+        // if brContent height changes then trigger the scroll event so the expanders can readjust
+        brContentKiller = $scope.$watch(function () { return brContent.scrollHeight; }, debouncedUpdateScroll, true);
       }
 
+
       angular.element($window)
-        .on('scroll', debouncedUpdateAll)
-        .on('resize', debouncedUpdateAll);
+        .on('scroll', debouncedUpdateScroll)
+        .on('resize', debouncedUpdateScroll);
     }
 
-    function killScrollEvents() {
+    function killEvents() {
       // remove component from registry
       if (typeof vm.destroy === 'function') { vm.destroy(); }
+      if (typeof widthKiller === 'function') { widthKiller(); }
+      if (typeof brContentKiller === 'function') { brContentKiller(); }
 
+      if (bodyOptions && bodyOptions.heightSet) { bodyOptions.$element.off('scroll', debouncedUpdateScroll); }
       if (brContent) {
-        angular.element(brContent).off('scroll', debouncedUpdateAll);
+        angular.element(brContent).off('scroll', debouncedUpdateScroll);
         brContent = undefined;
       }
 
-      if (bodyOptions) {
-        bodyOptions.$element.of('scroll', debouncedUpdateAll);
-      }
-
       angular.element($window)
-        .off('scroll', debouncedUpdateAll)
-        .off('resize', debouncedUpdateAll);
+        .off('scroll', debouncedUpdateScroll)
+        .off('resize', debouncedUpdateScroll);
     }
 
 
-    function updateAll(e) {
-      if (footerOptions && footerOptions.noSticky === false) { footerOptions.onScroll(e); }
-      if (bodyHeaderOptions && bodyHeaderOptions.noSticky === false) { bodyHeaderOptions.onScroll(e); }
+    function updateScroll(e) {
+      var top;
+      if (bodyOptions && bodyOptions.heightSet) { top = bodyOptions.$element[0].getBoundingClientRect().top; }
+      else if (brContent) { top = brContent.getBoundingClientRect().top; }
+      else { top = 0; }
+
+      if (footerOptions && footerOptions.noSticky === false) { footerOptions.onScroll(top); }
+      if (bodyHeaderOptions && bodyHeaderOptions.noSticky === false) { bodyHeaderOptions.onScroll(top); }
 
       $scope.$apply();
+    }
+
+    function updateResize(value) {
+      if (footerOptions && footerOptions.noSticky === false) { footerOptions.onResize(value); }
+      if (bodyHeaderOptions && bodyHeaderOptions.noSticky === false) { bodyHeaderOptions.onResize(value); }
     }
 
 

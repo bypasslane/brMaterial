@@ -24,6 +24,7 @@ function expansionPanelFooterDirective($animateCss, $window) {
       show: show,
       hide: hide,
       onScroll: onScroll,
+      onResize: onResize,
       noSticky: noSticky
     });
 
@@ -61,25 +62,41 @@ function expansionPanelFooterDirective($animateCss, $window) {
 
     function onScroll() {
       if (noSticky === true) { return; }
-      
+
+      var windowBottom = $window.innerHeight;
       var footerBounds = element[0].getBoundingClientRect();
-      if (footerBounds.bottom > $window.innerHeight) {
+      var panelTop = element[0].parentNode.getBoundingClientRect().top + 48;
+      var offset = panelTop - windowBottom + 48;
+
+      if (footerBounds.bottom > windowBottom) {
         // set container width because element becomes postion fixed
         container.css('width', element[0].offsetWidth + 'px');
 
         // set element height so it does not loose its height when container is position fixed
         element.css('height', container[0].offsetHeight + 'px');
         element.addClass('br-stick');
+
+        if (offset > 0) {
+          container.css('bottom', -offset + 'px');
+        } else {
+          container.css('bottom', '');
+        }
         isStuck = true;
       } else if (isStuck === true) {
         unstick();
       }
     }
 
+    function onResize(width) {
+      if (noSticky === true || isStuck === false) { return; }
+      element.css('width', width + 'px');
+    }
+
     function unstick() {
       isStuck = false;
       container.css('width', '');
       element.css('height', '');
+      container.css('bottom', '');
       element.removeClass('br-stick');
     }
   }

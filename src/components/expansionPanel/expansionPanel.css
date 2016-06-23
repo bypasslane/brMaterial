@@ -170,6 +170,7 @@ br-expansion-panel-footer .br-expansion-panel-footer-container {
 br-expansion-panel-footer.br-stick .br-expansion-panel-footer-container {
   position: fixed;
   bottom: 0;
+  z-index: 2;
 }
 
 br-expansion-panel-footer.br-show {

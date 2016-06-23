@@ -10,4 +10,10 @@ angular
     // $timeout(function () {
     //   $brExpansionPanel('expansionPanelId').contract();
     // }, 2000);
+
+
+    $scope.title = "initial title";
+    $timeout(function () {
+      $scope.title = "changed title";
+    }, 2000);
   });

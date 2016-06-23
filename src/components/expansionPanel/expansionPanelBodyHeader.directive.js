@@ -24,6 +24,7 @@ function expansionPanelBodyHeaderDirective($animateCss, $window, $timeout) {
       show: show,
       hide: hide,
       onScroll: onScroll,
+      onResize: onResize,
       noSticky: noSticky
     });
 
@@ -41,10 +42,9 @@ function expansionPanelBodyHeaderDirective($animateCss, $window, $timeout) {
     }
 
 
-    function onScroll(e) {
+    function onScroll(top) {
       if (noSticky === true) { return; }
 
-      var top = e ? e.srcElement.getBoundingClientRect().top : 0;
       var bounds = element[0].getBoundingClientRect();
       if (bounds.top < top) {
         // set container width because element becomes postion fixed
@@ -59,6 +59,12 @@ function expansionPanelBodyHeaderDirective($animateCss, $window, $timeout) {
       } else if (isStuck === true) {
         unstick();
       }
+    }
+
+
+    function onResize(width) {
+      if (noSticky === true || isStuck === false) { return; }
+      container.css('width', width + 'px');
     }
 
 
