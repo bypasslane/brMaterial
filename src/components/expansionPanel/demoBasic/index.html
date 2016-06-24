@@ -1,10 +1,33 @@
 <div ng-controller="AppCtrl" ng-cloak>
   <section>
-    <div class="section-label">Flat</div>
+    <div class="section-label">Group</div>
+    <div layout="row">
+      <br-button class="br-primary" ng-click="addTwo()"><br-icon br-font-icon="add"></br-icon>2</br-button>
+      <br-button class="br-primary" ng-click="addThree()"><br-icon br-font-icon="add"></br-icon>3</br-button>
+      <br-button class="br-primary" ng-click="addFour()"><br-icon br-font-icon="add"></br-icon>4</br-button>
+
+      <div flex></div>
+
+      <br-button class="br-warn" ng-click="removeTwo()"><br-icon br-font-icon="close"></br-icon>2</br-button>
+      <br-button class="br-warn" ng-click="removeThree()"><br-icon br-font-icon="close"></br-icon>3</br-button>
+      <br-button class="br-warn" ng-click="removeFour()"><br-icon br-font-icon="close"></br-icon>4</br-button>
+
+      <div flex></div>
+
+      <br-button class="br-warn" ng-click="removeAll()"><br-icon br-font-icon="close"></br-icon>All</br-button>
+    </div>
+
+    <br-expansion-panel-group br-auto-open br-no-trailing br-component-id="expansionPanelGroupId">
+    </br-expansion-panel-group>
+  </section>
+
+
+  <section>
+    <div class="section-label">Individual</div>
 
     <br-expansion-panel>
       <br-expansion-panel-header>
-        <span class="br-title">{{title}}</span>
+        <span class="br-title">Title</span>
         <span class="br-summary">Summary sdfdsf sdfsdf sdfsdf</span>
         <br-expansion-panel-icon></br-expansion-panel-icon>
       </br-expansion-panel-header>

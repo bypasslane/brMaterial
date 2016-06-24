@@ -4,11 +4,11 @@ angular
   .directive('brExpansionPanelIcon', expansionPanelIconDirective);
 
 
-expansionPanelDirective.$inject = ['$brTheme'];
-function expansionPanelDirective($brTheme) {
+expansionPanelDirective.$inject = ['$brTheme', '$brUtil'];
+function expansionPanelDirective($brTheme, $brUtil) {
   var directive = {
     restrict: 'E',
-    require: ['brExpansionPanel'],
+    require: ['brExpansionPanel', '?^^brExpansionPanelGroup'],
     scope: true,
     link: link,
     controller: ['$scope', '$element', '$attrs', '$brComponentRegistry', '$brConstant', '$brUtil', '$window', '$$rAF', controller]
@@ -17,10 +17,39 @@ function expansionPanelDirective($brTheme) {
 
 
 
-  function link(scope, element, attrs) {
+  function link(scope, element, attrs, ctrls) {
     $brTheme(element);
 
+    var epxansionPanelCtrl = ctrls[0];
+    var epxansionPanelGroupCtrl = ctrls[1];
+    var componentId = attrs.brComponentId;
+
     element.attr('tabindex', attrs.tabindex || '0');
+
+
+    if (epxansionPanelGroupCtrl) {
+      epxansionPanelCtrl.epxansionPanelGroupCtrl = epxansionPanelGroupCtrl;
+      // create componentId if none exists
+      // this should only be needed for cards that are not registered
+      if (componentId === undefined) {
+        componentId = 'expansionPanelId_' + $brUtil.nextUid();
+        element.attr('br-component-id', componentId);
+      }
+
+      epxansionPanelGroupCtrl.activatePanel({
+        element: element,
+        componentId: componentId,
+        expand: epxansionPanelCtrl.expand,
+        contract: epxansionPanelCtrl.contract,
+        onMessage: epxansionPanelCtrl.onMessage
+      });
+    }
+
+    epxansionPanelCtrl.componentId = componentId;
+
+    $brUtil.nextTick(function () {
+      if (scope.autoOpen === true) { epxansionPanelCtrl.expand(); }
+    });
   }
 
 
@@ -35,8 +64,10 @@ function expansionPanelDirective($brTheme) {
     var footerOptions;
     var widthKiller;
     var brContentKiller;
+    var watchPlayer;
     var isOpen = false;
     var isDisabled = false;
+    var listeners = {};
     var debouncedUpdateScroll = $$rAF.throttle(updateScroll);
     var debouncedUpdateResize = $$rAF.throttle(updateResize);
 
@@ -44,18 +75,25 @@ function expansionPanelDirective($brTheme) {
     vm.registerBody = registerBody;
     vm.registerBodyHeader = registerBodyHeader;
     vm.registerFooter = registerFooter;
+    vm.onMessage = onMessage;
+    vm.on = on;
+    vm.off = off;
     vm.expand = expand;
     vm.contract = contract;
     vm.$element = $element;
     vm.destroy = $brComponentRegistry.register(vm, $attrs.brComponentId);
 
-    $scope.$card = {
+    $scope.$panel = {
       expand: expand,
       contract: contract
     };
 
+    $brUtil.nextTick(function () {
+      watchPlayer = pauseWatchers($scope, true);
+    });
 
-    $scope.$on('$destroy', killEvents);
+
+    $scope.$on('$destroy', killPanel);
     $attrs.$observe('disabled', function(disabled) {
       isDisabled = disabled;
       if (disabled === true) {
@@ -87,9 +125,49 @@ function expansionPanelDirective($brTheme) {
     }
 
 
+    function on(event, callback) {
+      if (typeof callback !== 'function') {
+        throw Error('Must pass in a callback function');
+      }
+      if (listeners[event] === undefined) {
+        listeners[event] = [];
+      }
+
+      listeners[event].push(callback);
+    }
+
+    function off(event, callback) {
+      if (listeners[event] === undefined) {
+        return;
+      }
+      if (typeof callback === 'function') {
+        listeners[event] = listeners[event].filter(function (func) {
+          return func !== callback;
+        });
+      } else {
+        listeners[event] = undefined;
+      }
+    }
+
+    function onMessage(event, value) {
+      if (listeners[event] !== undefined) {
+        listeners[event].forEach(function (func) {
+          func(value);
+        });
+      }
+    }
+
+
     function expand() {
       if (isOpen === true || isDisabled === true) { return; }
       isOpen = true;
+
+      if (vm.epxansionPanelGroupCtrl) {
+        vm.epxansionPanelGroupCtrl.panelExpanded(vm.componentId);
+      }
+
+      watchPlayer();
+      watchPlayer = undefined;
 
       $element.removeClass('br-close');
       $element.addClass('br-open');
@@ -105,6 +183,10 @@ function expansionPanelDirective($brTheme) {
       if (isOpen === false) { return; }
       isOpen = false;
 
+      if (vm.epxansionPanelGroupCtrl) {
+        vm.epxansionPanelGroupCtrl.panelContracted(vm.componentId);
+      }
+
       $element.addClass('br-close');
       $element.removeClass('br-open');
 
@@ -113,6 +195,8 @@ function expansionPanelDirective($brTheme) {
       if (bodyHeaderOptions) { bodyHeaderOptions.hide(); }
       if (footerOptions) { footerOptions.hide(); }
       if (headerOptions) { headerOptions.show(); }
+
+      watchPlayer = pauseWatchers($scope, true);
     }
 
 
@@ -144,9 +228,8 @@ function expansionPanelDirective($brTheme) {
         .on('resize', debouncedUpdateScroll);
     }
 
+
     function killEvents() {
-      // remove component from registry
-      if (typeof vm.destroy === 'function') { vm.destroy(); }
       if (typeof widthKiller === 'function') { widthKiller(); }
       if (typeof brContentKiller === 'function') { brContentKiller(); }
 
@@ -159,6 +242,18 @@ function expansionPanelDirective($brTheme) {
       angular.element($window)
         .off('scroll', debouncedUpdateScroll)
         .off('resize', debouncedUpdateScroll);
+    }
+
+    function killPanel() {
+      killEvents();
+      listeners = undefined;
+
+      // remove component from registry
+      if (typeof vm.destroy === 'function') { vm.destroy(); }
+
+      if (vm.epxansionPanelGroupCtrl) {
+        vm.epxansionPanelGroupCtrl.deactivatePanel(vm.componentId);
+      }
     }
 
 
@@ -177,6 +272,41 @@ function expansionPanelDirective($brTheme) {
     function updateResize(value) {
       if (footerOptions && footerOptions.noSticky === false) { footerOptions.onResize(value); }
       if (bodyHeaderOptions && bodyHeaderOptions.noSticky === false) { bodyHeaderOptions.onResize(value); }
+    }
+
+
+    // -- toggel watcher for performance ---
+    function pauseWatchers(_scope, skip) {
+      var child = _scope.$$childHead;
+      var childrenPlayWatchers = [];
+      var watchers;
+
+      // Save the watchers and then remove them from scope. Unless we are skipping this parent scope.
+      if (skip !== true && _scope.$$watchers && _scope.$$watchers.length !== 0) {
+        watchers = _scope.$$watchers;
+        _scope.$$watchers = [];
+      }
+
+      while (child) {
+        childrenPlayWatchers.push(pauseWatchers(child));
+        child = child.$$nextSibling;
+      }
+
+
+      return function playWatcher() {
+        // Add back the watchers
+        if (watchers) {
+          _scope.$$watchers = watchers;
+          watchers = undefined;
+        }
+
+        // Add back the watchers for the children
+        if (childrenPlayWatchers.length !== 0) {
+          childrenPlayWatchers.forEach(function (playChildWatcher) {
+            playChildWatcher();
+          });
+        }
+      };
     }
 
 
